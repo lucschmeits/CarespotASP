@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarespotASP", "CarespotASP\CarespotASP.csproj", "{80378E4D-3FAF-48C7-8663-28A155842C9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarespotASP.Tests", "CarespotASP.Tests\CarespotASP.Tests.csproj", "{0B1398A8-DA4A-4613-AFF7-3E4837CA0746}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{80378E4D-3FAF-48C7-8663-28A155842C9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80378E4D-3FAF-48C7-8663-28A155842C9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80378E4D-3FAF-48C7-8663-28A155842C9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80378E4D-3FAF-48C7-8663-28A155842C9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B1398A8-DA4A-4613-AFF7-3E4837CA0746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B1398A8-DA4A-4613-AFF7-3E4837CA0746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B1398A8-DA4A-4613-AFF7-3E4837CA0746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B1398A8-DA4A-4613-AFF7-3E4837CA0746}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

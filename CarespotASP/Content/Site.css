@@ -7,10 +7,12 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    /*font-family: 'Lato', sans-serif;*/
+    font-family: 'Merriweather Sans', sans-serif;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
+/* Override the default bootstrap behavior where horizontal description lists
+   will truncate terms that are too long to fit in the left column
 */
 .dl-horizontal dt {
     white-space: normal;

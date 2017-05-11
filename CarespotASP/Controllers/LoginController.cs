@@ -11,6 +11,11 @@ namespace CarespotASP.Controllers
         // GET: Login
         public ActionResult Index(string email, string wachtwoord)
         {
+            return View("Login");
+        }
+
+        public ActionResult Keuze()
+        {
             return View();
         }
     }

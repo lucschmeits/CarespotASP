@@ -50,4 +50,9 @@ textarea {
 
     .instructies > h2 {
         margin-top: 0;
+        text-transform: uppercase;
     }
+
+.btn-keuze {
+    padding: 15%;
+}

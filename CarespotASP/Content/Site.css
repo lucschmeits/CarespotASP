@@ -7,8 +7,8 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
-    /*font-family: 'Lato', sans-serif;*/
-    font-family: 'Merriweather Sans', sans-serif;
+    font-family: 'Lato', sans-serif;
+    /*font-family: 'Merriweather Sans', sans-serif;*/
 }
 
 /* Override the default bootstrap behavior where horizontal description lists
@@ -19,8 +19,35 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+/*input,
 select,
 textarea {
     max-width: 280px;
+}*/
+
+/*Login CSS*/
+.login {
+    padding-right: 0;
 }
+
+    .login > h2 {
+        border-bottom: 2px solid #000000;
+        padding-bottom: 10px;
+        text-transform: uppercase;
+    }
+
+.contactform {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.instructies {
+    background: #e8e8e8;
+    border-radius: 5px;
+    padding: 30px;
+}
+
+    .instructies > h2 {
+        margin-top: 0;
+    }

@@ -10,7 +10,7 @@ namespace CarespotASP.Tests
     public class TestChat
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestCreateChat()
         {
             var sql = new ChatSqlContext();
             var repo = new ChatRepository(sql);
@@ -19,6 +19,11 @@ namespace CarespotASP.Tests
 
             var chat = new Chat(g1, g2, DateTime.Now, "Hallo jongens");
             repo.Create(chat);
+        }
+
+        [TestMethod]
+        public void TestGetChat()
+        {
         }
     }
 }

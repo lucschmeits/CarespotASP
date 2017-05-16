@@ -188,6 +188,7 @@ namespace CarespotASP.Dal.Context
 
                     string query = "UPDATE Gebruiker SET Foto = @foto, Email = @email, Wachtwoord = @wachtwoord, Gebruikersnaam = @gebruikersnaam, Naam = @naam, Geboortedatum = @geboortedatum, HeeftRijbewijs = @heeftRijbewijs, HeeftOv = @heeftOv, HeeftAuto = @heeftAuto, Telefoonnummer = @telefoonnummer, Uitschrijfdatum = @uitschrijfdatum, Adres = @adres, Woonplaats = @woonplaats, Land = @land, Postcode =@postcode" +
                                    ", Geslacht = @geslacht WHERE id = @key";
+                    con.Open();
                     SqlCommand cmd = new SqlCommand(query, con);
 
                     cmd.Parameters.AddWithValue("@foto", obj.Image);
@@ -230,6 +231,7 @@ namespace CarespotASP.Dal.Context
                     string query = "DELETE FROM Gebruiker WHERE id = @key";
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@key", id);
+                    con.Open();
                     cmd.ExecuteNonQuery();        
                     con.Close();
                 }

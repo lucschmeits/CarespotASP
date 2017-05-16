@@ -10,11 +10,11 @@ namespace CarespotASP.Dal.Interfaces
     {
         List<Chat> GetAll();
 
-        Chat GetById();
+        Chat GetById(int id);
 
         void Create(Chat chat);
 
-        void Update(int id);
+        //void Update(Chat chat);
 
         void Delete(int id);
     }

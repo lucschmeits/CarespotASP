@@ -146,6 +146,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistreerController.cs" />
     <Compile Include="Dal\Context\GebruikerSqlContext.cs" />
+    <Compile Include="Dal\Env.cs" />
     <Compile Include="Dal\Interfaces\IGebruiker.cs" />
     <Compile Include="Dal\Repositorys\GebruikerRepository.cs" />
     <Compile Include="Enums\Geslacht.cs" />

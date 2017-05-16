@@ -30,7 +30,7 @@ namespace CarespotASP.Models
 
         public string Telefoonnummer { get; private set; }
 
-        public DateTime Uitschrijfdatum { get; private set; }
+        public DateTime Uitschrijfdatum { get;  set; }
 
         public string Adres { get; private set; }
 

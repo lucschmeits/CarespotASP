@@ -19,7 +19,6 @@ namespace CarespotASP.Tests
             Assert.IsTrue(Lijst.Count > 0);
         }
 
-
         [TestMethod]
         public void GetById()
         {
@@ -29,7 +28,6 @@ namespace CarespotASP.Tests
             var User = gr.GetById(id);
             Assert.AreEqual(id, User.Id);
         }
-
 
         [TestMethod]
         public void Create()
@@ -43,8 +41,8 @@ namespace CarespotASP.Tests
             var nieuweUser = gr.GetById(id);
 
             Assert.AreEqual(id, nieuweUser.Id);
-
         }
+<<<<<<< HEAD
 
         [TestMethod]
         public void Delete()
@@ -77,5 +75,7 @@ namespace CarespotASP.Tests
     
         
 
+=======
+>>>>>>> 43c423be63b38bd311efaab2047769ea42b70422
     }
 }

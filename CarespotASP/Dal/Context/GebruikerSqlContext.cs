@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using CarespotASP.Dal.Interfaces;
@@ -11,7 +12,22 @@ namespace CarespotASP.Dal.Context
     {
         public List<Gebruiker> GetAllGebruikers()
         {
-            throw new NotImplementedException();
+            List<Gebruiker> returnList = new List<Gebruiker>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
+                {
+                    
+
+                }
+
+                return returnList;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public Gebruiker GetGebruikerById(int id)

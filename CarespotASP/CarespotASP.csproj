@@ -145,6 +145,10 @@
     <Compile Include="Controllers\HulpbehoevendeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistreerController.cs" />
+    <Compile Include="Dal\Context\GebruikerSqlContext.cs" />
+    <Compile Include="Dal\Interfaces\IGebruiker.cs" />
+    <Compile Include="Dal\Repositorys\GebruikerRepository.cs" />
+    <Compile Include="Enums\Geslacht.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -195,9 +199,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Dal\Context\" />
-    <Folder Include="Dal\Interfaces\" />
-    <Folder Include="Dal\Repositorys\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -8,6 +8,8 @@ namespace CarespotASP.Models
     public class Chat
     {
         public int Id { get; private set; }
+        public Gebruiker Auteur { get; private set; }
+        public Gebruiker Ontvanger { get; private set; }
 
         public DateTime DatumTijd { get; private set; }
         public string Bericht { get; private set; }
@@ -16,9 +18,11 @@ namespace CarespotASP.Models
         {
         }
 
-        public Chat(int id, DateTime datumTijd, string bericht)
+        public Chat(int id, Gebruiker auteur, Gebruiker ontvanger, DateTime datumTijd, string bericht)
         {
             Id = id;
+            Auteur = auteur;
+            Ontvanger = ontvanger;
             DatumTijd = datumTijd;
             Bericht = bericht;
         }

@@ -6,9 +6,8 @@ using System.Web;
 
 namespace CarespotASP.Dal
 {
-    static public class Env
+    public static class Env
     {
-
-        static public string ConnectionString = ConfigurationManager.ConnectionStrings["CarespotConnectionString"].ConnectionString;
+        public static string ConnectionString = ConfigurationManager.ConnectionStrings["CarespotConnectionString"].ConnectionString;
     }
 }

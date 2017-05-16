@@ -145,15 +145,21 @@
     <Compile Include="Controllers\HulpbehoevendeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistreerController.cs" />
+    <Compile Include="Dal\Context\ChatSqlContext.cs" />
     <Compile Include="Dal\Context\GebruikerSqlContext.cs" />
     <Compile Include="Dal\Env.cs" />
+    <Compile Include="Dal\Interfaces\IChat.cs" />
     <Compile Include="Dal\Interfaces\IGebruiker.cs" />
+    <Compile Include="Dal\Repositorys\ChatRepository.cs" />
     <Compile Include="Dal\Repositorys\GebruikerRepository.cs" />
     <Compile Include="Enums\Geslacht.cs" />
+    <Compile Include="Enums\VervoerType.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Chat.cs" />
     <Compile Include="Models\Gebruiker.cs" />
+    <Compile Include="Models\Hulpvraag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

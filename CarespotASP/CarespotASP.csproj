@@ -156,12 +156,14 @@
     <Compile Include="Dal\Repositorys\GebruikerRepository.cs" />
     <Compile Include="Dal\Repositorys\ReviewRepository.cs" />
     <Compile Include="Enums\Geslacht.cs" />
+    <Compile Include="Enums\VervoerType.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Chat.cs" />
     <Compile Include="Models\Gebruiker.cs" />
     <Compile Include="Models\Review.cs" />
+    <Compile Include="Models\Hulpvraag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

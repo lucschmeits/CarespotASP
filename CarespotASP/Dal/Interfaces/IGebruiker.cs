@@ -8,8 +8,8 @@ namespace CarespotASP.Dal.Interfaces
 
         List<Gebruiker> GetAllGebruikers();
         Gebruiker GetGebruikerById(int id);
-        int CreateGebruiker();
-        void UpdateGebruiker();
+        int CreateGebruiker(Gebruiker obj);
+        void UpdateGebruiker(Gebruiker obj);
         void DeleteGebruikerById(int id);
     }
 }

@@ -42,7 +42,6 @@ namespace CarespotASP.Tests
 
             Assert.AreEqual(id, nieuweUser.Id);
         }
-<<<<<<< HEAD
 
         [TestMethod]
         public void Delete()
@@ -73,9 +72,6 @@ namespace CarespotASP.Tests
             
         }
     
-        
-
-=======
->>>>>>> 43c423be63b38bd311efaab2047769ea42b70422
+       
     }
 }

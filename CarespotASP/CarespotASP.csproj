@@ -157,6 +157,16 @@
     <Compile Include="Dal\Repositorys\VrijwilligerRepository.cs" />
     <Compile Include="Dal\Context\ChatSqlContext.cs" />
     <Compile Include="Dal\Context\GebruikerSqlContext.cs" />
+
+    <Compile Include="Dal\Context\HulpvraagSqlContext.cs" />
+    <Compile Include="Dal\Env.cs" />
+    <Compile Include="Dal\Interfaces\IChat.cs" />
+    <Compile Include="Dal\Interfaces\IGebruiker.cs" />
+    <Compile Include="Dal\Interfaces\IHulpvraag.cs" />
+    <Compile Include="Dal\Repositorys\ChatRepository.cs" />
+    <Compile Include="Dal\Repositorys\GebruikerRepository.cs" />
+    <Compile Include="Dal\Repositorys\HulpvraagRepository.cs" />
+
     <Compile Include="Dal\Context\ReviewSqlContext.cs" />
     <Compile Include="Dal\Env.cs" />
     <Compile Include="Dal\Interfaces\IChat.cs" />
@@ -165,6 +175,7 @@
     <Compile Include="Dal\Repositorys\ChatRepository.cs" />
     <Compile Include="Dal\Repositorys\GebruikerRepository.cs" />
     <Compile Include="Dal\Repositorys\ReviewRepository.cs" />
+
     <Compile Include="Enums\Geslacht.cs" />
     <Compile Include="Enums\VervoerType.cs" />
     <Compile Include="Global.asax.cs">

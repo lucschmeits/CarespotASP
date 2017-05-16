@@ -26,5 +26,13 @@ namespace CarespotASP.Models
             DatumTijd = datumTijd;
             Bericht = bericht;
         }
+
+        public Chat(Gebruiker auteur, Gebruiker ontvanger, DateTime datumTijd, string bericht)
+        {
+            Auteur = auteur;
+            Ontvanger = ontvanger;
+            DatumTijd = datumTijd;
+            Bericht = bericht;
+        }
     }
 }

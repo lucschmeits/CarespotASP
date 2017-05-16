@@ -22,7 +22,7 @@ namespace CarespotASP.Models
 
         public DateTime Geboortedatum { get; private set; }
 
-        public bool HeeftRijbewijs  { get; private set; }
+        public bool HeeftRijbewijs { get; private set; }
 
         public bool HeeftOv { get; private set; }
 
@@ -30,7 +30,7 @@ namespace CarespotASP.Models
 
         public string Telefoonnummer { get; private set; }
 
-        public DateTime Uitschrijfdatum { get;  set; }
+        public DateTime Uitschrijfdatum { get; set; }
 
         public string Adres { get; private set; }
 
@@ -54,7 +54,7 @@ namespace CarespotASP.Models
             HeeftRijbewijs = heeftRijbewijs;
             HeeftOv = heeftOv;
             HeeftAuto = heeftAuto;
-            Telefoonnummer = telefoonnummer;    
+            Telefoonnummer = telefoonnummer;
             Adres = adres;
             Woonplaats = woonplaats;
             Land = land;
@@ -63,7 +63,7 @@ namespace CarespotASP.Models
         }
 
         public Gebruiker(byte[] image, string email, string wachtwoord, string gebruikersnaam, string naam, DateTime geboortedatum, bool heeftRijbewijs, bool heeftOv, bool heeftAuto, string telefoonnummer, string adres, string woonplaats, string land, string postcode, Geslacht geslacht)
-        {         
+        {
             Image = image;
             Email = email;
             Wachtwoord = wachtwoord;
@@ -79,6 +79,11 @@ namespace CarespotASP.Models
             Land = land;
             Postcode = postcode;
             Geslacht = geslacht;
+        }
+
+        public Gebruiker(int id)
+        {
+            Id = id;
         }
     }
 }

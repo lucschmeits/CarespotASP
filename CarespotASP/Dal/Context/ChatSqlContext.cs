@@ -21,8 +21,8 @@ namespace CarespotASP.Dal.Context
                     var command = new SqlCommand(cmdString, con);
                     command.Parameters.AddWithValue("@datum", chat.DatumTijd);
                     command.Parameters.AddWithValue("@bericht", chat.Bericht);
-                    command.Parameters.AddWithValue("@auteur", chat.Auteur);
-                    command.Parameters.AddWithValue("@ontvanger", chat.Ontvanger);
+                    command.Parameters.AddWithValue("@auteur", chat.Auteur.Id);
+                    command.Parameters.AddWithValue("@ontvanger", chat.Ontvanger.Id);
                     command.ExecuteNonQuery();
                     con.Close();
                 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection.Emit;
 using CarespotASP.Enums;
 
@@ -15,6 +16,9 @@ namespace CarespotASP.Models
         public bool Urgent { get; private set; }
         public VervoerType VervoerType { get; private set; }
         public bool IsAfgerond { get; private set; }
+        public List<Vaardigheid> Vaardigheden { get; private set; }
+        public Hulpbehoevende Hulpbehoevende { get; set; }
+        public Vrijwilliger Vrijwilliger { get; private set; }
 
         //Constructor met id
         public Hulpvraag(int id, string titel, string omschrijving, DateTime opdrachtdatum, DateTime createdatum, string locatie, bool urgent, VervoerType vervoertype, bool isafgerond)

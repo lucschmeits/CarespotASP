@@ -18,12 +18,10 @@ namespace CarespotASP.Dal.Context
             {
                 using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
-
                     string query = "select * from Gebruiker where Uitschrijfdatum is not null";
                     SqlCommand cmd = new SqlCommand(query, con);
                     con.Open();
                     var reader = cmd.ExecuteReader();
-                
 
                     while (reader.Read())
                     {
@@ -34,7 +32,6 @@ namespace CarespotASP.Dal.Context
                         {
                             foto = (byte[])reader[1];
                         }
-
 
                         Gebruiker user = new Gebruiker(
                             reader.GetInt32(0),
@@ -71,22 +68,19 @@ namespace CarespotASP.Dal.Context
 
         public Gebruiker GetGebruikerById(int id)
         {
-
             Gebruiker returnUser = null;
             try
             {
                 using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
-
                     string query = "select * from Gebruiker where id = @key";
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@key", id);
                     con.Open();
                     var reader = cmd.ExecuteReader();
-                    
+
                     while (reader.Read())
                     {
-
                         //Standaard foto
                         byte[] foto = new byte[10];
 
@@ -94,7 +88,6 @@ namespace CarespotASP.Dal.Context
                         {
                             foto = (byte[])reader[1];
                         }
-
 
                         Gebruiker user = new Gebruiker(
                             reader.GetInt32(0),
@@ -132,16 +125,14 @@ namespace CarespotASP.Dal.Context
 
         public int CreateGebruiker(Gebruiker obj)
         {
-
             int returnId = 0;
             try
             {
                 using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
-
-                    string query = "INSERT INTO Gebruiker(Foto, Email, Wachtwoord, Gebruikersnaam, Naam, Geboortedatum, HeeftRijbewijs, HeeftOv, HeeftAuto, Telefoonnummer, Uitschrijfdatum, Adres, Woonplaats, Land, Postcode, Geslacht)VALUES"+
+                    string query = "INSERT INTO Gebruiker(Foto, Email, Wachtwoord, Gebruikersnaam, Naam, Geboortedatum, HeeftRijbewijs, HeeftOv, HeeftAuto, Telefoonnummer, Uitschrijfdatum, Adres, Woonplaats, Land, Postcode, Geslacht)VALUES" +
                     "(@foto,@email,@wachtwoord,@gebruikersnaam,@naam,@geboortedatum,@heeftRijbewijs,@heeftOv,@heeftAuto,@telefoonnummer,@uitschrijfdatum,@adres,@woonplaats,@land,@postcode,@geslacht);SELECT CAST(scope_identity() AS int);";
-                    SqlCommand cmd = new SqlCommand(query, con);                           
+                    SqlCommand cmd = new SqlCommand(query, con);
                     con.Open();
 
                     cmd.Parameters.AddWithValue("@foto", obj.Image);
@@ -161,7 +152,6 @@ namespace CarespotASP.Dal.Context
                     cmd.Parameters.AddWithValue("@postcode", obj.Postcode);
                     cmd.Parameters.AddWithValue("@geslacht", obj.Geslacht.ToString());
 
-
                     returnId = (int)cmd.ExecuteScalar();
 
                     cmd.ExecuteNonQuery();
@@ -169,8 +159,6 @@ namespace CarespotASP.Dal.Context
                 }
 
                 return returnId;
-
-
             }
             catch (Exception e)
             {
@@ -185,7 +173,6 @@ namespace CarespotASP.Dal.Context
             {
                 using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
-
                     string query = "UPDATE Gebruiker SET Foto = @foto, Email = @email, Wachtwoord = @wachtwoord, Gebruikersnaam = @gebruikersnaam, Naam = @naam, Geboortedatum = @geboortedatum, HeeftRijbewijs = @heeftRijbewijs, HeeftOv = @heeftOv, HeeftAuto = @heeftAuto, Telefoonnummer = @telefoonnummer, Uitschrijfdatum = @uitschrijfdatum, Adres = @adres, Woonplaats = @woonplaats, Land = @land, Postcode =@postcode" +
                                    ", Geslacht = @geslacht WHERE id = @key";
                     SqlCommand cmd = new SqlCommand(query, con);
@@ -211,8 +198,6 @@ namespace CarespotASP.Dal.Context
                     var reader = cmd.ExecuteNonQuery();
                     con.Close();
                 }
-
-  
             }
             catch (Exception e)
             {
@@ -230,10 +215,9 @@ namespace CarespotASP.Dal.Context
                     string query = "DELETE FROM Gebruiker WHERE id = @key";
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@key", id);
-                    cmd.ExecuteNonQuery();        
+                    cmd.ExecuteNonQuery();
                     con.Close();
                 }
-
             }
             catch (Exception e)
             {

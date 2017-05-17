@@ -150,6 +150,7 @@
     <Compile Include="Dal\Context\GebruikerSqlContext.cs" />
     <Compile Include="Dal\Context\HulpvraagSqlContext.cs" />
     <Compile Include="Dal\Context\ReviewSqlContext.cs" />
+    <Compile Include="Dal\Context\VaardigheidSqlContext.cs" />
     <Compile Include="Dal\Context\VrijwilligerSqlContext.cs" />
     <Compile Include="Dal\Env.cs" />
     <Compile Include="Dal\Interfaces\IBeheerder.cs" />
@@ -157,12 +158,14 @@
     <Compile Include="Dal\Interfaces\IGebruiker.cs" />
     <Compile Include="Dal\Interfaces\IHulpvraag.cs" />
     <Compile Include="Dal\Interfaces\IReview.cs" />
+    <Compile Include="Dal\Interfaces\IVaardigheid.cs" />
     <Compile Include="Dal\Interfaces\IVrijwilliger.cs" />
     <Compile Include="Dal\Repositorys\BeheerderRepository.cs" />
     <Compile Include="Dal\Repositorys\ChatRepository.cs" />
     <Compile Include="Dal\Repositorys\GebruikerRepository.cs" />
     <Compile Include="Dal\Repositorys\HulpvraagRepository.cs" />
     <Compile Include="Dal\Repositorys\ReviewRepository.cs" />
+    <Compile Include="Dal\Repositorys\VaardigheidRepository.cs" />
     <Compile Include="Dal\Repositorys\VrijwilligerRepository.cs" />
     <Compile Include="Enums\Geslacht.cs" />
     <Compile Include="Enums\VervoerType.cs" />

@@ -14,7 +14,7 @@ namespace CarespotASP.Dal.Interfaces
 
         void Create(Hulpvraag hulpvraag);
 
-        void Update(int id);
+        void Update(int id, Hulpvraag hulpvraag);
 
         void Delete(int id);
     }

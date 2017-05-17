@@ -90,7 +90,7 @@ namespace CarespotASP.Dal.Context
                     cmd.Parameters.AddWithValue("@omschrijving", review.Omschrijving);
                     cmd.Parameters.AddWithValue("@beoordeling", review.Beoordeling);
 
-                    returnId = (int)cmd.ExecuteScalar();
+                    returnId = (int) cmd.ExecuteScalar();
 
                     cmd.ExecuteNonQuery();
                     con.Close();
@@ -140,6 +140,7 @@ namespace CarespotASP.Dal.Context
                     var query = "DELETE FROM Review WHERE id = @id";
                     var cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@id", id);
+                    con.Open();
                     cmd.ExecuteNonQuery();
                     con.Close();
                 }

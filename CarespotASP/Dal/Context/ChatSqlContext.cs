@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using CarespotASP.Dal.Interfaces;
+using CarespotASP.Dal.Repositorys;
 using CarespotASP.Models;
 
 namespace CarespotASP.Dal.Context
@@ -70,8 +71,12 @@ namespace CarespotASP.Dal.Context
 
                     while (reader.Read())
                     {
-                        // chat = new Chat(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetDateTime(3), reader.GetString(4));
-                        //chats.Add(chat);
+                        var gsql = new GebruikerSqlContext();
+                        var grepo = new GebruikerRepository(gsql);
+                        var g1 = grepo.GetById(reader.GetInt32(1));
+                        var g2 = grepo.GetById(reader.GetInt32(2));
+                        var chat = new Chat(reader.GetInt32(0), g1, g2, reader.GetDateTime(3), reader.GetString(4));
+                        chats.Add(chat);
                     }
                     con.Close();
                     return chats;
@@ -100,7 +105,11 @@ namespace CarespotASP.Dal.Context
 
                     while (reader.Read())
                     {
-                        //   chat = new Chat(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetDateTime(3), reader.GetString(4));
+                        var gsql = new GebruikerSqlContext();
+                        var grepo = new GebruikerRepository(gsql);
+                        var g1 = grepo.GetById(reader.GetInt32(1));
+                        var g2 = grepo.GetById(reader.GetInt32(2));
+                        chat = new Chat(reader.GetInt32(0), g1, g2, reader.GetDateTime(3), reader.GetString(4));
                     }
                     con.Close();
                     return chat;

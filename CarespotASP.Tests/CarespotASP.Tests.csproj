@@ -86,6 +86,7 @@
     <Compile Include="TestChat.cs" />
     <Compile Include="TestGebruiker.cs" />
     <Compile Include="TestHulpvraag.cs" />
+    <Compile Include="TestReview.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

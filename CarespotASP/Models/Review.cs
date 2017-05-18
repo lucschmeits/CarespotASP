@@ -12,6 +12,14 @@
         {
         }
 
+        public Review(int auteurId, int gebruikerId, string omschrijving, int beoordeling)
+        {
+            AuteurId = auteurId;
+            GebruikerId = gebruikerId;
+            Omschrijving = omschrijving;
+            Beoordeling = beoordeling;
+        }
+
         public Review(int id, int auteurId, int gebruikerId, string omschrijving, int beoordeling)
         {
             Id = id;

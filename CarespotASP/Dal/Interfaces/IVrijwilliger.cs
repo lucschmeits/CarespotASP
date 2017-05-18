@@ -7,15 +7,15 @@ using CarespotASP.Models;
 
 namespace CarespotASP.Dal.Interfaces
 {
-    internal interface IVrijwilliger
+    public interface IVrijwilliger
     {
         List<Vrijwilliger> GetAllVrijwilligers();
 
         Vrijwilliger GetVrijwilligerById(int id);
 
-        int CreateVrijwilliger();
+        void CreateVrijwilliger(int gebruikerId, string vogPath);
 
-        void UpdateVrijwilliger();
+        void UpdateVrijwilliger(int gebruikerId, string vogPath, bool isGoedgekeurd);
 
         void DeleteVrijwilligerById(int id);
     }

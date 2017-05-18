@@ -16,7 +16,7 @@ namespace CarespotASP.Dal.Context
             {
                 using (var con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "SELECT Gebruiker.* FROM Beheerder INNER JOIN Gebruiker ON Beheerder.GebruikerId = Gebruiker.Id";
+                    var query = "SELECT Gebruiker.*, Vrijwilliger.VOG, Vrijwilliger.IsGoedgekeurd FROM Vrijwilliger INNER JOIN Gebruiker ON Vrijwilliger.GebruikerId = Gebruiker.Id";
                     var cmd = new SqlCommand(query, con);
                     con.Open();
                     var reader = cmd.ExecuteReader();

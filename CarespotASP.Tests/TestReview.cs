@@ -15,7 +15,9 @@ namespace CarespotASP.Tests
             var repo = new ReviewRepository(sql);
 
             var review = new Review(1, 4, "Tralala", 8);
-            repo.CreateReview(review);
+            int i = repo.CreateReview(review);
+
+            Assert.AreEqual(6, i);
         }
 
         [TestMethod]

@@ -10,7 +10,6 @@ namespace CarespotASP.Models
         public int Id { get; private set; }
         public Gebruiker Auteur { get; private set; }
         public Gebruiker Ontvanger { get; private set; }
-
         public DateTime DatumTijd { get; private set; }
         public string Bericht { get; private set; }
 

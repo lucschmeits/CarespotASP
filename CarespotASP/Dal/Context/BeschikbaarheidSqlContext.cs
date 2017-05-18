@@ -19,11 +19,10 @@ namespace CarespotASP.Dal.Context
             {
                 using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
-
-                    string query = "INSERT INTO Beschikbaarheid(DagnNaam, DagDeel)VALUES" + "(@dagnaam, @dagdeel); SELECT CAST(scope_identity() AS int);";
-                    SqlCommand cmd = new SqlCommand(query, con);
                     con.Open();
-
+                    string query = "INSERT INTO Beschikbaarheid(DagNaam, DagDeel)VALUES" + "(@dagnaam, @dagdeel); SELECT CAST(scope_identity() AS int);";
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    
                     cmd.Parameters.AddWithValue("@dagnaam", obj.DagNaam);
                     cmd.Parameters.AddWithValue("@dagdeel", obj.DagDeel);
 
@@ -48,8 +47,10 @@ namespace CarespotASP.Dal.Context
             {
                 using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
+                    con.Open();
                     string query = "DELETE FROM Beschikbaarheid WHERE id = @key";
                     SqlCommand cmd = new SqlCommand(query, con);
+                    
                     cmd.Parameters.AddWithValue("@key", Id);
                     cmd.ExecuteNonQuery();
                     con.Close();
@@ -70,18 +71,18 @@ namespace CarespotASP.Dal.Context
             {
                 using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
-
+                    con.Open();
                     string query = "select * from Beschikbaarheid";
                     SqlCommand cmd = new SqlCommand(query, con);
+                    
                     var reader = cmd.ExecuteReader();
-                    con.Open();
-
+                  
                     while (reader.Read())
                     {
                         Beschikbaarheid b = new Beschikbaarheid(
                             reader.GetInt32(0),
                             reader.GetString(1),
-                            reader.GetString(3)
+                            reader.GetString(2)
                             );
                         returnList.Add(b);
                     }
@@ -105,12 +106,12 @@ namespace CarespotASP.Dal.Context
             {
                 using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
-
+                    con.Open();
                     string query = "select * from Beschikbaarheid where Id = @key";
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@key", Id);
+                    
                     var reader = cmd.ExecuteReader();
-                    con.Open();
                     while (reader.Read())
                     {
                         Beschikbaarheid beschikbaarheid = new Beschikbaarheid(
@@ -139,8 +140,8 @@ namespace CarespotASP.Dal.Context
             {
                 using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
-
-                    string query = "UPDATE Beschikbaarheid SET DagNaam = @dagnaam, DagDeel = @dagdeel + WHERE id = @key";
+                    con.Open();
+                    string query = "UPDATE Beschikbaarheid SET DagNaam = @dagnaam, DagDeel = @dagdeel WHERE id = @key";
                     SqlCommand cmd = new SqlCommand(query, con);
 
                     cmd.Parameters.AddWithValue("@dagnaam", obj.DagNaam);

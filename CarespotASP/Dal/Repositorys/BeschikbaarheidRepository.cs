@@ -23,9 +23,9 @@ namespace CarespotASP.Dal.Repositorys
         {
             return _interface.GetBeschikbaarheidById(Id);
         }
-        public void CreateBeschikbaarheid(Beschikbaarheid b)
+        public int CreateBeschikbaarheid(Beschikbaarheid b)
         {
-            _interface.CreateBeschikbaarheid(b);
+            return _interface.CreateBeschikbaarheid(b);
         }
         public void DeleteBeschikbaarheid(int Id)
         {

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using CarespotASP.Dal.Interfaces;
 using CarespotASP.Enums;
 using CarespotASP.Models;
@@ -13,22 +11,27 @@ namespace CarespotASP.Dal.Context
     {
         public List<Gebruiker> GetAllGebruikers()
         {
-            List<Gebruiker> returnList = new List<Gebruiker>();
+            var returnList = new List<Gebruiker>();
             try
             {
-                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
+                using (var con = new SqlConnection(Env.ConnectionString))
                 {
-
-                    string query = "select * from Gebruiker where Uitschrijfdatum is not null";
-                    SqlCommand cmd = new SqlCommand(query, con);
-                    var reader = cmd.ExecuteReader();
+                    var query = "select * from Gebruiker where Uitschrijfdatum is not null";
+                    var cmd = new SqlCommand(query, con);
                     con.Open();
+                    var reader = cmd.ExecuteReader();
 
                     while (reader.Read())
                     {
-                        Gebruiker user = new Gebruiker(
+                        //Standaard foto
+                        var foto = new byte[10];
+
+                        if (!reader.IsDBNull(1))
+                            foto = (byte[])reader[1];
+
+                        var user = new Gebruiker(
                             reader.GetInt32(0),
-                            (byte[])reader[1],
+                            foto,
                             reader.GetString(2),
                             reader.GetString(3),
                             reader.GetString(4),
@@ -42,8 +45,8 @@ namespace CarespotASP.Dal.Context
                             reader.GetString(13),
                             reader.GetString(14),
                             reader.GetString(15),
-                           (Geslacht)Enum.Parse(typeof(Geslacht), reader.GetString(16))
-                            );
+                            (Geslacht)Enum.Parse(typeof(Geslacht), reader.GetString(16))
+                        );
                         returnList.Add(user);
                     }
 
@@ -61,23 +64,28 @@ namespace CarespotASP.Dal.Context
 
         public Gebruiker GetGebruikerById(int id)
         {
-
             Gebruiker returnUser = null;
             try
             {
-                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
+                using (var con = new SqlConnection(Env.ConnectionString))
                 {
-
-                    string query = "select * from Gebruiker where id = @key";
-                    SqlCommand cmd = new SqlCommand(query, con);
+                    var query = "select * from Gebruiker where id = @key";
+                    var cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@key", id);
-                    var reader = cmd.ExecuteReader();
                     con.Open();
+                    var reader = cmd.ExecuteReader();
+
                     while (reader.Read())
                     {
-                        Gebruiker user = new Gebruiker(
+                        //Standaard foto
+                        var foto = new byte[10];
+
+                        if (!reader.IsDBNull(1))
+                            foto = (byte[])reader[1];
+
+                        var user = new Gebruiker(
                             reader.GetInt32(0),
-                            (byte[])reader[1],
+                            foto,
                             reader.GetString(2),
                             reader.GetString(3),
                             reader.GetString(4),
@@ -91,7 +99,9 @@ namespace CarespotASP.Dal.Context
                             reader.GetString(13),
                             reader.GetString(14),
                             reader.GetString(15),
-                           (Geslacht)Enum.Parse(typeof(Geslacht), reader.GetString(16)));
+                            (Geslacht)Enum.Parse(typeof(Geslacht), reader.GetString(16)));
+
+                        user.Uitschrijfdatum = reader.GetDateTime(11);
                         returnUser = user;
                     }
 
@@ -109,16 +119,14 @@ namespace CarespotASP.Dal.Context
 
         public int CreateGebruiker(Gebruiker obj)
         {
-
-            int returnId = 0;
+            var returnId = 0;
             try
             {
-                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
+                using (var con = new SqlConnection(Env.ConnectionString))
                 {
-
-                    string query = "INSERT INTO Gebruiker(Foto, Email, Wachtwoord, Gebruikersnaam, Naam, Geboortedatum, HeeftRijbewijs, HeeftOv, HeeftAuto, Telefoonnummer, Uitschrijfdatum, Adres, Woonplaats, Land, Postcode, Geslacht)VALUES"+
-                    "(@foto,@email,@wachtwoord,@gebruikersnaam,@naam,@geboortedatum,@heeftRijbewijs,@heeftOv,@heeftAuto,@telefoonnummer,@uitschrijfdatum,@adres,@woonplaats,@land,@postcode,@geslacht);SELECT CAST(scope_identity() AS int);";
-                    SqlCommand cmd = new SqlCommand(query, con);                           
+                    var query = "INSERT INTO Gebruiker(Foto, Email, Wachtwoord, Gebruikersnaam, Naam, Geboortedatum, HeeftRijbewijs, HeeftOv, HeeftAuto, Telefoonnummer, Uitschrijfdatum, Adres, Woonplaats, Land, Postcode, Geslacht)VALUES" +
+                                "(@foto,@email,@wachtwoord,@gebruikersnaam,@naam,@geboortedatum,@heeftRijbewijs,@heeftOv,@heeftAuto,@telefoonnummer,@uitschrijfdatum,@adres,@woonplaats,@land,@postcode,@geslacht);SELECT CAST(scope_identity() AS int);";
+                    var cmd = new SqlCommand(query, con);
                     con.Open();
 
                     cmd.Parameters.AddWithValue("@foto", obj.Image);
@@ -126,18 +134,17 @@ namespace CarespotASP.Dal.Context
                     cmd.Parameters.AddWithValue("@wachtwoord", obj.Wachtwoord);
                     cmd.Parameters.AddWithValue("@gebruikersnaam", obj.Gebruikersnaam);
                     cmd.Parameters.AddWithValue("@naam", obj.Naam);
-                    cmd.Parameters.AddWithValue("@geboortedatum", obj.Geboortedatum);
+                    cmd.Parameters.AddWithValue("@geboortedatum", obj.Geboortedatum.ToString());
                     cmd.Parameters.AddWithValue("@heeftRijbewijs", Convert.ToInt32(obj.HeeftRijbewijs));
                     cmd.Parameters.AddWithValue("@heeftOv", Convert.ToInt32(obj.HeeftOv));
                     cmd.Parameters.AddWithValue("@heeftAuto", Convert.ToInt32(obj.HeeftAuto));
                     cmd.Parameters.AddWithValue("@telefoonnummer", obj.Telefoonnummer);
-                    cmd.Parameters.AddWithValue("@uitschrijfdatum", obj.Uitschrijfdatum);
+                    cmd.Parameters.AddWithValue("@uitschrijfdatum", obj.Uitschrijfdatum.ToString());
                     cmd.Parameters.AddWithValue("@adres", obj.Adres);
                     cmd.Parameters.AddWithValue("@woonplaats", obj.Woonplaats);
                     cmd.Parameters.AddWithValue("@land", obj.Land);
                     cmd.Parameters.AddWithValue("@postcode", obj.Postcode);
                     cmd.Parameters.AddWithValue("@geslacht", obj.Geslacht.ToString());
-
 
                     returnId = (int)cmd.ExecuteScalar();
 
@@ -146,8 +153,6 @@ namespace CarespotASP.Dal.Context
                 }
 
                 return returnId;
-
-
             }
             catch (Exception e)
             {
@@ -160,12 +165,12 @@ namespace CarespotASP.Dal.Context
         {
             try
             {
-                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
+                using (var con = new SqlConnection(Env.ConnectionString))
                 {
-
-                    string query = "UPDATE Gebruiker SET Foto = @foto, Email = @email, Wachtwoord = @wachtwoord, Gebruikersnaam = @gebruikersnaam, Naam = @naam, Geboortedatum = @geboortedatum, HeeftRijbewijs = @heeftRijbewijs, HeeftOv = @heeftOv, HeeftAuto = @heeftAuto, Telefoonnummer = @telefoonnummer, Uitschrijfdatum = @uitschrijfdatum, Adres = @adres, Woonplaats = @woonplaats, Land = @land, Postcode =@postcode" +
-                                   ", Geslacht = @geslacht WHERE id = @key";
-                    SqlCommand cmd = new SqlCommand(query, con);
+                    var query = "UPDATE Gebruiker SET Foto = @foto, Email = @email, Wachtwoord = @wachtwoord, Gebruikersnaam = @gebruikersnaam, Naam = @naam, Geboortedatum = @geboortedatum, HeeftRijbewijs = @heeftRijbewijs, HeeftOv = @heeftOv, HeeftAuto = @heeftAuto, Telefoonnummer = @telefoonnummer, Uitschrijfdatum = @uitschrijfdatum, Adres = @adres, Woonplaats = @woonplaats, Land = @land, Postcode =@postcode" +
+                                ", Geslacht = @geslacht WHERE id = @key";
+                    con.Open();
+                    var cmd = new SqlCommand(query, con);
 
                     cmd.Parameters.AddWithValue("@foto", obj.Image);
                     cmd.Parameters.AddWithValue("@email", obj.Email);
@@ -188,8 +193,6 @@ namespace CarespotASP.Dal.Context
                     var reader = cmd.ExecuteNonQuery();
                     con.Close();
                 }
-
-  
             }
             catch (Exception e)
             {
@@ -202,15 +205,16 @@ namespace CarespotASP.Dal.Context
         {
             try
             {
-                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
+                using (var con = new SqlConnection(Env.ConnectionString))
                 {
-                    string query = "DELETE FROM Gebruiker WHERE id = @key";
-                    SqlCommand cmd = new SqlCommand(query, con);
+                    var query = "DELETE FROM Gebruiker WHERE id = @key";
+                    var cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@key", id);
-                    cmd.ExecuteNonQuery();        
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
                     con.Close();
                 }
-
             }
             catch (Exception e)
             {

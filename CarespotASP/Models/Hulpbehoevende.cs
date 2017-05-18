@@ -22,9 +22,6 @@ namespace CarespotASP.Models
             Hulpverlener = hulpverlener;
         }
 
-        public Hulpbehoevende()
-        {
-            
-        }
+    
     }
 }

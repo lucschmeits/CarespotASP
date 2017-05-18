@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using CarespotASP.Dal.Interfaces;
+﻿using CarespotASP.Dal.Interfaces;
 using CarespotASP.Enums;
 using CarespotASP.Models;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace CarespotASP.Dal.Context
 {
@@ -25,7 +25,6 @@ namespace CarespotASP.Dal.Context
                     {
                         //Standaard foto
                         var foto = new byte[10];
-
                         if (!reader.IsDBNull(1))
                             foto = (byte[])reader[1];
 
@@ -45,8 +44,13 @@ namespace CarespotASP.Dal.Context
                             reader.GetString(13),
                             reader.GetString(14),
                             reader.GetString(15),
-                            (Geslacht)Enum.Parse(typeof(Geslacht), reader.GetString(16))
-                        );
+                            (Geslacht)Enum.Parse(typeof(Geslacht), reader.GetString(16)));
+
+                        if (!reader.IsDBNull(17))
+                        {
+                            user.Barcode = reader.GetString(17);
+                        }
+
                         returnList.Add(user);
                     }
 
@@ -101,6 +105,11 @@ namespace CarespotASP.Dal.Context
                             reader.GetString(15),
                             (Geslacht)Enum.Parse(typeof(Geslacht), reader.GetString(16)));
 
+                        if (!reader.IsDBNull(17))
+                        {
+                            user.Barcode = reader.GetString(17);
+                        }
+
                         user.Uitschrijfdatum = reader.GetDateTime(11);
                         returnUser = user;
                     }
@@ -124,8 +133,8 @@ namespace CarespotASP.Dal.Context
             {
                 using (var con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "INSERT INTO Gebruiker(Foto, Email, Wachtwoord, Gebruikersnaam, Naam, Geboortedatum, HeeftRijbewijs, HeeftOv, HeeftAuto, Telefoonnummer, Uitschrijfdatum, Adres, Woonplaats, Land, Postcode, Geslacht)VALUES" +
-                                "(@foto,@email,@wachtwoord,@gebruikersnaam,@naam,@geboortedatum,@heeftRijbewijs,@heeftOv,@heeftAuto,@telefoonnummer,@uitschrijfdatum,@adres,@woonplaats,@land,@postcode,@geslacht);SELECT CAST(scope_identity() AS int);";
+                    var query = "INSERT INTO Gebruiker(Foto, Email, Wachtwoord, Gebruikersnaam, Naam, Geboortedatum, HeeftRijbewijs, HeeftOv, HeeftAuto, Telefoonnummer, Uitschrijfdatum, Adres, Woonplaats, Land, Postcode, Geslacht, Barcode)VALUES" +
+                                "(@foto,@email,@wachtwoord,@gebruikersnaam,@naam,@geboortedatum,@heeftRijbewijs,@heeftOv,@heeftAuto,@telefoonnummer,@uitschrijfdatum,@adres,@woonplaats,@land,@postcode,@geslacht,@barcode);SELECT CAST(scope_identity() AS int);";
                     var cmd = new SqlCommand(query, con);
                     con.Open();
 
@@ -145,6 +154,7 @@ namespace CarespotASP.Dal.Context
                     cmd.Parameters.AddWithValue("@land", obj.Land);
                     cmd.Parameters.AddWithValue("@postcode", obj.Postcode);
                     cmd.Parameters.AddWithValue("@geslacht", obj.Geslacht.ToString());
+                    cmd.Parameters.AddWithValue("@barcode", obj.Barcode);
 
                     returnId = (int)cmd.ExecuteScalar();
 
@@ -168,7 +178,7 @@ namespace CarespotASP.Dal.Context
                 using (var con = new SqlConnection(Env.ConnectionString))
                 {
                     var query = "UPDATE Gebruiker SET Foto = @foto, Email = @email, Wachtwoord = @wachtwoord, Gebruikersnaam = @gebruikersnaam, Naam = @naam, Geboortedatum = @geboortedatum, HeeftRijbewijs = @heeftRijbewijs, HeeftOv = @heeftOv, HeeftAuto = @heeftAuto, Telefoonnummer = @telefoonnummer, Uitschrijfdatum = @uitschrijfdatum, Adres = @adres, Woonplaats = @woonplaats, Land = @land, Postcode =@postcode" +
-                                ", Geslacht = @geslacht WHERE id = @key";
+                                ", Geslacht = @geslacht, Barcode = @barcode WHERE id = @key";
                     con.Open();
                     var cmd = new SqlCommand(query, con);
 
@@ -188,6 +198,7 @@ namespace CarespotASP.Dal.Context
                     cmd.Parameters.AddWithValue("@land", obj.Land);
                     cmd.Parameters.AddWithValue("@postcode", obj.Postcode);
                     cmd.Parameters.AddWithValue("@geslacht", obj.Geslacht.ToString());
+                    cmd.Parameters.AddWithValue("@barcode", obj.Barcode);
 
                     cmd.Parameters.AddWithValue("@key", obj.Id);
                     var reader = cmd.ExecuteNonQuery();

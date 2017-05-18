@@ -177,6 +177,7 @@
     <Compile Include="Models\Chat.cs" />
     <Compile Include="Models\Gebruiker.cs" />
     <Compile Include="Models\Hulpbehoevende.cs" />
+    <Compile Include="Models\Hulpverlener.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Hulpvraag.cs" />
     <Compile Include="Models\Vaardigheid.cs" />

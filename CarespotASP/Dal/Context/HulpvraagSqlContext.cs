@@ -13,12 +13,51 @@ namespace CarespotASP.Dal.Context
     {
         public void Create(Hulpvraag hulpvraag)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
+                {
+                    con.Open();
+                    var cmdString = "INSERT INTO Hulpvraag (Titel, Omschrijving, OpdrachtDatum, CreatedDatum, Locatie, Urgent, Vervoertype, IsAfgerond, HulpbehoevendeId,VrijwilligerId) VALUES (@Titel, @Omschrijving, @Opdrachtdatum, @Createdatum, @Locatie, @Urgent, @VervoerType, @IsAfgerond, @HulpbehoevendeId, @VrijwilligerID);";
+                    var command = new SqlCommand(cmdString, con);
+                    command.Parameters.AddWithValue("@Titel", hulpvraag.Titel);
+                    command.Parameters.AddWithValue("@Omschrijving", hulpvraag.Omschrijving);
+                    command.Parameters.AddWithValue("@Opdrachtdatum", hulpvraag.OpdrachtDatum.ToString("yyyy-MM-dd"));
+                    command.Parameters.AddWithValue("@Createdatum", hulpvraag.OpdrachtDatum.ToString("yyyy-MM-dd"));
+                    command.Parameters.AddWithValue("@Locatie", hulpvraag.Locatie);
+                    command.Parameters.AddWithValue("@Urgent", Convert.ToInt32(hulpvraag.Urgent));
+                    command.Parameters.AddWithValue("@Vervoertype", Convert.ToString(hulpvraag.VervoerType));
+                    command.Parameters.AddWithValue("@IsAfgerond", Convert.ToInt32(hulpvraag.IsAfgerond));
+                    command.Parameters.AddWithValue("@HulpbehoevendeId", hulpvraag.Hulpbehoevende.Id);
+                    command.Parameters.AddWithValue("@VrijwilligerId", 0);
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
+                {
+                    con.Open();
+                    var cmdString = "DELETE FROM Hulpvraag WHERE id = @id";
+                    var command = new SqlCommand(cmdString, con);
+                    command.Parameters.AddWithValue("@Id", id);
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public List<Hulpvraag> GetAll()
@@ -68,8 +107,9 @@ namespace CarespotASP.Dal.Context
                 using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
                     con.Open();
-                    var cmdString = "SELECT * FROM Hulpvraag";
+                    var cmdString = "SELECT * FROM Hulpvraag WHERE Id = @Id";
                     var command = new SqlCommand(cmdString, con);
+                    command.Parameters.AddWithValue("@Id", id);
                     var reader = command.ExecuteReader();
 
                     while (reader.Read())
@@ -96,9 +136,31 @@ namespace CarespotASP.Dal.Context
             return returnObject;
         }
 
-        public void Update(int id)
+        public void Update(int id, Hulpvraag hulpvraag)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
+                {
+                    con.Open();
+                    var cmdString = "UPDATE Hulpvraag SET Titel = @Titel, Omschrijving = @Omschrijving, Opdrachtdatum = @Opdrachtdatum, Createdatum = @Createdatum";
+                    var command = new SqlCommand(cmdString, con);
+                    command.Parameters.AddWithValue("@Titel", hulpvraag.Titel);
+                    command.Parameters.AddWithValue("@Omschrijving", hulpvraag.Omschrijving);
+                    command.Parameters.AddWithValue("@Opdrachtdatum", hulpvraag.OpdrachtDatum.ToString("yyyy-MM-dd"));
+                    command.Parameters.AddWithValue("@Createdatum", hulpvraag.OpdrachtDatum.ToString("yyyy-MM-dd"));
+                    command.Parameters.AddWithValue("@Locatie", hulpvraag.Locatie);
+                    command.Parameters.AddWithValue("@Urgent", Convert.ToInt32(hulpvraag.Urgent));
+                    command.Parameters.AddWithValue("@Vervoertype", Convert.ToString(hulpvraag.VervoerType));
+                    command.Parameters.AddWithValue("@IsAfgerond", Convert.ToInt32(hulpvraag.IsAfgerond));
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

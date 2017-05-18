@@ -42,8 +42,10 @@ namespace CarespotASP.Tests
 
             Hulpvraag hv = new Hulpvraag(1,"Test","omschv",localDate,localDate,"rooy",true,VervoerType.Auto ,false);
 
-            hv.Hulpbehoevende = new Hulpbehoevende();
-            hv.Hulpbehoevende.Id = 0;
+
+
+      //      hv.Hulpbehoevende = new Hulpbehoevende();
+      //      hv.Hulpbehoevende.Id = 0;
 
             hvr.Create(hv);
 

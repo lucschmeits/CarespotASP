@@ -9,6 +9,32 @@ namespace CarespotASP.Tests
     [TestClass]
     public class TestGebruiker
     {
+
+        [TestMethod]
+        public void AuthTest()
+        {
+
+            Gebruiker g = AuthRepository.CheckAuth("larslemkens@gmail.com", "test");
+
+            Gebruiker g1 = AuthRepository.CheckAuth("larslemkens@gmail.com", "t");
+            Assert.IsTrue(g != null);
+            Assert.IsTrue(g1 == null);
+        }
+
+
+        [TestMethod]
+        public void Barcodetest()
+        {
+            GebruikerSqlContext gsc = new GebruikerSqlContext();
+            GebruikerRepository gr = new GebruikerRepository(gsc);
+
+            var Lijst = gr.GetAll();
+            Assert.IsTrue(Lijst[0].Barcode == null);
+            Assert.IsTrue(Lijst[1].Barcode == "12345");
+        }
+
+
+
         [TestMethod]
         public void GetAll()
         {

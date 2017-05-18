@@ -145,14 +145,21 @@
     <Compile Include="Controllers\HulpbehoevendeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistreerController.cs" />
+
+    <Compile Include="Dal\Context\BeschikbaarheidSqlContext.cs" />
+
     <Compile Include="Dal\Context\BeheerderSqlContext.cs" />
     <Compile Include="Dal\Context\ChatSqlContext.cs" />
+
     <Compile Include="Dal\Context\GebruikerSqlContext.cs" />
     <Compile Include="Dal\Context\HulpvraagSqlContext.cs" />
     <Compile Include="Dal\Context\ReviewSqlContext.cs" />
     <Compile Include="Dal\Context\VaardigheidSqlContext.cs" />
     <Compile Include="Dal\Context\VrijwilligerSqlContext.cs" />
     <Compile Include="Dal\Env.cs" />
+    <Compile Include="Dal\Interfaces\IBeschikbaarheid.cs" />
+    <Compile Include="Dal\Repositorys\BeschikbaarheidRepository.cs" />
+
     <Compile Include="Dal\Interfaces\IBeheerder.cs" />
     <Compile Include="Dal\Interfaces\IChat.cs" />
     <Compile Include="Dal\Interfaces\IGebruiker.cs" />
@@ -160,8 +167,10 @@
     <Compile Include="Dal\Interfaces\IReview.cs" />
     <Compile Include="Dal\Interfaces\IVaardigheid.cs" />
     <Compile Include="Dal\Interfaces\IVrijwilliger.cs" />
+    <Compile Include="Dal\Repositorys\AuthRepository.cs" />
     <Compile Include="Dal\Repositorys\BeheerderRepository.cs" />
     <Compile Include="Dal\Repositorys\ChatRepository.cs" />
+
     <Compile Include="Dal\Repositorys\GebruikerRepository.cs" />
     <Compile Include="Dal\Repositorys\HulpvraagRepository.cs" />
     <Compile Include="Dal\Repositorys\ReviewRepository.cs" />
@@ -172,8 +181,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+
+    <Compile Include="Models\Beschikbaarheid.cs" />
+
     <Compile Include="Models\Beheerder.cs" />
     <Compile Include="Models\Chat.cs" />
+
     <Compile Include="Models\Gebruiker.cs" />
     <Compile Include="Models\Hulpbehoevende.cs" />
     <Compile Include="Models\Hulpverlener.cs" />

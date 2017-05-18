@@ -42,6 +42,8 @@ namespace CarespotASP.Models
 
         public Geslacht Geslacht { get;  set; }
 
+        public string Barcode { get; set; }
+
         public Gebruiker(int id, byte[] image, string email, string wachtwoord, string gebruikersnaam, string naam, DateTime geboortedatum, bool heeftRijbewijs, bool heeftOv, bool heeftAuto, string telefoonnummer, string adres, string woonplaats, string land, string postcode, Geslacht geslacht)
         {
             Id = id;

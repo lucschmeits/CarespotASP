@@ -92,6 +92,7 @@
     <Compile Include="TestBeheerder.cs" />
     <Compile Include="TestReview.cs" />
     <Compile Include="TestBeschikbaarheid.cs" />
+    <Compile Include="TestHulpverlener.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

@@ -15,13 +15,13 @@ namespace CarespotASP.Dal.Repositorys
             _interface = i;
         }
 
-        public List<Beschikbaarheid> getAllBeschikbaarheid()
+        public List<Beschikbaarheid> GetAllBeschikbaarheid()
         {
-            return _interface.getAllBeschikbaarheid();
+            return _interface.GetAllBeschikbaarheid();
         }
-        public Beschikbaarheid getBeschikbaarheidById(int Id)
+        public Beschikbaarheid GetBeschikbaarheidById(int Id)
         {
-            return _interface.getBeschikbaarheidById(Id);
+            return _interface.GetBeschikbaarheidById(Id);
         }
         public void CreateBeschikbaarheid(Beschikbaarheid b)
         {

@@ -147,6 +147,7 @@
     <Compile Include="Controllers\RegistreerController.cs" />
     <Compile Include="Dal\Context\BeschikbaarheidSqlContext.cs" />
     <Compile Include="Dal\Context\GebruikerSqlContext.cs" />
+    <Compile Include="Dal\Env.cs" />
     <Compile Include="Dal\Interfaces\IBeschikbaarheid.cs" />
     <Compile Include="Dal\Interfaces\IGebruiker.cs" />
     <Compile Include="Dal\Repositorys\BeschikbaarheidRepository.cs" />

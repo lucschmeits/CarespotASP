@@ -9,9 +9,9 @@ namespace CarespotASP.Dal.Interfaces
 {
     public interface IBeschikbaarheid
     {
-        List<Beschikbaarheid> getAllBeschikbaarheid();
-        Beschikbaarheid getBeschikbaarheidById(int Id);
-        void CreateBeschikbaarheid(Beschikbaarheid obj);
+        List<Beschikbaarheid> GetAllBeschikbaarheid();
+        Beschikbaarheid GetBeschikbaarheidById(int Id);
+        int CreateBeschikbaarheid(Beschikbaarheid obj);
         void UpdateBeschikbaarheid(Beschikbaarheid obj);
         void DeleteBeschikbaarheid(int Id);
     }

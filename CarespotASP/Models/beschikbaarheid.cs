@@ -16,5 +16,17 @@ namespace CarespotASP.Models
             DagNaam = dagnaam;
             DagDeel = dagdeel;
         }
+
+        public Beschikbaarheid(int id, string dagnaam, string dagdeel)
+        {
+            Id = id;
+            DagNaam = dagnaam;
+            DagDeel = dagdeel;
+        }
+
+        public Beschikbaarheid(int id)
+        {
+            Id = id;
+        }
     }
 }

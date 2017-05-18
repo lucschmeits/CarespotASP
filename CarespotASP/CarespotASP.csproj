@@ -160,6 +160,7 @@
     <Compile Include="Dal\Interfaces\IReview.cs" />
     <Compile Include="Dal\Interfaces\IVaardigheid.cs" />
     <Compile Include="Dal\Interfaces\IVrijwilliger.cs" />
+    <Compile Include="Dal\Repositorys\AuthRepository.cs" />
     <Compile Include="Dal\Repositorys\BeheerderRepository.cs" />
     <Compile Include="Dal\Repositorys\ChatRepository.cs" />
     <Compile Include="Dal\Repositorys\GebruikerRepository.cs" />

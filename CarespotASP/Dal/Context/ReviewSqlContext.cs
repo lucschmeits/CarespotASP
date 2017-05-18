@@ -15,7 +15,7 @@ namespace CarespotASP.Dal.Context
             {
                 using (var con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "SELECT * FROM Review";
+                    string query = "SELECT * FROM Review";
                     var cmd = new SqlCommand(query, con);
                     con.Open();
                     var reader = cmd.ExecuteReader();
@@ -50,7 +50,7 @@ namespace CarespotASP.Dal.Context
             {
                 using (var con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "SELECT * FROM Review WHERE Id = @id";
+                    string query = "SELECT * FROM Review WHERE Id = @id";
                     var cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@id", id);
                     con.Open();
@@ -77,12 +77,13 @@ namespace CarespotASP.Dal.Context
 
         public int CreateReview(Review review)
         {
-            var returnId = 0;
+            int returnId = 0;
             try
             {
                 using (var con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "INSERT INTO Review(AuteurId, GebruikerId, Omschrijving, Beoordeling) VALUES(@auteurid, @gebruikerid, @omschrijving, @beoordeling";
+                    con.Open();
+                    string query = "INSERT INTO Review(AuteurId, GebruikerId, Omschrijving, Beoordeling) VALUES(@auteurid, @gebruikerid, @omschrijving, @beoordeling);  SELECT CAST(scope_identity() AS int);";
                     var cmd = new SqlCommand(query, con);
 
                     cmd.Parameters.AddWithValue("@auteurid", review.AuteurId);
@@ -110,7 +111,8 @@ namespace CarespotASP.Dal.Context
             {
                 using (var con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "UPDATE Review SET AuteurId = @auteurid, GebruikerId = @gebruikerid, Omschrijving = @omschrijving, Beoordeling = @beoordeling WHERE id = @id";
+                    con.Open();
+                    string query = "UPDATE Review SET AuteurId = @auteurid, GebruikerId = @gebruikerid, Omschrijving = @omschrijving, Beoordeling = @beoordeling WHERE id = @id";
                     var cmd = new SqlCommand(query, con);
 
                     cmd.Parameters.AddWithValue("@auteurid", review.AuteurId);
@@ -120,7 +122,7 @@ namespace CarespotASP.Dal.Context
 
                     cmd.Parameters.AddWithValue("@id", review.Id);
 
-                    var reader = cmd.ExecuteNonQuery();
+                    int reader = cmd.ExecuteNonQuery();
                     con.Close();
                 }
             }
@@ -137,7 +139,7 @@ namespace CarespotASP.Dal.Context
             {
                 using (var con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "DELETE FROM Review WHERE id = @id";
+                    string query = "DELETE FROM Review WHERE id = @id";
                     var cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@id", id);
                     con.Open();

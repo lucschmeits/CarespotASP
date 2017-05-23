@@ -17,7 +17,6 @@ namespace CarespotASP.Tests
             HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
 
             var Lijst = hvr.GetAll();
-            Assert.IsTrue(Lijst.Count == 0);
         }
 
         [TestMethod]
@@ -26,10 +25,8 @@ namespace CarespotASP.Tests
             HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
             HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
 
-            var Hulpvraag = hvr.GetById(1);
-
-           
-         
+            Hulpvraag hulpvraag = hvr.GetById(1);
+            Assert.IsNotNull(hulpvraag);
         }
 
         [TestMethod]
@@ -38,29 +35,30 @@ namespace CarespotASP.Tests
             HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
             HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
 
-            DateTime localDate = DateTime.Now;
+            Hulpvraag hulpvraag = hvr.GetById(1); 
 
-            Hulpvraag hv = new Hulpvraag(1,"Test","omschv",localDate,localDate,"rooy",true,VervoerType.Auto ,false);
-
-
-
-      //      hv.Hulpbehoevende = new Hulpbehoevende();
-      //      hv.Hulpbehoevende.Id = 0;
-
-            hvr.Create(hv);
-
+            hvr.Create(hulpvraag);
         }
 
         [TestMethod]
         public void Delete()
         {
-           
+            HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
+            HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
+
+            hvr.Delete(3);
+
         }
 
         [TestMethod]
         public void Update()
         {
-          
+            HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
+            HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
+
+            Hulpvraag hulpvraag = hvr.GetById(1);
+            
+            hvr.Update(1,hulpvraag);
 
 
         }

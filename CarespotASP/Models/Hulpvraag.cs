@@ -18,7 +18,7 @@ namespace CarespotASP.Models
         public bool IsAfgerond { get; private set; }
         public List<Vaardigheid> Vaardigheden { get; private set; }
         public Hulpbehoevende Hulpbehoevende { get; set; }
-        public Vrijwilliger Vrijwilliger { get; private set; }
+        public Vrijwilliger Vrijwilliger { get;  set; }
 
         //Constructor met id
         public Hulpvraag(int id, string titel, string omschrijving, DateTime opdrachtdatum, DateTime createdatum, string locatie, bool urgent, VervoerType vervoertype, bool isafgerond)

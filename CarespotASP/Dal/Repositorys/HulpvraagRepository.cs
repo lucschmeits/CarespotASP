@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.UI;
 using CarespotASP.Dal.Interfaces;
 using CarespotASP.Models;
 
@@ -10,7 +11,7 @@ namespace CarespotASP.Dal.Repositorys
 {
     public class HulpvraagRepository
     {
-        private IHulpvraag _hulpvraagInterface;
+        private readonly IHulpvraag _hulpvraagInterface;
 
         public HulpvraagRepository(IHulpvraag hulpvraagInterface)
         {
@@ -35,6 +36,11 @@ namespace CarespotASP.Dal.Repositorys
         public void Delete(int id)
         {
             _hulpvraagInterface.Delete(id);
+        }
+
+        public void Update(int id, Hulpvraag hulpvraag)
+        {
+            _hulpvraagInterface.Update(id,hulpvraag);
         }
     }
 }

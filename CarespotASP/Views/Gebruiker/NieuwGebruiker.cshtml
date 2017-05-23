@@ -1,0 +1,108 @@
+﻿@using System.Web.UI.HtmlControls
+@using CarespotASP.Models
+
+@{
+    ViewBag.Title = "NieuwGebruiker";
+}
+
+<h2>Maak een nieuwe gebruiker aan</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-6">
+            <!--kolom 1-->
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email adres</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
+                <small id="emailHelp" class="form-text text-muted">Uw Email adres wordt niet met externe partijen gedeeld</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Wachtwoord</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Wachtwoord">
+            </div>
+            <div class="form-group">
+                <label for="formGroupExampleInput">Gebruikersnaam</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Gebruikersnaam">
+            </div>
+            <div class="form-group">
+                <label for="formGroupExampleInput">Naam</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Naam">
+            </div>
+            <p><b>Geboortedatum</b>
+            </p>
+            <!--@Html.TextBox("Geboortedatum", "Moet datepicker worden", new {@class = "form-control"})-->
+            <div class="container">
+                <div class="row">
+                    <div class='col-sm-6'>
+                        <div class="form-group">
+                            <div class='input-group date' id='datetimepicker1'>
+                                <input type='text' class="form-control"/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(function() {
+                            $('#datetimepicker1').datetimepicker();
+                        });
+                    </script>
+                </div>
+            </div>
+            <label class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description">In bezit van geldig rijbewijs</span>
+            </label>
+            <label class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description">In bezit van OV-pas</span>
+            </label>
+            <label class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description">In bezit van een auto</span>
+            </label>
+        </div>
+        <div class="col-md-6">
+            <!--kolom 2-->
+            <div class="form-group">
+                <label for="formGroupExampleInput">Telefoonnummer</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Telefoonnummer">
+            </div>
+            <div class="form-group">
+                <label for="formGroupExampleInput">Adres</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Adres">
+            </div>
+            <div class="form-group">
+                <label for="formGroupExampleInput">Woonplaats</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Woonplaats">
+            </div>
+            <div class="form-group">
+                <label for="formGroupExampleInput">Land</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Land">
+            </div>
+            <div class="form-group">
+                <label for="formGroupExampleInput">Postcode</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Postcode">
+            </div>
+            <div class="form-check">
+                <p><b>Geslacht</b></p>
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                    Man
+                </label>
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
+                    Vrouw
+                </label>
+            </div>
+        </div>
+    </div>
+    <div>
+        <input class="btn btn-primary" type="submit" value="Submit">
+    </div>
+}

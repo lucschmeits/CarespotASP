@@ -87,5 +87,27 @@ namespace CarespotASP.Models
         {
             Id = id;
         }
+
+        public Gebruiker(int id, byte[] image, string email, string wachtwoord, string gebruikersnaam, string naam, DateTime geboortedatum, bool heeftRijbewijs, bool heeftOv, bool heeftAuto, string telefoonnummer, DateTime uitschrijfdatum, string adres, string woonplaats, string land, string postcode, Geslacht geslacht, string barcode)
+        {
+            Id = id;
+            Image = image;
+            Email = email;
+            Wachtwoord = wachtwoord;
+            Gebruikersnaam = gebruikersnaam;
+            Naam = naam;
+            Geboortedatum = geboortedatum;
+            HeeftRijbewijs = heeftRijbewijs;
+            HeeftOv = heeftOv;
+            HeeftAuto = heeftAuto;
+            Telefoonnummer = telefoonnummer;
+            Uitschrijfdatum = uitschrijfdatum;
+            Adres = adres;
+            Woonplaats = woonplaats;
+            Land = land;
+            Postcode = postcode;
+            Geslacht = geslacht;
+            Barcode = barcode;
+        }
     }
 }

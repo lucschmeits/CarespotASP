@@ -17,10 +17,10 @@ namespace CarespotASP.Dal.Context
             {
                 using (var con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "INSERT INTO Hulpverlener (GebruikerId) VALUES (" + id + ")";
+                    var query = "INSERT INTO Hulpverlener (GebruikerId) VALUES (@key)";
 
                     var cmd = new SqlCommand(query, con);
-
+                    cmd.Parameters.AddWithValue("@key", id);
                     con.Open();
 
                     cmd.ExecuteNonQuery();

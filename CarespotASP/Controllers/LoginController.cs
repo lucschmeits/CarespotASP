@@ -30,6 +30,8 @@ namespace CarespotASP.Controllers
             }
             else
             {
+
+                // Ga naar keuze scherm~!!!!
                 return View("~/Views/Home/Index.cshtml");
             }
 

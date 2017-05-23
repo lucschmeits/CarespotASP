@@ -36,5 +36,18 @@ namespace CarespotASP.Dal.Repositorys
         {
             _hulpvraagInterface.Delete(id);
         }
+
+        public List<Hulpvraag> GetHulpvragenByVrijwilligerId(int vrijwilligerId)
+        {
+            return this.GetAll().Where(h => h.Vrijwilliger.Id == vrijwilligerId).ToList();
+
+        }
+
+        public List<Hulpvraag> GetHulpvragenByHulpbehoevendeId(int hulpbehoevendeId)
+        {
+            return this.GetAll().Where(h => h.Hulpbehoevende.Id == hulpbehoevendeId).ToList();
+
+        }
+
     }
 }

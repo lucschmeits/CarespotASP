@@ -88,6 +88,7 @@
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="TestChat.cs" />
     <Compile Include="TestGebruiker.cs" />
+    <Compile Include="TestHulpbehoevende.cs" />
     <Compile Include="TestHulpvraag.cs" />
     <Compile Include="TestBeheerder.cs" />
     <Compile Include="TestReview.cs" />

@@ -149,6 +149,7 @@
     <Compile Include="Dal\Context\BeschikbaarheidSqlContext.cs" />
     <Compile Include="Dal\Context\ChatSqlContext.cs" />
     <Compile Include="Dal\Context\GebruikerSqlContext.cs" />
+    <Compile Include="Dal\Context\HulpbehoevendeSqlContext.cs" />
     <Compile Include="Dal\Context\HulpverlenerSqlContext.cs" />
     <Compile Include="Dal\Context\HulpvraagSqlContext.cs" />
     <Compile Include="Dal\Context\ReviewSqlContext.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="Dal\Interfaces\IBeschikbaarheid.cs" />
     <Compile Include="Dal\Interfaces\IChat.cs" />
     <Compile Include="Dal\Interfaces\IGebruiker.cs" />
+    <Compile Include="Dal\Interfaces\IHulpbehoevende.cs" />
     <Compile Include="Dal\Interfaces\IHulpverlener.cs" />
     <Compile Include="Dal\Interfaces\IHulpvraag.cs" />
     <Compile Include="Dal\Interfaces\IReview.cs" />
@@ -169,6 +171,7 @@
     <Compile Include="Dal\Repositorys\BeschikbaarheidRepository.cs" />
     <Compile Include="Dal\Repositorys\ChatRepository.cs" />
     <Compile Include="Dal\Repositorys\GebruikerRepository.cs" />
+    <Compile Include="Dal\Repositorys\HulpbehoevendeRepository.cs" />
     <Compile Include="Dal\Repositorys\HulpverlenerRepository.cs" />
     <Compile Include="Dal\Repositorys\HulpvraagRepository.cs" />
     <Compile Include="Dal\Repositorys\ReviewRepository.cs" />

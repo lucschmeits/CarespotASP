@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using CarespotASP.Dal.Interfaces;
+using CarespotASP.Dal.Repositorys;
 using CarespotASP.Enums;
 using CarespotASP.Models;
 
@@ -31,7 +32,8 @@ namespace CarespotASP.Dal.Context
                     command.Parameters.AddWithValue("@HulpbehoevendeId", hulpvraag.Hulpbehoevende.Id);
                     command.Parameters.AddWithValue("@VrijwilligerId", 0);
                     command.ExecuteNonQuery();
-                }
+                }   
+                
             }
             catch (Exception e)
             {
@@ -115,16 +117,35 @@ namespace CarespotASP.Dal.Context
                     while (reader.Read())
                     {
                         returnObject = new Hulpvraag(
-                            reader.GetInt32(0),
-                            reader.GetString(1),
-                            reader.GetString(2),
-                            reader.GetDateTime(3),
-                            reader.GetDateTime(4),
-                            reader.GetString(5),
-                            reader.GetBoolean(6),
-                            (VervoerType)Enum.Parse(typeof(VervoerType), reader.GetString(7)),
-                            reader.GetBoolean(8));
-                }
+                            reader.GetInt32(0), //Id
+                            reader.GetString(1), //Titel
+                            reader.GetString(2), //Omschrijving
+                            reader.GetDateTime(3), //OpdrachtDatum
+                            reader.GetDateTime(4), //CreatedDatum
+                            reader.GetString(5), //Locatie
+                            reader.GetBoolean(6), //Urgent
+                            (VervoerType)Enum.Parse(typeof(VervoerType), reader.GetString(7)), //Vervoertype
+                            reader.GetBoolean(8)); //IsAfgerond
+                        //HulpbehoevendeID
+                        //Vrijwilliger
+                    }
+
+                    
+                        //Hulpbehoevende ophalen
+                        HulpbehoevendeSqlContext hbcontext = new HulpbehoevendeSqlContext();
+                        HulpbehoevendeRepository hr = new HulpbehoevendeRepository(hbcontext);
+
+                        returnObject.Hulpbehoevende = hr.GetHulpbehoevendeById(reader.GetInt32(9));
+                    
+
+                    //Vrijwilliger ophalen als deze gezet is
+                    if (!reader.IsDBNull(10))
+                    {
+                        VrijwilligerSqlContext vcontext = new VrijwilligerSqlContext();
+                        VrijwilligerRepository vr = new VrijwilligerRepository(vcontext);
+
+                        returnObject.Vrijwilliger = vr.GetV;
+                    }
                     con.Close();
                 }
             } 

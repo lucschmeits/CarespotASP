@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using CarespotASP.Models;
 
 namespace CarespotASP.Dal.Interfaces
 {
-    interface IVrijwilliger
+    public interface IVrijwilliger
     {
         List<Vrijwilliger> GetAllVrijwilligers();
+
         Vrijwilliger GetVrijwilligerById(int id);
-        int CreateVrijwilliger();
-        void UpdateVrijwilliger();
+
+        void CreateVrijwilliger(int gebruikerId, string vogPath);
+
+        void UpdateVrijwilliger(int gebruikerId, string vogPath, bool isGoedgekeurd);
+
         void DeleteVrijwilligerById(int id);
     }
 }

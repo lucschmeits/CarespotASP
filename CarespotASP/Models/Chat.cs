@@ -5,12 +5,11 @@ using System.Web;
 
 namespace CarespotASP.Models
 {
-    public class Chat
+    public class Chat : IComparable<Chat>
     {
         public int Id { get; private set; }
         public Gebruiker Auteur { get; private set; }
         public Gebruiker Ontvanger { get; private set; }
-
         public DateTime DatumTijd { get; private set; }
         public string Bericht { get; private set; }
 
@@ -33,6 +32,11 @@ namespace CarespotASP.Models
             Ontvanger = ontvanger;
             DatumTijd = datumTijd;
             Bericht = bericht;
+        }
+
+        public int CompareTo(Chat other)
+        {
+            return this.DatumTijd.CompareTo(other.DatumTijd);
         }
     }
 }

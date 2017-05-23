@@ -1,22 +1,69 @@
-﻿using CarespotASP.Dal.Interfaces;
-using CarespotASP.Enums;
-using CarespotASP.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using CarespotASP.Dal.Interfaces;
+using CarespotASP.Enums;
+using CarespotASP.Models;
 
 namespace CarespotASP.Dal.Context
 {
-    public class BeheerderSqlContext : IBeheerder
+    public class HulpverlenerSqlContext : IHulpverlener
     {
-        public List<Beheerder> GetAllBeheerders()
+        public void Create(int id)
         {
-            var returnList = new List<Beheerder>();
             try
             {
                 using (var con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "SELECT Gebruiker.*, Vrijwilliger.VOG, Vrijwilliger.IsGoedgekeurd FROM Vrijwilliger INNER JOIN Gebruiker ON Vrijwilliger.GebruikerId = Gebruiker.Id";
+                    var query = "INSERT INTO Hulpverlener (GebruikerId) VALUES (@key)";
+
+                    var cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@key", id);
+                    con.Open();
+
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public void Delete(int id)
+        {
+            try
+            {
+                using (var con = new SqlConnection(Env.ConnectionString))
+                {
+                    var query = "DELETE FROM Hulpverlener WHERE GebruikerId = @key";
+                    var cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@key", id);
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public List<Hulpverlener> GetAll()
+        {
+            var returnList = new List<Hulpverlener>();
+            try
+            {
+                using (var con = new SqlConnection(Env.ConnectionString))
+                {
+                    var query = "SELECT Gebruiker.* FROM Gebruiker INNER JOIN Hulpverlener ON Gebruiker.Id = Hulpverlener.GebruikerId";
                     var cmd = new SqlCommand(query, con);
                     con.Open();
                     var reader = cmd.ExecuteReader();
@@ -27,7 +74,7 @@ namespace CarespotASP.Dal.Context
                         if (!reader.IsDBNull(1))
                             foto = (byte[])reader[1];
 
-                        Beheerder b = new Beheerder(
+                        var h = new Hulpverlener(
                             reader.GetInt32(0),
                             foto,
                             reader.GetString(2),
@@ -45,7 +92,7 @@ namespace CarespotASP.Dal.Context
                             reader.GetString(15),
                             (Geslacht)Enum.Parse(typeof(Geslacht), reader.GetString(16)));
 
-                        returnList.Add(b);
+                        returnList.Add(h);
                     }
 
                     con.Close();
@@ -60,14 +107,14 @@ namespace CarespotASP.Dal.Context
             }
         }
 
-        public Beheerder GetBeheerderById(int id)
+        public Hulpverlener GetById(int id)
         {
-            Beheerder returnBeheerder = null;
+            Hulpverlener returnHulpverlener = null;
             try
             {
                 using (var con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "SELECT Gebruiker.* FROM Beheerder INNER JOIN Gebruiker ON Beheerder.GebruikerId = Gebruiker.Id where Id = @key";
+                    var query = "SELECT Gebruiker.* FROM Gebruiker INNER JOIN Hulpverlener ON Gebruiker.Id = Hulpverlener.GebruikerId WHERE Id = @key";
                     var cmd = new SqlCommand(query, con);
                     con.Open();
 
@@ -80,7 +127,7 @@ namespace CarespotASP.Dal.Context
                         if (!reader.IsDBNull(1))
                             foto = (byte[])reader[1];
 
-                        returnBeheerder = new Beheerder(
+                        returnHulpverlener = new Hulpverlener(
                            reader.GetInt32(0),
                            foto,
                            reader.GetString(2),
@@ -102,52 +149,7 @@ namespace CarespotASP.Dal.Context
                     con.Close();
                 }
 
-                return returnBeheerder;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
-        public void CreateBeheerder(int id)
-        {
-            try
-            {
-                using (var con = new SqlConnection(Env.ConnectionString))
-                {
-                    var query = "INSERT INTO Beheerder (GebruikerId) VALUES (" + id + ")";
-
-                    var cmd = new SqlCommand(query, con);
-
-                    con.Open();
-
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
-        public void DeleteBeheerderById(int id)
-        {
-            try
-            {
-                using (var con = new SqlConnection(Env.ConnectionString))
-                {
-                    var query = "DELETE FROM Beheerder WHERE GebruikerId = @key";
-                    var cmd = new SqlCommand(query, con);
-                    cmd.Parameters.AddWithValue("@key", id);
-
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                }
+                return returnHulpverlener;
             }
             catch (Exception e)
             {

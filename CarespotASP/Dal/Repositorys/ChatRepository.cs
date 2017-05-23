@@ -37,5 +37,28 @@ namespace CarespotASP.Dal.Repositorys
         {
             _chatInterface.Delete(id);
         }
+
+        public List<Chat> GetChatByUsers(int gebruikerId, int gebruiker2Id)
+        {
+            List<Chat> allChatMessages = this.GetAll();
+            List<Chat> returnList = new List<Chat>();
+
+            foreach (Chat bericht in allChatMessages)
+            {
+                if (bericht.Auteur.Id == gebruikerId && bericht.Ontvanger.Id == gebruiker2Id)
+                {
+                    returnList.Add(bericht);
+                }
+                else if (bericht.Auteur.Id == gebruiker2Id && bericht.Ontvanger.Id == gebruikerId)
+                {
+                    returnList.Add(bericht);
+                }
+        
+            }
+            returnList.Sort();
+
+            return returnList;
+        }
+
     }
 }

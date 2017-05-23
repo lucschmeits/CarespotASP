@@ -1,4 +1,5 @@
-﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -33,7 +34,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -85,7 +88,15 @@
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="TestChat.cs" />
     <Compile Include="TestGebruiker.cs" />
+    <Compile Include="TestHulpbehoevende.cs" />
     <Compile Include="TestHulpvraag.cs" />
+    <Compile Include="TestBeheerder.cs" />
+    <Compile Include="TestReview.cs" />
+    <Compile Include="TestBeschikbaarheid.cs" />
+    <Compile Include="TestReactie.cs" />
+    <Compile Include="TestVrijwilliger.cs" />
+    <Compile Include="TestHulpverlener.cs" />
+    <Compile Include="TestVaardigheid.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

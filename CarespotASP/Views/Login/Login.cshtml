@@ -8,7 +8,7 @@
     </div>
 
     <div class="col-md-5 login-form">
-        @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+        @using (Html.BeginForm("LoginPost", "Login", FormMethod.Post))
         {
             <div class="form-group">
                 E-mail : @Html.TextBox("email", null, new { @class = "form-control" })
@@ -19,6 +19,17 @@
             <input type="submit" value="Log in" class="btn btn-default" />
 
         }
+        
+        @if (@ViewBag.LoginResult !=null && !@ViewBag.LoginResult)
+        {
+
+            <br />
+            <div class="alert alert-danger" role="alert">
+                Er ging iets mis bij het inloggen!
+                
+            </div>
+        }
+
     </div>
     <div class="col-md-7 instructies">
         <h2>Instructies</h2>

@@ -46,13 +46,13 @@ namespace CarespotASP.Dal.Repositorys
 
         public List<Hulpvraag> GetHulpvragenByVrijwilligerId(int vrijwilligerId)
         {
-            return this.GetAll().Where(h => h.Vrijwilliger.Id == vrijwilligerId).ToList();
+            return this.GetAll().Where(h => h.Vrijwilliger !=null && h.Vrijwilliger.Id== vrijwilligerId).ToList();
 
         }
 
         public List<Hulpvraag> GetHulpvragenByHulpbehoevendeId(int hulpbehoevendeId)
         {
-            return this.GetAll().Where(h => h.Hulpbehoevende.Id == hulpbehoevendeId).ToList();
+            return this.GetAll().Where(h =>h.Hulpbehoevende !=null &&  h.Hulpbehoevende.Id == hulpbehoevendeId).ToList();
 
         }
     }

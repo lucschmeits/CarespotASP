@@ -14,5 +14,6 @@ namespace CarespotASP.Dal.Interfaces
         int CreateBeschikbaarheid(Beschikbaarheid obj);
         void UpdateBeschikbaarheid(Beschikbaarheid obj);
         void DeleteBeschikbaarheid(int Id);
+        List<Beschikbaarheid> GetBeschikbaarheidByVrijwilligerId(int id);
     }
 }

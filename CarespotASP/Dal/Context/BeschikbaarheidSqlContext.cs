@@ -160,5 +160,10 @@ namespace CarespotASP.Dal.Context
                 throw;
             }
         }
+
+        public List<Beschikbaarheid> GetBeschikbaarheidByVrijwilligerId(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

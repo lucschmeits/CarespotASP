@@ -30,5 +30,10 @@ namespace CarespotASP.Dal.Repositorys
         {
             _interface.DeleteReactieById(id);
         }
+
+        public List<Reactie> GetReatiesByHulpvraagId(int hulpvraagId)
+        {
+         return this.GetAllReacties().Where(r => r.HulpvraagId == hulpvraagId).ToList();
+        }
     }
 }

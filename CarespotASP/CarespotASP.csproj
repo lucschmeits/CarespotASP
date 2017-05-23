@@ -145,16 +145,22 @@
     <Compile Include="Controllers\HulpbehoevendeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistreerController.cs" />
+
     <Compile Include="Dal\Context\BeheerderSqlContext.cs" />
     <Compile Include="Dal\Context\BeschikbaarheidSqlContext.cs" />
     <Compile Include="Dal\Context\ChatSqlContext.cs" />
     <Compile Include="Dal\Context\GebruikerSqlContext.cs" />
     <Compile Include="Dal\Context\HulpverlenerSqlContext.cs" />
     <Compile Include="Dal\Context\HulpvraagSqlContext.cs" />
+    <Compile Include="Dal\Context\ReactieSqlContext.cs" />
     <Compile Include="Dal\Context\ReviewSqlContext.cs" />
     <Compile Include="Dal\Context\VaardigheidSqlContext.cs" />
     <Compile Include="Dal\Context\VrijwilligerSqlContext.cs" />
     <Compile Include="Dal\Env.cs" />
+
+    <Compile Include="Dal\Interfaces\IReactie.cs" />
+
+
     <Compile Include="Dal\Interfaces\IBeheerder.cs" />
     <Compile Include="Dal\Interfaces\IBeschikbaarheid.cs" />
     <Compile Include="Dal\Interfaces\IChat.cs" />
@@ -171,6 +177,7 @@
     <Compile Include="Dal\Repositorys\GebruikerRepository.cs" />
     <Compile Include="Dal\Repositorys\HulpverlenerRepository.cs" />
     <Compile Include="Dal\Repositorys\HulpvraagRepository.cs" />
+    <Compile Include="Dal\Repositorys\ReactieRepository.cs" />
     <Compile Include="Dal\Repositorys\ReviewRepository.cs" />
     <Compile Include="Dal\Repositorys\VaardigheidRepository.cs" />
     <Compile Include="Dal\Repositorys\VrijwilligerRepository.cs" />
@@ -179,12 +186,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+
     <Compile Include="Models\Beheerder.cs" />
-    <Compile Include="Models\beschikbaarheid.cs" />
+    <Compile Include="Models\Beschikbaarheid.cs" />
     <Compile Include="Models\Chat.cs" />
     <Compile Include="Models\Gebruiker.cs" />
     <Compile Include="Models\Hulpbehoevende.cs" />
     <Compile Include="Models\Hulpverlener.cs" />
+    <Compile Include="Models\Reactie.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Hulpvraag.cs" />
     <Compile Include="Models\Vaardigheid.cs" />

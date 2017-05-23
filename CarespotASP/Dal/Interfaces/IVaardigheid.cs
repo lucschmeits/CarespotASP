@@ -14,5 +14,9 @@ namespace CarespotASP.Dal.Interfaces
         int CreateVaardigheid(Vaardigheid obj);
         void UpdateVaardigheid(Vaardigheid obj);
         void DeleteVaardigheidById(int id);
+        List<Vaardigheid> GetVaardigheidByVrijwilligerId(int id);
+        List<Vaardigheid> GetVaardigheidByHulpvraagId(int id);
+
+
     }
 }

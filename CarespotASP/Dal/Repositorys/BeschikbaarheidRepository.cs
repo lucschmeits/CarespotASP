@@ -36,8 +36,13 @@ namespace CarespotASP.Dal.Repositorys
         {
             _interface.UpdateBeschikbaarheid(b);
         }
+ 
+        public List<Beschikbaarheid> GetBeschikbaarheidByVrijwilligerId(int id)
+        {
+            return _interface.GetBeschikbaarheidByVrijwilligerId(id);
+        }
 
-        //ReturnBeshikbaarheidByVrijwilligerId
+
         //ReturnBeschikbaarheidByHulpvraagId
 
     }

@@ -153,5 +153,82 @@ namespace CarespotASP.Dal.Context
                 throw;
             }
         }
+
+        public List<Vaardigheid> GetVaardigheidByVrijwilligerId(int id)
+        {
+            
+
+            List<Vaardigheid> returnList = new List<Vaardigheid>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
+                {
+
+                    string query = "SELECT Vaardigheid.Id, Vaardigheid.Omschrijving FROM Vrijwilliger_Vaardigheid INNER JOIN Vaardigheid ON Vrijwilliger_Vaardigheid.VaardigheidId = Vaardigheid.Id WHERE Vrijwilliger_Vaardigheid.VrijwilligerId = @key";
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@key", id);
+
+                    con.Open();
+                    var reader = cmd.ExecuteReader();
+
+
+                    while (reader.Read())
+                    {
+                        Vaardigheid vaardigheid = new Vaardigheid(
+                            reader.GetInt32(0),
+                            reader.GetString(1));
+                            returnList.Add(vaardigheid);
+                    }
+
+                    con.Close();
+                }
+
+                return returnList;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+          
+        }
+
+        public List<Vaardigheid> GetVaardigheidByHulpvraagId(int id)
+        {
+           // NOT TESTED
+            List<Vaardigheid> returnList = new List<Vaardigheid>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
+                {
+
+                    string query = "SELECT Vaardigheid.Id, Vaardigheid.Omschrijving FROM Vaardigheid INNER JOIN Hulpvraag_Vaardigheid ON Vaardigheid.Id = Hulpvraag_Vaardigheid.VaardigheidId WHERE Hulpvraag_Vaardigheid.HulpvraagId = @key ";
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@key", id);
+
+                    con.Open();
+                    var reader = cmd.ExecuteReader();
+
+
+                    while (reader.Read())
+                    {
+                        Vaardigheid vaardigheid = new Vaardigheid(
+                            reader.GetInt32(0),
+                            reader.GetString(1));
+                        returnList.Add(vaardigheid);
+                    }
+
+                    con.Close();
+                }
+
+                return returnList;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }

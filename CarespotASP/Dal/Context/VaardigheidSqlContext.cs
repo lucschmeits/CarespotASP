@@ -230,5 +230,26 @@ namespace CarespotASP.Dal.Context
                 throw;
             }
         }
+
+        public void AddVaardigheidToHulpvraag(Vaardigheid vaardigheid, int hulpvraagid)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
+                {
+                    con.Open();
+                    var cmdString = "INSERT INTO Hulpvraag_Vaardigheid (HulpvraagId, VaardigheidId) VALUES (@Hulpvraagid, @Vaardigheidid)";
+                    var command = new SqlCommand(cmdString, con);
+                    command.Parameters.AddWithValue("@Hulpvraagid", hulpvraagid);
+                    command.Parameters.AddWithValue("@Vaardigheidid", vaardigheid.Id);
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }

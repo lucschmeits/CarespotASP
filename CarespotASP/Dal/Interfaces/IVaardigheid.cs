@@ -12,6 +12,7 @@ namespace CarespotASP.Dal.Interfaces
         List<Vaardigheid> GetAllVaardigheden();
         Vaardigheid GetVaardigheidById(int id);
         int CreateVaardigheid(Vaardigheid obj);
+        void AddVaardigheidToHulpvraag(Vaardigheid vaardigheid, int hulpvraagid);
         void UpdateVaardigheid(Vaardigheid obj);
         void DeleteVaardigheidById(int id);
         List<Vaardigheid> GetVaardigheidByVrijwilligerId(int id);

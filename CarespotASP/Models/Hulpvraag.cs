@@ -16,7 +16,7 @@ namespace CarespotASP.Models
         public bool Urgent { get; private set; }
         public VervoerType VervoerType { get; private set; }
         public bool IsAfgerond { get; private set; }
-        public List<Vaardigheid> Vaardigheden { get; private set; }
+        public List<Vaardigheid> Vaardigheden { get; set; }
         public Hulpbehoevende Hulpbehoevende { get; set; }
         public Vrijwilliger Vrijwilliger { get;  set; }
 

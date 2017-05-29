@@ -26,8 +26,8 @@ namespace CarespotASP.Tests
             HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
             HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
 
-            Hulpvraag hulpvraag = hvr.GetById(6);
-            Assert.AreEqual("Lars",hulpvraag.Vrijwilliger.Naam);
+            Hulpvraag hulpvraag = hvr.GetById(1);
+            Assert.AreEqual(1,hulpvraag.Vaardigheden[0].Omschrijving);
         }
 
         [TestMethod]
@@ -36,7 +36,12 @@ namespace CarespotASP.Tests
             HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
             HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
 
-            Hulpvraag hulpvraag = hvr.GetById(1); 
+            Hulpvraag hulpvraag = hvr.GetById(1);
+
+
+            VaardigheidSqlContext vsc = new VaardigheidSqlContext();
+            VaardigheidRepository vr = new VaardigheidRepository(vsc);
+            hulpvraag.Vaardigheden = vr.GetAll();
 
             hvr.Create(hulpvraag);
         }

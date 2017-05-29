@@ -48,7 +48,7 @@ namespace CarespotASP.Dal.Context
                              reader.GetString(17),//barcode
                              reader.GetString(19),//vog
                              Convert.ToBoolean(reader.GetInt32(20)));//isgoedgekeurd
-
+                        v.Vaardigheden = GetVraadigheidByVrijwilligerId(reader.GetInt32(0));
                         returnList.Add(v);
                     }
 
@@ -104,6 +104,7 @@ namespace CarespotASP.Dal.Context
                              reader.GetString(17),//barcode
                              reader.GetString(19),//vog
                              Convert.ToBoolean(reader.GetInt32(20)));//isgoedgekeurd
+                        returnVrijwilliger.Vaardigheden = GetVraadigheidByVrijwilligerId(reader.GetInt32(0));
                     }
 
                     con.Close();
@@ -185,6 +186,41 @@ namespace CarespotASP.Dal.Context
                     cmd.ExecuteNonQuery();
                     con.Close();
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public List<Vaardigheid> GetVraadigheidByVrijwilligerId(int id)
+        {
+            var returnList = new List<Vaardigheid>();
+            try
+            {
+                using (var con = new SqlConnection(Env.ConnectionString))
+                {
+                    con.Open();
+                    var query = "SELECT Vaardigheid.* FROM Vaardigheid INNER JOIN Vrijwilliger_Vaardigheid ON Vaardigheid.Id = Vrijwilliger_Vaardigheid.VaardigheidId INNER JOIN Vrijwilliger ON Vrijwilliger_Vaardigheid.VrijwilligerId = Vrijwilliger.GebruikerId AND Vrijwilliger_Vaardigheid.VrijwilligerId = Vrijwilliger.GebruikerId WHERE Vrijwilliger.GebruikerId = @id ";
+                    var cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@id", id);
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+
+
+                        var vaardigheid = new Vaardigheid(
+                            reader.GetInt32(0), reader.GetString(1));
+
+                        returnList.Add(vaardigheid);
+                    }
+
+                    con.Close();
+                }
+
+                return returnList;
             }
             catch (Exception e)
             {

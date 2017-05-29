@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using CarespotASP.Dal.Interfaces;
 using CarespotASP.Models;
 
@@ -37,5 +38,18 @@ namespace CarespotASP.Dal.Repositorys
         {
             _reviewInterface.DeleteReviewById(id);
         }
+
+        public List<Review> GetReviewByVrijwilligerId(int id)
+        {
+            return this.GetAllReviews().Where(r => r.GebruikerId == id).ToList();
+
+        }
+
+        public List<Review> GetReviewByHulpbehoevendeId(int id)
+        {
+            return this.GetAllReviews().Where(r => r.AuteurId == id).ToList();
+        }
+
     }
+
 }

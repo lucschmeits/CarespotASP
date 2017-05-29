@@ -156,7 +156,7 @@ namespace CarespotASP.Dal.Context
 
         public List<Vaardigheid> GetVaardigheidByVrijwilligerId(int id)
         {
-            
+
 
             List<Vaardigheid> returnList = new List<Vaardigheid>();
             try
@@ -177,7 +177,7 @@ namespace CarespotASP.Dal.Context
                         Vaardigheid vaardigheid = new Vaardigheid(
                             reader.GetInt32(0),
                             reader.GetString(1));
-                            returnList.Add(vaardigheid);
+                        returnList.Add(vaardigheid);
                     }
 
                     con.Close();
@@ -191,7 +191,7 @@ namespace CarespotASP.Dal.Context
                 throw;
             }
 
-          
+
         }
 
         public List<Vaardigheid> GetVaardigheidByHulpvraagId(int id)

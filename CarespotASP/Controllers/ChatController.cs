@@ -33,10 +33,10 @@ namespace CarespotASP.Controllers
       
          //   Gebruiker loggedInUser= (Gebruiker) Session["LoggedInUser"];
             Gebruiker loggedInUser = gr.GetById(1);
+            
             ViewBag.LoggedInUser = loggedInUser;
             ViewBag.Gebruikers = gr.GetAll();
-            ViewBag.ChatBerichten = chatRepo.GetChatByUsers(loggedInUser.Id, Convert.ToInt32(id));
-
+            ViewBag.EnableChat = "true";
             return View("~/Views/Chat/Index.cshtml");
         }
     }

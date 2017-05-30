@@ -24,17 +24,38 @@
            
         </table>
     </div>
+   @if (ViewBag.LoggedInUser != null  && ViewBag.EnableChat == "true")
+   {
     <div class="col-md-8">
-        <h2>Chat</h2>       
-            <textarea class="form-control" rows="5" id="chatBerichten"></textarea>
-        <div class="input-group">               
-            <br/>
-            <div  class="input-group" >
-                <input width="300px" type="text" class="form-control" value="@foreach(Chat c in ViewBag.ChatBerichten){ }" placeholder="Bericht...">
-                <span  class="input-group-btn">
-                    <button class="btn btn-default" type="button">Versturen</button>
+        <h2>Chat</h2>
+        <textarea class="form-control" rows="5" id="chatBerichten" disabled></textarea>
+        <div class="input-group">
+            <br />
+            <div class="input-group">
+                <input id="Chat" width="300px" type="text" class="form-control" value="" placeholder="Bericht..." />
+                <span class="input-group-btn">
+                    <button id="sendChat" class="btn btn-default" type="button" >Versturen</button>
                 </span>
             </div>
         </div>
     </div>
+   }
+   else
+   {
+    <div class="col-md-8">
+        <h2>Chat</h2>
+        <textarea class="form-control" rows="5" id="chatBerichten" disabled></textarea>
+        <div class="input-group">
+            <br />
+            <div class="input-group">
+                <input width="300px" type="text" class="form-control" value="" placeholder="Bericht..." disabled>
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" disabled>Versturen</button>
+                </span>
+            </div>
+        </div>
+    </div>
+   }
+
+
 </div>

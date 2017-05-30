@@ -1,0 +1,40 @@
+﻿@using CarespotASP.Models
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-4">
+        <h2>Gebruikers</h2>
+        <table class="table">
+            <tr>
+                <th>Naam</th>
+                <th>Chat</th>
+            </tr>
+            
+            @foreach (Gebruiker g in ViewBag.Gebruikers)
+            {
+                <tr>
+                    <td>@g.Naam</td>
+                    <td><a href="/Chat/@g.Id" class="btn btn-info" role="button"><span class="glyphicon glyphicon-chevron-right"></span></a></td>
+                </tr>
+            }
+
+           
+        </table>
+    </div>
+    <div class="col-md-8">
+        <h2>Chat</h2>       
+            <textarea class="form-control" rows="5" id="chatBerichten"></textarea>
+        <div class="input-group">               
+            <br/>
+            <div  class="input-group" >
+                <input width="300px" type="text" class="form-control" value="@foreach(Chat c in ViewBag.ChatBerichten){ }" placeholder="Bericht...">
+                <span  class="input-group-btn">
+                    <button class="btn btn-default" type="button">Versturen</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -133,8 +133,8 @@ namespace CarespotASP.Dal.Context
             {
                 using (var con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "INSERT INTO Gebruiker(Foto, Email, Wachtwoord, Gebruikersnaam, Naam, Geboortedatum, HeeftRijbewijs, HeeftOv, HeeftAuto, Telefoonnummer, Uitschrijfdatum, Adres, Woonplaats, Land, Postcode, Geslacht, Barcode)VALUES" +
-                                "(@foto,@email,@wachtwoord,@gebruikersnaam,@naam,@geboortedatum,@heeftRijbewijs,@heeftOv,@heeftAuto,@telefoonnummer,@uitschrijfdatum,@adres,@woonplaats,@land,@postcode,@geslacht,@barcode);SELECT CAST(scope_identity() AS int);";
+                    var query = "INSERT INTO Gebruiker(Foto, Email, Wachtwoord, Gebruikersnaam, Naam, Geboortedatum, HeeftRijbewijs, HeeftOv, HeeftAuto, Telefoonnummer, Adres, Woonplaats, Land, Postcode, Geslacht, Barcode)VALUES" +
+                                "(@foto,@email,@wachtwoord,@gebruikersnaam,@naam,@geboortedatum,@heeftRijbewijs,@heeftOv,@heeftAuto,@telefoonnummer,@adres,@woonplaats,@land,@postcode,@geslacht,@barcode);SELECT CAST(scope_identity() AS int);";
                     var cmd = new SqlCommand(query, con);
                     con.Open();
 
@@ -148,7 +148,7 @@ namespace CarespotASP.Dal.Context
                     cmd.Parameters.AddWithValue("@heeftOv", Convert.ToInt32(obj.HeeftOv));
                     cmd.Parameters.AddWithValue("@heeftAuto", Convert.ToInt32(obj.HeeftAuto));
                     cmd.Parameters.AddWithValue("@telefoonnummer", obj.Telefoonnummer);
-                    cmd.Parameters.AddWithValue("@uitschrijfdatum", obj.Uitschrijfdatum.ToString());
+                    //cmd.Parameters.AddWithValue("@uitschrijfdatum", obj.Uitschrijfdatum.ToString());
                     cmd.Parameters.AddWithValue("@adres", obj.Adres);
                     cmd.Parameters.AddWithValue("@woonplaats", obj.Woonplaats);
                     cmd.Parameters.AddWithValue("@land", obj.Land);

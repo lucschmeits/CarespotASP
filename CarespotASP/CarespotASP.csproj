@@ -146,7 +146,6 @@
     <Compile Include="Controllers\HulpbehoevendeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistreerController.cs" />
-
     <Compile Include="Dal\Context\BeheerderSqlContext.cs" />
     <Compile Include="Dal\Context\BeschikbaarheidSqlContext.cs" />
     <Compile Include="Dal\Context\ChatSqlContext.cs" />
@@ -159,10 +158,7 @@
     <Compile Include="Dal\Context\VaardigheidSqlContext.cs" />
     <Compile Include="Dal\Context\VrijwilligerSqlContext.cs" />
     <Compile Include="Dal\Env.cs" />
-
     <Compile Include="Dal\Interfaces\IReactie.cs" />
-
-
     <Compile Include="Dal\Interfaces\IBeheerder.cs" />
     <Compile Include="Dal\Interfaces\IBeschikbaarheid.cs" />
     <Compile Include="Dal\Interfaces\IChat.cs" />
@@ -185,12 +181,13 @@
     <Compile Include="Dal\Repositorys\ReviewRepository.cs" />
     <Compile Include="Dal\Repositorys\VaardigheidRepository.cs" />
     <Compile Include="Dal\Repositorys\VrijwilligerRepository.cs" />
+    <Compile Include="Enums\Dagdeel.cs" />
+    <Compile Include="Enums\Dagnaam.cs" />
     <Compile Include="Enums\Geslacht.cs" />
     <Compile Include="Enums\VervoerType.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-
     <Compile Include="Models\Beheerder.cs" />
     <Compile Include="Models\Beschikbaarheid.cs" />
     <Compile Include="Models\Chat.cs" />

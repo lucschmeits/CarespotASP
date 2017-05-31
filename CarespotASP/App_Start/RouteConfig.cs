@@ -15,13 +15,26 @@ namespace CarespotASP
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
 
-            routes.MapRoute(
-    name: "Chat",
-    url: "Chat",
-    defaults: new { controller = "Chat", action = "Index"}
-);
 
             routes.MapRoute(
+   name: "Chat/SendChatMessage",
+   url: "Chat/SendChatMessage",
+   defaults: new { controller = "Chat", action = "SendChatMessage" }
+   );
+
+
+            routes.MapRoute(
+   name: "Chat/HaalChatOp",
+   url: "Chat/HaalChatOp",
+   defaults: new { controller = "Chat", action = "HaalChatOp" }
+   );
+
+            routes.MapRoute(
+name: "Chat",
+url: "Chat",
+defaults: new { controller = "Chat", action = "Index" }
+);
+        routes.MapRoute(
     name: "Chat/Id",
     url: "Chat/{id}",
     defaults: new { controller = "Chat", action = "ChatScherm", id = UrlParameter.Optional }

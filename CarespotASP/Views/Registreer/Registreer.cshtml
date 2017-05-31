@@ -3,5 +3,124 @@
     ViewBag.Title = "Registreer";
 }
 
-<h2>Registreer</h2>
+<h2 class="registreer-header">Registreer</h2>
+
+<section id="registreer">
+    <div class="container">
+        <div class="row">
+            @using (Html.BeginForm("save", "Registreer", FormMethod.Post,new 
+            { enctype = "multipart/form-data" }))
+            {
+                <div class="col-md-3">
+                    <p>Gebruikersnaam</p>
+                    <div class="form-group">
+                        <input id="gebruikersnaam" name="gebruikersnaam" class="form-control" type="text" placeholder=""/>
+                    </div>
+                    <p>E-mail</p>
+                    <div class="form-group">
+                        <input id="email" name="email" class="form-control" type="email" placeholder=""/>
+                    </div>
+                    <p>Wachtwoord</p>
+                    <div class="form-group">
+                        <input id="wachtwoord" name="wachtwoord" class="form-control" type="password" placeholder=""/>
+                    </div>
+                    <p>Herhalen</p>
+                    <div class="form-group">
+                        <input id="wachtwoordherhalen" name="wachtwoordherhalen" class="form-control" type="password" placeholder=""/>
+                    </div>
+                    <p>Naam</p>
+                    <div class="form-group">
+                        <input id="naam" name="naam" class="form-control" type="text" placeholder=""/>
+                    </div>
+                    <p>Geslacht</p>
+                    <div class="form-group">
+                        <select name="geslacht" class="select">
+                            <option>Man</option>
+                            <option>Vrouw</option>
+                        </select>
+                    </div>
+                    <p>Telefoon nr</p>
+                    <div class="form-group">
+                        <input id="telnr" name="telnr" class="form-control" type="text" placeholder=""/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <p>Adres</p>
+                    <div class="form-group">
+                        <input id="adres" name="adres" class="form-control" type="text" placeholder=""/>
+                    </div>
+                    <p>Huisnummer</p>
+                    <div class="form-group">
+                        <input id="huisnr" name="huisnr" class="form-control" type="text" placeholder=""/>
+                    </div>
+                    <p>Postcode</p>
+                    <div class="form-group">
+                        <input id="postcode" name="postcode" class="form-control" type="text" placeholder=""/>
+                    </div>
+                    <p>Plaats</p>
+                    <div class="form-group">
+                        <input id="plaats" name="plaats" class="form-control" type="text" placeholder=""/>
+                    </div>
+                    <p>Land</p>
+                    <div class="form-group">
+                        <input id="land" name="land" class="form-control" type="text" placeholder="" value="Nederland"/>
+                    </div>
+                    <p>Foto</p>
+                    <div class="form-group">
+                        <input class="btn btn-default btn-registreer" type="file" name="foto"/>Upload
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <p>Rijbewijs</p>
+                    <div class="form-group">
+                        <select name="rijbewijs" class="select">
+                            <option value="true">Ja</option>
+                            <option value="false">Nee</option>
+                        </select>
+                    </div>
+                    <p>Auto</p>
+                    <div class="form-group">
+                        <select name="auto" class="select">
+                            <option value="true">Ja</option>
+                            <option value="false">Nee</option>
+                        </select>
+                    </div>
+                    <p>OV</p>
+                    <div class="form-group">
+                        <select name="ov" class="select">
+                            <option value="true">Ja</option>
+                            <option value="false">Nee</option>
+                        </select>
+                    </div>
+                    <p>Geboortedatum</p>
+                    <div class="form-group">
+                        <input id="geboortedatum" name="geboortedatum" class="form-control" type="date" placeholder=""/>
+                    </div>
+                    <p>VOG</p>
+                    <div class="form-group">
+                        <input class="btn btn-default btn-registreer" type="file" name="vog"/>Upload
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <p>Vaardigheid</p>
+                    <label class="label-registreer"><input id="titel" name="search" class="" type="checkbox" placeholder=""/> Vaardigheid 1</label>
+                    <label class="label-registreer"><input id="titel" name="search" class="" type="checkbox" placeholder=""/> Vaardigheid 2 </label>
+                    <label class="label-registreer"><input id="titel" name="search" class="" type="checkbox" placeholder=""/> Vaardigheid 3 </label>
+                    <label class="label-registreer"><input id="titel" name="search" class="" type="checkbox" placeholder=""/> Vaardigheid 4 </label>
+                    <label class="label-registreer"><input id="titel" name="search" class="" type="checkbox" placeholder=""/> Vaardigheid 5 </label>
+                    <label class="label-registreer"><input id="titel" name="search" class="" type="checkbox" placeholder=""/> Vaardigheid 6 </label>
+                    <label class="label-registreer"><input id="titel" name="search" class="" type="checkbox" placeholder=""/> Vaardigheid 7 </label>
+                    <div class="form-group">
+                        <button class="btn btn-default btn-registreer" type="submit">Registreer</button>
+                    </div>
+                </div>
+            }
+
+          
+
+        </div>
+    </div>
+</section>
 

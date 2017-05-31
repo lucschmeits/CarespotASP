@@ -1,3 +1,6 @@
 ﻿$(document).ready(function () {
-    $('#example').DataTable();
+    $("#example").DataTable();
+    $("#opdrachten").DataTable();
+    $("#vog").DataTable();
+    $("#gebruikers").DataTable();
 });

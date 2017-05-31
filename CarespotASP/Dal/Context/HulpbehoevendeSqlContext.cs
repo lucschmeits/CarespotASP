@@ -50,10 +50,8 @@ namespace CarespotASP.Dal.Context
                     con.Open();
                     var reader = cmd.ExecuteReader();
 
-
                     while (reader.Read())
                     {
-
                         var foto = new byte[10];
                         if (!reader.IsDBNull(1))
                             foto = (byte[])reader[1];
@@ -111,7 +109,6 @@ namespace CarespotASP.Dal.Context
                     cmd.Parameters.AddWithValue("@key", id);
                     var reader = cmd.ExecuteReader();
 
-
                     while (reader.Read())
                     {
                         //Vul foto als deze niet leeg is
@@ -151,7 +148,7 @@ namespace CarespotASP.Dal.Context
                         }
 
                         //Uitschrijfdatum
-                        if (!reader.IsDBNull(10))
+                        if (!reader.IsDBNull(11))
                         {
                             returnHulpbehoevende.Uitschrijfdatum = reader.GetDateTime(11); //Uitschrijfdatum
                         }

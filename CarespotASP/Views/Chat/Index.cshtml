@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    Gebruiker loggedInUser = (Gebruiker)ViewBag.LoggedInUser;
 }
 <div class="row">
     <div class="col-md-4">
@@ -26,13 +27,14 @@
     </div>
    @if (ViewBag.LoggedInUser != null  && ViewBag.EnableChat == "true")
    {
+       <input id="loggedUserId" type="hidden" value="@loggedInUser.Id" />
     <div class="col-md-8">
         <h2>Chat</h2>
-        <textarea class="form-control" rows="5" id="chatBerichten" disabled></textarea>
+        <textarea id="chatBerichten" class="form-control" rows="20" disabled>  </textarea>
         <div class="input-group">
             <br />
             <div class="input-group">
-                <input id="Chat" width="300px" type="text" class="form-control" value="" placeholder="Bericht..." />
+                <input id="chatBericht" width="300px" type="text" class="form-control" value="" placeholder="Bericht..." />
                 <span class="input-group-btn">
                     <button id="sendChat" class="btn btn-default" type="button" >Versturen</button>
                 </span>

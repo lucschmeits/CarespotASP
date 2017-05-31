@@ -1,8 +1,10 @@
 ﻿$(document).ready(function () {
     $('#example').DataTable();
- 
-      SendChatMessageOnClick();
-    
+
+
+    SendChatMessageOnClick();  
+
+
       setInterval(function () {
           FillChatBoxIfPossible();
       }, 3000);
@@ -43,8 +45,7 @@ function SendChatMessageOnClick() {
         var chatBericht = $("#chatBericht").val();
         if (urlArray[3] == "Chat" && typeof urlArray[4] != 'undefined') {
 
-            alert($("#loggedUserId").val() + urlArray[4] + chatBericht);
-            $.post("/Chat/SendChatMessage", { autheurId: $("#loggedUserId").val(), ontvangerId: urlArray[4], bericht: chatBericht});
+          $.post("/Chat/SendChatMessage", { autheurId: $("#loggedUserId").val(), ontvangerId: urlArray[4], bericht: chatBericht});
         }
 
         $("#chatBericht").val("");
@@ -53,3 +54,7 @@ function SendChatMessageOnClick() {
 
     });
 }
+
+
+
+

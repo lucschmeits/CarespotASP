@@ -156,7 +156,7 @@ namespace CarespotASP.Dal.Context
 
         public List<Vaardigheid> GetVaardigheidByVrijwilligerId(int id)
         {
-            
+
 
             List<Vaardigheid> returnList = new List<Vaardigheid>();
             try
@@ -177,7 +177,7 @@ namespace CarespotASP.Dal.Context
                         Vaardigheid vaardigheid = new Vaardigheid(
                             reader.GetInt32(0),
                             reader.GetString(1));
-                            returnList.Add(vaardigheid);
+                        returnList.Add(vaardigheid);
                     }
 
                     con.Close();
@@ -191,7 +191,7 @@ namespace CarespotASP.Dal.Context
                 throw;
             }
 
-          
+
         }
 
         public List<Vaardigheid> GetVaardigheidByHulpvraagId(int id)
@@ -223,6 +223,27 @@ namespace CarespotASP.Dal.Context
                 }
 
                 return returnList;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public void AddVaardigheidToHulpvraag(Vaardigheid vaardigheid, int hulpvraagid)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
+                {
+                    con.Open();
+                    var cmdString = "INSERT INTO Hulpvraag_Vaardigheid (HulpvraagId, VaardigheidId) VALUES (@Hulpvraagid, @Vaardigheidid)";
+                    var command = new SqlCommand(cmdString, con);
+                    command.Parameters.AddWithValue("@Hulpvraagid", hulpvraagid);
+                    command.Parameters.AddWithValue("@Vaardigheidid", vaardigheid.Id);
+                    command.ExecuteNonQuery();
+                }
             }
             catch (Exception e)
             {

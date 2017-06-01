@@ -31,7 +31,16 @@ namespace CarespotASP.Dal.Context
                     command.Parameters.AddWithValue("@IsAfgerond", Convert.ToInt32(hulpvraag.IsAfgerond));
                     command.Parameters.AddWithValue("@HulpbehoevendeId", hulpvraag.Hulpbehoevende.Id);   
                     command.ExecuteNonQuery();
-                }    
+                }
+
+                //Voeg de vaardigheden toe in de koppeltabel
+                foreach (var vaardigheid in hulpvraag.Vaardigheden)
+                {
+                    VaardigheidSqlContext vsc = new VaardigheidSqlContext();
+                    VaardigheidRepository vr = new VaardigheidRepository(vsc);
+
+                    vr.AddVaardigheidToHulpvraag(vaardigheid,hulpvraag.Id);
+                }
             }
             catch (Exception e)
             {
@@ -100,6 +109,17 @@ namespace CarespotASP.Dal.Context
                             hv.Vrijwilliger = vr.GetVrijwilligerById(reader.GetInt32(10));
                         }
 
+                        //Vaardigheiden ophalen als deze er zijn
+                        VaardigheidSqlContext vaarcontext = new VaardigheidSqlContext();
+                        VaardigheidRepository vaarrepo = new VaardigheidRepository(vaarcontext);
+
+                        List<Vaardigheid> vaardighedenlijst = vaarrepo.GetVaardigheidByHulpvraagId(hv.Id);
+
+                        if (vaardighedenlijst.Count > 0)
+                        {
+                            hv.Vaardigheden = vaardighedenlijst;
+                        }
+
                         returnList.Add(hv);
                     }
                     con.Close();
@@ -152,6 +172,17 @@ namespace CarespotASP.Dal.Context
                             VrijwilligerRepository vr = new VrijwilligerRepository(vcontext);
 
                             returnObject.Vrijwilliger = vr.GetVrijwilligerById(reader.GetInt32(10));
+                        }
+
+                        //Vaardigheiden ophalen als deze er zijn
+                        VaardigheidSqlContext vaarcontext = new VaardigheidSqlContext();
+                        VaardigheidRepository vaarrepo = new VaardigheidRepository(vaarcontext);
+
+                        List<Vaardigheid> vaardighedenlijst = vaarrepo.GetVaardigheidByHulpvraagId(returnObject.Id);
+
+                        if (vaardighedenlijst.Count > 0)
+                        {
+                            returnObject.Vaardigheden = vaardighedenlijst;
                         }
                     }
                     con.Close();

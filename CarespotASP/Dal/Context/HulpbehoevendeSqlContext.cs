@@ -12,6 +12,8 @@ namespace CarespotASP.Dal.Context
     {
         public void CreateHulpbehoevende(int id)
         {
+
+            //Maak aan doormiddel van gebruiker repo
             try
             {
                 using (var con = new SqlConnection(Env.ConnectionString))
@@ -35,6 +37,7 @@ namespace CarespotASP.Dal.Context
 
         public void DeleteHulpbehoevendeById(int id)
         {
+            //Delete rol van gebruiker
             throw new NotImplementedException();
         }
 
@@ -50,20 +53,20 @@ namespace CarespotASP.Dal.Context
                     con.Open();
                     var reader = cmd.ExecuteReader();
 
-
                     while (reader.Read())
                     {
-
                         var foto = new byte[10];
                         if (!reader.IsDBNull(1))
                             foto = (byte[])reader[1];
 
-                        //Haal hulpverlener op aan hand van id.
                         var sql = new HulpverlenerSqlContext();
                         var repo = new HulpverlenerRepository(sql);
+
+
                         var hulpverlener = repo.GetById(reader.GetInt32(18));
 
-                        var hv = new Hulpbehoevende(
+
+                       var hv = new Hulpbehoevende(
                             reader.GetInt32(0),
                             foto,
                             reader.GetString(2),
@@ -71,17 +74,30 @@ namespace CarespotASP.Dal.Context
                             reader.GetString(4),
                             reader.GetString(5),
                             reader.GetDateTime(6),
-                            reader.GetBoolean(7),
-                            reader.GetBoolean(8),
-                            reader.GetBoolean(9),
+                            Convert.ToBoolean(reader.GetInt32(7)),
+                            Convert.ToBoolean(reader.GetInt32(8)),
+                            Convert.ToBoolean(reader.GetInt32(9)),
                             reader.GetString(10),
-                            reader.GetString(11),
                             reader.GetString(12),
                             reader.GetString(13),
                             reader.GetString(14),
+                            reader.GetString(15),
                             (Geslacht)Enum.Parse(typeof(Geslacht), reader.GetString(16)),
-                            hulpverlener
+                             hulpverlener
                         );
+
+                        //Barcode
+                        if (!reader.IsDBNull(17))
+                        {
+                            hv.Barcode = reader.GetString(17);
+                        }
+
+                        //Uitschrijfdatum
+                        if (!reader.IsDBNull(11))
+                        {
+                            hv.Uitschrijfdatum = reader.GetDateTime(11);
+                        }
+
 
                         returnList.Add(hv);
                     }
@@ -111,54 +127,53 @@ namespace CarespotASP.Dal.Context
                     cmd.Parameters.AddWithValue("@key", id);
                     var reader = cmd.ExecuteReader();
 
-
                     while (reader.Read())
                     {
-                        //Vul foto als deze niet leeg is
+
                         var foto = new byte[10];
                         if (!reader.IsDBNull(1))
                             foto = (byte[])reader[1];
 
-                        //Haal hulpverlener op aan hand van id.
                         var sql = new HulpverlenerSqlContext();
                         var repo = new HulpverlenerRepository(sql);
+
+
                         var hulpverlener = repo.GetById(reader.GetInt32(18));
 
-                        returnHulpbehoevende = new Hulpbehoevende(
-                            reader.GetInt32(0), //id
-                            foto,  //foto
-                            reader.GetString(2), //Email
-                            reader.GetString(3), //wachtwoord
-                            reader.GetString(4), //Gebruikernaam
-                            reader.GetString(5), //Naam
-                            reader.GetDateTime(6), //Geboortedatum
-                            Convert.ToBoolean(reader.GetInt32(7)), //Heeft Rijbewijs
-                            Convert.ToBoolean(reader.GetInt32(8)), //Heeft OV
-                            Convert.ToBoolean(reader.GetInt32(9)), //Heeft Auto
-                            reader.GetString(10), //Telefoonnummer
-                            reader.GetString(12), //Adres
-                            reader.GetString(13), //Woonplaats
-                            reader.GetString(14), //Land
-                            reader.GetString(15), //Postcode
-                            (Geslacht)Enum.Parse(typeof(Geslacht), reader.GetString(16)), //Geslacht
-                            hulpverlener //Hulpverlener
-                            );
 
-                        //Barcode
+                         returnHulpbehoevende = new Hulpbehoevende(
+                            reader.GetInt32(0),
+                            foto,
+                            reader.GetString(2),
+                            reader.GetString(3),
+                            reader.GetString(4),
+                            reader.GetString(5),
+                            reader.GetDateTime(6),
+                            Convert.ToBoolean(reader.GetInt32(7)),
+                            Convert.ToBoolean(reader.GetInt32(8)),
+                            Convert.ToBoolean(reader.GetInt32(9)),
+                            reader.GetString(10),
+                            reader.GetString(12),
+                            reader.GetString(13),
+                            reader.GetString(14),
+                            reader.GetString(15),
+                            (Geslacht)Enum.Parse(typeof(Geslacht), reader.GetString(16)),
+                            hulpverlener
+                        );
+                      //Barcode
                         if (!reader.IsDBNull(17))
                         {
                             returnHulpbehoevende.Barcode = reader.GetString(17);
                         }
 
                         //Uitschrijfdatum
-                        if (!reader.IsDBNull(10))
+                        if (!reader.IsDBNull(11))
                         {
-                            returnHulpbehoevende.Uitschrijfdatum = reader.GetDateTime(11); //Uitschrijfdatum
+                            returnHulpbehoevende.Uitschrijfdatum = reader.GetDateTime(11);
                         }
                     }
-                    con.Close();
+                   con.Close();
                 }
-
                 return returnHulpbehoevende;
             }
             catch (Exception e)
@@ -171,6 +186,32 @@ namespace CarespotASP.Dal.Context
         public void UpdateHulpbehoevende(int id, Hulpbehoevende hulpbehoevende)
         {
             throw new NotImplementedException();
+        }
+
+        public int BepaalHulpverlener()
+        {
+            try
+            {
+                var id = 0;
+                using (var con = new SqlConnection(Env.ConnectionString))
+                {
+                    con.Open();
+                    var cmdString = "SELECT TOP 1 Gebruiker.id FROM Gebruiker LEFT JOIN Hulpverlener ON Hulpverlener.gebruikerId = Gebruiker.id LEFT JOIN Hulpbehoevende ON Hulpbehoevende.hulpverlenerId = Hulpverlener.gebruikerId WHERE Gebruiker.id IN(SELECT Hulpverlener.gebruikerId FROM Hulpverlener) GROUP BY Gebruiker.id ORDER BY COUNT(Hulpbehoevende.gebruikerId) ASC";
+                    var command = new SqlCommand(cmdString, con);
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                        id = reader.GetInt32(0);
+                    reader.Close();
+                    con.Close();
+                    return id;
+                }
+                 
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

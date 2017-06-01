@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -12,6 +13,34 @@ namespace CarespotASP
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+
+
+            routes.MapRoute(
+   name: "Chat/SendChatMessage",
+   url: "Chat/SendChatMessage",
+   defaults: new { controller = "Chat", action = "SendChatMessage" }
+   );
+
+
+            routes.MapRoute(
+   name: "Chat/HaalChatOp",
+   url: "Chat/HaalChatOp",
+   defaults: new { controller = "Chat", action = "HaalChatOp" }
+   );
+
+            routes.MapRoute(
+name: "Chat",
+url: "Chat",
+defaults: new { controller = "Chat", action = "Index" }
+);
+        routes.MapRoute(
+    name: "Chat/Id",
+    url: "Chat/{id}",
+    defaults: new { controller = "Chat", action = "ChatScherm", id = UrlParameter.Optional }
+);
+
+
 
             routes.MapRoute(
                 name: "Default",

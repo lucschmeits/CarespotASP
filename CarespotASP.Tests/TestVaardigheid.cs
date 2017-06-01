@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using CarespotASP.Dal.Context;
 using CarespotASP.Dal.Repositorys;
+using CarespotASP.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CarespotASP.Tests
@@ -42,9 +44,12 @@ namespace CarespotASP.Tests
             VaardigheidSqlContext vsc = new VaardigheidSqlContext();
             VaardigheidRepository vr = new VaardigheidRepository(vsc);
 
-         
-            // KAN IK NOT NIET TESTEN, GEEN HULPVRAAG
+
+            List<Vaardigheid> vaardigheden = vr.GetVaardigheidByHulpvraagId(1);
+            Assert.AreEqual("Computer",vaardigheden[0].Omschrijving);
 
         }
+
+
     }
 }

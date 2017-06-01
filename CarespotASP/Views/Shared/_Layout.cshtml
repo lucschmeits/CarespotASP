@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("css", false)
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Merriweather+Sans" rel="stylesheet">
     @*<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />*@
     <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
@@ -42,6 +43,6 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js")
     @Scripts.Render("/Scripts/Site.js")
-    @RenderSection("scripts", required: false)
+    @RenderSection("scripts", false)
 </body>
 </html>

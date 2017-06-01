@@ -18,5 +18,7 @@ namespace CarespotASP.Dal.Interfaces
         void UpdateVrijwilliger(int gebruikerId, string vogPath, bool isGoedgekeurd);
 
         void DeleteVrijwilligerById(int id);
+
+        void CreateVrijwilligerWithVaardigheid(int vrijwilligerId, List<int> vaardigheidList);
     }
 }

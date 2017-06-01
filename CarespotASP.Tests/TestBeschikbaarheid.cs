@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using CarespotASP.Dal.Context;
 using CarespotASP.Dal.Repositorys;
 using CarespotASP.Models;
@@ -10,17 +10,25 @@ namespace CarespotASP.Tests
     public class TestBeschikbaarheid
     {
         [TestMethod]
-        public void Create()
+        public void Save()
         {
             BeschikbaarheidSqlContext bsc = new BeschikbaarheidSqlContext();
             BeschikbaarheidRepository br = new BeschikbaarheidRepository(bsc);
 
-            var beschikbaarheid = new Beschikbaarheid("Maandag", "Avond");
+            VrijwilligerSqlContext vsc = new VrijwilligerSqlContext();
+            VrijwilligerRepository vr = new VrijwilligerRepository(vsc);
 
-            int id = br.CreateBeschikbaarheid(beschikbaarheid);
-            var nieuweBeschikbaarheid = br.GetBeschikbaarheidById(id);
+            Vrijwilliger vrijw = vr.GetVrijwilligerById(4);
 
-            Assert.AreEqual(id, nieuweBeschikbaarheid.Id);
+            HulpvraagSqlContext hsc = new HulpvraagSqlContext();
+            HulpvraagRepository hr = new HulpvraagRepository(hsc);
+
+            Hulpvraag hulpvrg = hr.GetById(5);
+
+            int id = 19;
+            Beschikbaarheid beschikbaarheid = br.GetBeschikbaarheidById(id);
+
+            br.Save(beschikbaarheid, hulpvrg);
         }
 
         [TestMethod]
@@ -29,7 +37,8 @@ namespace CarespotASP.Tests
             BeschikbaarheidSqlContext bsc = new BeschikbaarheidSqlContext();
             BeschikbaarheidRepository br = new BeschikbaarheidRepository(bsc);
 
-            var Lijst = br.GetAllBeschikbaarheid();
+            List<Beschikbaarheid> Lijst = br.GetAllBeschikbaarheid();
+
             Assert.IsTrue(Lijst.Count > 0);
         }
 
@@ -38,33 +47,43 @@ namespace CarespotASP.Tests
         {
             BeschikbaarheidSqlContext bsc = new BeschikbaarheidSqlContext();
             BeschikbaarheidRepository br = new BeschikbaarheidRepository(bsc);
-            int id = 1;
-            var beschikbaarheid = br.GetBeschikbaarheidById(id);
+
+            int id = 17;
+            Beschikbaarheid beschikbaarheid = br.GetBeschikbaarheidById(id);
+
             Assert.AreEqual(id, beschikbaarheid.Id);
         }
 
         [TestMethod]
-        public void Delete()
+        public void GetByVrijwilligerId()
         {
             BeschikbaarheidSqlContext bsc = new BeschikbaarheidSqlContext();
             BeschikbaarheidRepository br = new BeschikbaarheidRepository(bsc);
 
-            int oudeCount = br.GetAllBeschikbaarheid().Count;
-            br.DeleteBeschikbaarheid(2);
-            int nieuweCount = br.GetAllBeschikbaarheid().Count;
-            Assert.AreEqual(oudeCount, (nieuweCount + 1));
+            VrijwilligerSqlContext vsc = new VrijwilligerSqlContext();
+            VrijwilligerRepository vr = new VrijwilligerRepository(vsc);
+
+            Vrijwilliger vrijw = vr.GetVrijwilligerById(4);
+
+            List<Beschikbaarheid> LstBsch = br.GetBeschikbaarheidByVrijwilligerId(vrijw.Id);
+
+            Assert.IsTrue(LstBsch.Count > 0);
         }
 
         [TestMethod]
-        public void Update()
+        public void GetByHulpvraagId()
         {
             BeschikbaarheidSqlContext bsc = new BeschikbaarheidSqlContext();
             BeschikbaarheidRepository br = new BeschikbaarheidRepository(bsc);
 
-            Beschikbaarheid b = br.GetBeschikbaarheidById(3);
-            b.DagNaam = "Zondag";
-            br.UpdateBeschikbaarheid(b);
-            Assert.AreEqual("Zondag", b.DagNaam);
+            HulpvraagSqlContext hsc = new HulpvraagSqlContext();
+            HulpvraagRepository hr = new HulpvraagRepository(hsc);
+
+            Hulpvraag hulpvrg = hr.GetById(5);
+
+            List<Beschikbaarheid> LstBsch = br.GetBeschikbaarheidByHulpvraagId(hulpvrg.Id);
+
+            Assert.IsTrue(LstBsch.Count > 0);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CarespotASP.Dal.Context;
 using CarespotASP.Dal.Repositorys;
 using CarespotASP.Enums;
@@ -26,7 +27,7 @@ namespace CarespotASP.Tests
             HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
 
             Hulpvraag hulpvraag = hvr.GetById(1);
-            Assert.IsNotNull(hulpvraag);
+            Assert.AreEqual(1,hulpvraag.Vaardigheden[0].Omschrijving);
         }
 
         [TestMethod]
@@ -35,7 +36,12 @@ namespace CarespotASP.Tests
             HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
             HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
 
-            Hulpvraag hulpvraag = hvr.GetById(1); 
+            Hulpvraag hulpvraag = hvr.GetById(1);
+
+
+            VaardigheidSqlContext vsc = new VaardigheidSqlContext();
+            VaardigheidRepository vr = new VaardigheidRepository(vsc);
+            hulpvraag.Vaardigheden = vr.GetAll();
 
             hvr.Create(hulpvraag);
         }
@@ -60,6 +66,29 @@ namespace CarespotASP.Tests
             
             hvr.Update(1,hulpvraag);
 
+        }
+
+
+        [TestMethod]
+        public void GetHulpvragenByHulpbehoevendeId()
+        {
+            HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
+            HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
+
+            List<Hulpvraag> lijst = new List<Hulpvraag>();
+            lijst = hvr.GetHulpvragenByHulpbehoevendeId(4);
+            Assert.AreEqual(5,lijst.Count);
+
+        }
+
+        [TestMethod]
+        public void GetHulpvragenByVrijwilligerId()
+        {
+            HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
+            HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
+
+            List<Hulpvraag> lijst =  hvr.GetHulpvragenByVrijwilligerId(4);
+          
 
         }
 

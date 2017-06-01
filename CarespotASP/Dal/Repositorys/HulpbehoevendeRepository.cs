@@ -33,5 +33,10 @@ namespace CarespotASP.Dal.Repositorys
         {
             _interface.DeleteHulpbehoevendeById(id);
         }
+
+        public int BepaalHulpverlener()
+        {
+            return _interface.BepaalHulpverlener();
+        }
     }
 }

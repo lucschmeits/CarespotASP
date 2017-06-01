@@ -10,7 +10,7 @@ namespace CarespotASP.Dal.Context
 {
     public class HulpbehoevendeSqlContext : IHulpbehoevende
     {
-        public void CreateHulpbehoevende(int id)
+        public void CreateHulpbehoevende(int id, int hulpverlenerId)
         {
 
             //Maak aan doormiddel van gebruiker repo
@@ -18,10 +18,11 @@ namespace CarespotASP.Dal.Context
             {
                 using (var con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "INSERT INTO Hulpbehoevende (GebruikerId) VALUES (" + id + ")";
+                    var query = "INSERT INTO Hulpbehoevende (GebruikerId, HulpverlenerId) VALUES (@id, @hulpId)";
 
                     var cmd = new SqlCommand(query, con);
-
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@hulpId", hulpverlenerId);
                     con.Open();
 
                     cmd.ExecuteNonQuery();

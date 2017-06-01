@@ -80,7 +80,7 @@ namespace CarespotASP.Controllers
                     hulpbehoevende.Id = id;
                     var hsql = new HulpbehoevendeSqlContext();
                     var hrepo = new HulpbehoevendeRepository(hsql);
-                    hrepo.CreateHulpbehoevende(hulpbehoevende.Id);
+                    hrepo.CreateHulpbehoevende(hulpbehoevende.Id, hrepo.BepaalHulpverlener());
                 }
 
                 if (form["vrij"] != null && form["vrij"].ToString() == "vrijwilliger")

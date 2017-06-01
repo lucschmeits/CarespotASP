@@ -5,10 +5,20 @@
         FillChatBoxIfPossible();
     }, 3000);
 
+<<<<<<< HEAD
+    SendChatMessageOnClick();
+    ShowVrijwilliger();
+    HideVrijwilliger();
+      setInterval(function () {
+          FillChatBoxIfPossible();
+      }, 3000);
+
+=======
     $("#example").DataTable();
     $("#opdrachten").DataTable();
     $("#vog").DataTable();
     $("#gebruikers").DataTable();
+>>>>>>> f43e3a6024d042fb51dea23469e019b5c6db6df0
 });
 
 function FillChatBoxIfPossible() {
@@ -43,4 +53,48 @@ function SendChatMessageOnClick() {
         $("#chatBericht").val("");
         FillChatBoxIfPossible();
     });
+<<<<<<< HEAD
 }
+
+function HideVrijwilliger() {
+    
+    $("#vog").addClass("hidden");
+    $("#vaardigheid").addClass("hidden");
+   
+}
+var count = 0;
+function ShowVrijwilliger() {
+
+    $('#vrij').click(function () {
+        var checkboxResult = this.checked;
+      
+        var checked = $('#vrij').prop('checked');
+        if (checked) {
+            if (count === 0) {
+                alert(checked + "eerste");
+                $("#vog").removeClass("hidden");
+                $("#vaardigheid").removeClass("hidden");
+                $("#voginput").prop('required', true);
+                count ++;
+            }
+            else if (count > 0) {
+                alert(checked + "tweede");
+                $("#vog").addClass("hidden");
+                $("#vaardigheid").addClass("hidden");
+                $("#voginput").prop('required', false);
+                $(this).prop('checked', false);  
+                count = 0;
+            }
+          
+        } 
+    });
+ //als die niet checked is - on click -> true
+// als die checked is -  onclick -> false
+}
+
+
+
+
+=======
+}
+>>>>>>> f43e3a6024d042fb51dea23469e019b5c6db6df0

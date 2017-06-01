@@ -1,6 +1,8 @@
-﻿
+﻿@using CarespotASP.Models
+
 @{
     ViewBag.Title = "Registreer";
+    var vaardigheden = ViewData["vaardigheden"] as List<Vaardigheid>;
 }
 
 <h2 class="registreer-header">Registreer</h2>
@@ -14,23 +16,23 @@
                 <div class="col-md-3">
                     <p>Gebruikersnaam</p>
                     <div class="form-group">
-                        <input id="gebruikersnaam" name="gebruikersnaam" class="form-control" type="text" placeholder=""/>
+                        <input id="gebruikersnaam" name="gebruikersnaam" class="form-control" type="text" placeholder="" required="required"/>
                     </div>
                     <p>E-mail</p>
                     <div class="form-group">
-                        <input id="email" name="email" class="form-control" type="email" placeholder=""/>
+                        <input id="email" name="email" class="form-control" type="email" placeholder=""  required="required"/>
                     </div>
                     <p>Wachtwoord</p>
                     <div class="form-group">
-                        <input id="wachtwoord" name="wachtwoord" class="form-control" type="password" placeholder=""/>
+                        <input id="wachtwoord" name="wachtwoord" class="form-control" type="password" placeholder="" required="required"/>
                     </div>
                     <p>Herhalen</p>
                     <div class="form-group">
-                        <input id="wachtwoordherhalen" name="wachtwoordherhalen" class="form-control" type="password" placeholder=""/>
+                        <input id="wachtwoordherhalen" name="wachtwoordherhalen" class="form-control" type="password" placeholder="" required="required"/>
                     </div>
                     <p>Naam</p>
                     <div class="form-group">
-                        <input id="naam" name="naam" class="form-control" type="text" placeholder=""/>
+                        <input id="naam" name="naam" class="form-control" type="text" placeholder="" required="required"/>
                     </div>
                     <p>Geslacht</p>
                     <div class="form-group">
@@ -41,29 +43,29 @@
                     </div>
                     <p>Telefoon nr</p>
                     <div class="form-group">
-                        <input id="telnr" name="telnr" class="form-control" type="text" placeholder=""/>
+                        <input id="telnr" name="telnr" class="form-control" type="text" placeholder="" required="required"/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <p>Adres</p>
                     <div class="form-group">
-                        <input id="adres" name="adres" class="form-control" type="text" placeholder=""/>
+                        <input id="adres" name="adres" class="form-control" type="text" placeholder="" required="required"/>
                     </div>
                     <p>Huisnummer</p>
                     <div class="form-group">
-                        <input id="huisnr" name="huisnr" class="form-control" type="text" placeholder=""/>
+                        <input id="huisnr" name="huisnr" class="form-control" type="text" placeholder="" required="required"/>
                     </div>
                     <p>Postcode</p>
                     <div class="form-group">
-                        <input id="postcode" name="postcode" class="form-control" type="text" placeholder=""/>
+                        <input id="postcode" name="postcode" class="form-control" type="text" placeholder="" required="required"/>
                     </div>
                     <p>Plaats</p>
                     <div class="form-group">
-                        <input id="plaats" name="plaats" class="form-control" type="text" placeholder=""/>
+                        <input id="plaats" name="plaats" class="form-control" type="text" placeholder="" required="required"/>
                     </div>
                     <p>Land</p>
                     <div class="form-group">
-                        <input id="land" name="land" class="form-control" type="text" placeholder="" value="Nederland"/>
+                        <input id="land" name="land" class="form-control" type="text" placeholder="" value="Nederland" required="required"/>
                     </div>
                     <p>Foto</p>
                     <div class="form-group">
@@ -95,26 +97,37 @@
                     </div>
                     <p>Geboortedatum</p>
                     <div class="form-group">
-                        <input id="geboortedatum" name="geboortedatum" class="form-control" type="date" placeholder=""/>
+                        <input id="geboortedatum" name="geboortedatum" class="form-control" type="date" placeholder="" required/>
                     </div>
                     <p>VOG</p>
-                    <div class="form-group">
-                        <input class="btn btn-default btn-registreer" type="file" name="vog"/>Upload
+                    <div class="form-group" id="vog">
+                        <input class="btn btn-default btn-registreer" type="file" name="vog" id="voginput"/>Upload
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-3" id="vaardigheid">
                     <p>Vaardigheid</p>
-                    <label class="label-registreer"><input id="titel" name="search" class="" type="checkbox" placeholder=""/> Vaardigheid 1</label>
-                    <label class="label-registreer"><input id="titel" name="search" class="" type="checkbox" placeholder=""/> Vaardigheid 2 </label>
-                    <label class="label-registreer"><input id="titel" name="search" class="" type="checkbox" placeholder=""/> Vaardigheid 3 </label>
-                    <label class="label-registreer"><input id="titel" name="search" class="" type="checkbox" placeholder=""/> Vaardigheid 4 </label>
-                    <label class="label-registreer"><input id="titel" name="search" class="" type="checkbox" placeholder=""/> Vaardigheid 5 </label>
-                    <label class="label-registreer"><input id="titel" name="search" class="" type="checkbox" placeholder=""/> Vaardigheid 6 </label>
-                    <label class="label-registreer"><input id="titel" name="search" class="" type="checkbox" placeholder=""/> Vaardigheid 7 </label>
-                    <div class="form-group">
-                        <button class="btn btn-default btn-registreer" type="submit">Registreer</button>
-                    </div>
+                    <select name="vaardigheden" class="form-control" multiple="multiple">
+                        @if (vaardigheden != null)
+                        {
+                            foreach (var vaardigheid in vaardigheden)
+                            {
+                                <option value="@vaardigheid.Id">@vaardigheid.Omschrijving</option>
+                            }
+                        }
+                    
+                    </select>
+                
+                  
+                   
+                </div>
+                <div class="form-group">
+                    
+                    <label>Hulpbehoevende</label><input type="radio" name="hulp" id="hulp" value="hulpbehoevende" />
+                    <label>Vrijwilliger</label><input type="radio" name="vrij" id="vrij" value="vrijwilliger" />
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-default btn-registreer" type="submit" id="submit">Registreer</button>
                 </div>
             }
 
@@ -123,4 +136,6 @@
         </div>
     </div>
 </section>
+
+
 

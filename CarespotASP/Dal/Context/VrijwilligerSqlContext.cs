@@ -3,6 +3,7 @@ using CarespotASP.Enums;
 using CarespotASP.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace CarespotASP.Dal.Context
@@ -227,6 +228,42 @@ namespace CarespotASP.Dal.Context
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        public void CreateVrijwilligerWithVaardigheid(int vrijwilligerId, List<int> vaardigheidList)
+        {
+            try
+            {
+                using (var con = new SqlConnection(Env.ConnectionString))
+                {
+                    con.Open();
+                    DataTable tvp = new DataTable();
+                    tvp.Columns.Add("VrijwilligerId", typeof(int));
+                    tvp.Columns.Add("VaardigheidId", typeof(int));
+
+                    foreach (var id in vaardigheidList)
+                    {
+                        tvp.Rows.Add(vrijwilligerId, id);
+                    }
+                    SqlCommand cmd = new SqlCommand("dbo.Vaardigheden", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter tvparam = cmd.Parameters.AddWithValue("@List", tvp);
+                    tvparam.SqlDbType = SqlDbType.Structured;
+
+                    // execute query, consume results, etc. here
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+
+
+
         }
     }
 }

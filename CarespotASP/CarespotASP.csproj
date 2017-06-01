@@ -185,6 +185,7 @@
     <Compile Include="Dal\Repositorys\VrijwilligerRepository.cs" />
     <Compile Include="Enums\Dagdeel.cs" />
     <Compile Include="Enums\Dagnaam.cs" />
+    <Compile Include="Enums\GebruikerType.cs" />
     <Compile Include="Enums\Geslacht.cs" />
     <Compile Include="Enums\VervoerType.cs" />
     <Compile Include="Global.asax.cs">

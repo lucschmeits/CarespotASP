@@ -2,9 +2,9 @@
     $('#example').DataTable();
 
 
-    SendChatMessageOnClick();  
-
-
+    SendChatMessageOnClick();
+    ShowVrijwilliger();
+    HideVrijwilliger();
       setInterval(function () {
           FillChatBoxIfPossible();
       }, 3000);
@@ -23,7 +23,7 @@ function FillChatBoxIfPossible() {
                 var chatString = "";
                 console.log(data);
                 for (var i = 0; i < data.length; i++) {
-                    chatString = chatString + data[i].Auteur.Naam + " |  "+ data[i].Bericht + "\r"
+                    chatString = chatString + data[i].Auteur.Naam + " |  " + data[i].Bericht + "\r";
                 }
 
                 if (chatString == "") {
@@ -53,6 +53,42 @@ function SendChatMessageOnClick() {
 
 
     });
+}
+
+function HideVrijwilliger() {
+    
+    $("#vog").addClass("hidden");
+    $("#vaardigheid").addClass("hidden");
+   
+}
+var count = 0;
+function ShowVrijwilliger() {
+
+    $('#vrij').click(function () {
+        var checkboxResult = this.checked;
+      
+        var checked = $('#vrij').prop('checked');
+        if (checked) {
+            if (count === 0) {
+                alert(checked + "eerste");
+                $("#vog").removeClass("hidden");
+                $("#vaardigheid").removeClass("hidden");
+                $("#voginput").prop('required', true);
+                count ++;
+            }
+            else if (count > 0) {
+                alert(checked + "tweede");
+                $("#vog").addClass("hidden");
+                $("#vaardigheid").addClass("hidden");
+                $("#voginput").prop('required', false);
+                $(this).prop('checked', false);  
+                count = 0;
+            }
+          
+        } 
+    });
+ //als die niet checked is - on click -> true
+// als die checked is -  onclick -> false
 }
 
 

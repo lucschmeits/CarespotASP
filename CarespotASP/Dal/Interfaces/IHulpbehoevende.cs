@@ -14,5 +14,7 @@ namespace CarespotASP.Dal.Interfaces
         void UpdateHulpbehoevende(int id, Hulpbehoevende hulpbehoevende);
 
         void DeleteHulpbehoevendeById(int id);
+
+        int BepaalHulpverlener();
     }
 }

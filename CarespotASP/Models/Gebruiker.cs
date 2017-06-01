@@ -8,7 +8,7 @@ namespace CarespotASP.Models
 {
     public class Gebruiker
     {
-        public int Id { get; private set; }
+        public int Id { get;  set; }
 
         public byte[] Image { get;  set; }
 

@@ -172,5 +172,31 @@ namespace CarespotASP.Dal.Context
         {
             throw new NotImplementedException();
         }
+
+        public int BepaalHulpverlener()
+        {
+            try
+            {
+                var id = 0;
+                using (var con = new SqlConnection(Env.ConnectionString))
+                {
+                    con.Open();
+                    var cmdString = "SELECT TOP 1 Gebruiker.id FROM Gebruiker LEFT JOIN Hulpverlener ON Hulpverlener.gebruikerId = Gebruiker.id LEFT JOIN Hulpbehoevende ON Hulpbehoevende.hulpverlenerId = Hulpverlener.gebruikerId WHERE Gebruiker.id IN(SELECT Hulpverlener.gebruikerId FROM Hulpverlener) GROUP BY Gebruiker.id ORDER BY COUNT(Hulpbehoevende.gebruikerId) ASC";
+                    var command = new SqlCommand(cmdString, con);
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                        id = reader.GetInt32(0);
+                    reader.Close();
+                    con.Close();
+                    return id;
+                }
+                 
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }

@@ -202,6 +202,7 @@
     <Compile Include="Models\Vaardigheid.cs" />
     <Compile Include="Models\Vrijwilliger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Beheerder\BeheerderViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\beheerder.css" />

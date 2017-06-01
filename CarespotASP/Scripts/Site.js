@@ -5,7 +5,6 @@
         FillChatBoxIfPossible();
     }, 3000);
 
-<<<<<<< HEAD
     SendChatMessageOnClick();
     ShowVrijwilliger();
     HideVrijwilliger();
@@ -13,12 +12,10 @@
           FillChatBoxIfPossible();
       }, 3000);
 
-=======
     $("#example").DataTable();
     $("#opdrachten").DataTable();
     $("#vog").DataTable();
     $("#gebruikers").DataTable();
->>>>>>> f43e3a6024d042fb51dea23469e019b5c6db6df0
 });
 
 function FillChatBoxIfPossible() {
@@ -53,7 +50,6 @@ function SendChatMessageOnClick() {
         $("#chatBericht").val("");
         FillChatBoxIfPossible();
     });
-<<<<<<< HEAD
 }
 
 function HideVrijwilliger() {
@@ -91,10 +87,3 @@ function ShowVrijwilliger() {
  //als die niet checked is - on click -> true
 // als die checked is -  onclick -> false
 }
-
-
-
-
-=======
-}
->>>>>>> f43e3a6024d042fb51dea23469e019b5c6db6df0

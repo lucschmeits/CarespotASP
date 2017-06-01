@@ -28,5 +28,19 @@ namespace CarespotASP.Tests
             HulpbehoevendeRepository hr = new HulpbehoevendeRepository(context);
 
         }
+
+        [TestMethod]
+        public void RetrieveAll()
+        {
+            HulpbehoevendeSqlContext context = new HulpbehoevendeSqlContext();
+            HulpbehoevendeRepository hr = new HulpbehoevendeRepository(context);
+         List<Hulpbehoevende> lijst =   hr.GetAllHulpbehoevenden();
+
+
+
+
+        }
+
+
     }
 }

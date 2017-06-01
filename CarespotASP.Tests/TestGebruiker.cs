@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CarespotASP.Dal.Context;
 using CarespotASP.Dal.Repositorys;
 using CarespotASP.Models;
@@ -97,6 +98,20 @@ namespace CarespotASP.Tests
 
             
         }
+
+        [TestMethod]
+        public void RetrieveWithType()
+        {
+            GebruikerSqlContext gsc = new GebruikerSqlContext();
+            GebruikerRepository gr = new GebruikerRepository(gsc);
+            
+        List<Gebruiker> list = gr.GetUserWithType();
+
+       Assert.IsTrue(list.Count > 5);
+
+        }
+        
+
     
        
     }

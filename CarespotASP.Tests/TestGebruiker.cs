@@ -110,9 +110,22 @@ namespace CarespotASP.Tests
        Assert.IsTrue(list.Count > 5);
 
         }
-        
 
-    
-       
+        [TestMethod]
+
+        public void GetUserTypesByUserIdtest()
+        {
+            GebruikerSqlContext gsc = new GebruikerSqlContext();
+            GebruikerRepository gr = new GebruikerRepository(gsc);
+
+            List<Gebruiker> glijst = gr.GetUserTypesByUserId(4);
+
+            Assert.IsTrue(glijst.Count > 0);
+        }
+
+
+
+
+
     }
 }

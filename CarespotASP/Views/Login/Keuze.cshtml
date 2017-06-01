@@ -1,15 +1,33 @@
-﻿@{
+﻿@using CarespotASP.Enums
+@using CarespotASP.Models
+@{
     ViewBag.Title = "Keuze";
+    List<Gebruiker> accounts = ViewBag.Accounts;
+    List<GebruikerType> types = ViewBag.Types;
+
 }
 
 <div class="row">
     <div class="col-md-12 login">
         <h2>Als wie wilt u inloggen?</h2>
     </div>
-    <div class="col-md-6">
-        <a href="#" class="btn btn-default btn-keuze pull-right">Hulpbehoevende</a>
-    </div>
-    <div class="col-md-6">
-        <a href="#" class="btn btn-default btn-keuze">Vrijwilliger</a>
-    </div>
 </div>
+
+<div class="row">
+    
+    @if (types.Contains(GebruikerType.Hulpbehoevende))
+    {
+        <div class="col-md-6">
+            <a href="#" class="btn btn-default btn-keuze pull-right">Hulpbehoevende</a>
+        </div>  
+    }
+    @if (types.Contains(GebruikerType.Vrijwilliger))
+    {
+        <div class="col-md-6">
+            <a href="#" class="btn btn-default btn-keuze pull-right">Vrijwilliger</a>
+        </div>  
+    }
+  
+</div>
+
+

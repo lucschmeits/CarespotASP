@@ -90,3 +90,4 @@ function ShowVrijwilliger() {
     //als die niet checked is - on click -> true
     // als die checked is -  onclick -> false
 }
+

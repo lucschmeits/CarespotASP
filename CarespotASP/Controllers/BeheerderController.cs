@@ -1,4 +1,7 @@
 ﻿using System.Web.Mvc;
+using CarespotASP.Dal.Context;
+using CarespotASP.Dal.Repositorys;
+using CarespotASP.Views.Beheerder;
 
 namespace CarespotASP.Controllers
 {
@@ -7,7 +10,18 @@ namespace CarespotASP.Controllers
         // GET: Beheerder
         public ActionResult Index()
         {
-            return View();
+            BeheerderViewModel model = new BeheerderViewModel();
+
+            HulpvraagSqlContext hsc = new HulpvraagSqlContext();
+            HulpvraagRepository hr = new HulpvraagRepository(hsc);
+
+            GebruikerSqlContext gsc = new GebruikerSqlContext();
+            GebruikerRepository gr = new GebruikerRepository(gsc);
+
+            model.LstGebruiker = gr.GetAll();
+            model.LstHulpvraag = hr.GetAll();
+
+            return View(model);
         }
 
         // GET: Beheerder/Details/5

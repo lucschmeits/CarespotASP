@@ -12,6 +12,8 @@ namespace CarespotASP.Dal.Context
     {
         public void CreateHulpbehoevende(int id)
         {
+
+            //Maak aan doormiddel van gebruiker repo
             try
             {
                 using (var con = new SqlConnection(Env.ConnectionString))
@@ -35,6 +37,7 @@ namespace CarespotASP.Dal.Context
 
         public void DeleteHulpbehoevendeById(int id)
         {
+            //Delete rol van gebruiker
             throw new NotImplementedException();
         }
 
@@ -50,10 +53,8 @@ namespace CarespotASP.Dal.Context
                     con.Open();
                     var reader = cmd.ExecuteReader();
 
-
                     while (reader.Read())
                     {
-
                         var foto = new byte[10];
                         if (!reader.IsDBNull(1))
                             foto = (byte[])reader[1];

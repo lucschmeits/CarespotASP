@@ -141,12 +141,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BeoordelingController.cs" />
     <Compile Include="Controllers\GebruikerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HulpbehoevendeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistreerController.cs" />
-
     <Compile Include="Dal\Context\BeheerderSqlContext.cs" />
     <Compile Include="Dal\Context\BeschikbaarheidSqlContext.cs" />
     <Compile Include="Dal\Context\ChatSqlContext.cs" />
@@ -159,10 +159,7 @@
     <Compile Include="Dal\Context\VaardigheidSqlContext.cs" />
     <Compile Include="Dal\Context\VrijwilligerSqlContext.cs" />
     <Compile Include="Dal\Env.cs" />
-
     <Compile Include="Dal\Interfaces\IReactie.cs" />
-
-
     <Compile Include="Dal\Interfaces\IBeheerder.cs" />
     <Compile Include="Dal\Interfaces\IBeschikbaarheid.cs" />
     <Compile Include="Dal\Interfaces\IChat.cs" />
@@ -190,7 +187,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-
     <Compile Include="Models\Beheerder.cs" />
     <Compile Include="Models\Beschikbaarheid.cs" />
     <Compile Include="Models\Chat.cs" />
@@ -246,6 +242,7 @@
     <Content Include="Views\Login\Keuze.cshtml" />
     <Content Include="Views\Hulpbehoevende\Opdrachten.cshtml" />
     <Content Include="Views\Gebruiker\NieuwGebruiker.cshtml" />
+    <Content Include="Views\Beoordeling\NieuwBeoordeling.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

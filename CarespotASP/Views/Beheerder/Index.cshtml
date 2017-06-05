@@ -53,8 +53,8 @@
                         if (v.IsGoedgekeurd == false)
                         {
                             <tr>
-                                <td>v.Naam</td>
-                                <td>v.VOG</td>
+                                <td>@v.Naam</td>
+                                <td>@v.VOG</td>
                                 <td>
                                     <button type="button">Open</button>
                                 </td>
@@ -83,7 +83,7 @@
             {
                     <tr>
                         <td>@item.Naam</td>
-                        <td>@item.GetType().ToString()</td>
+                        <td>@item.GetType().Name</td>
                         <td>
                             <button type="button">Open</button>
                         </td>

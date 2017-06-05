@@ -18,7 +18,7 @@ namespace CarespotASP.Controllers
             GebruikerSqlContext gsc = new GebruikerSqlContext();
             GebruikerRepository gr = new GebruikerRepository(gsc);
 
-            model.LstGebruiker = gr.GetAll();
+            model.LstGebruiker = gr.GetUserWithType();
             model.LstHulpvraag = hr.GetAll();
 
             return View(model);

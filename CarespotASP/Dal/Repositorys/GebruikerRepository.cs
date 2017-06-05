@@ -67,5 +67,10 @@ namespace CarespotASP.Dal.Repositorys
 
             return returnList;
         }
+
+        public List<Gebruiker> GetUserTypesByUserId(int userId)
+        {
+            return this.GetUserWithType().Where(u => u.Id == userId).ToList();
+        }
     }
 }

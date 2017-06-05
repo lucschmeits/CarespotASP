@@ -24,14 +24,19 @@ namespace CarespotASP.Dal.Repositorys
             return _interface.GetAllHulpbehoevenden();
         }
 
-        public void CreateHulpbehoevende(int id)
+        public void CreateHulpbehoevende(int id, int hulpverleneId)
         {
-            _interface.CreateHulpbehoevende(id);
+            _interface.CreateHulpbehoevende(id, hulpverleneId);
         }
 
         public void DeleteHulpbehoevende(int id)
         {
             _interface.DeleteHulpbehoevendeById(id);
+        }
+
+        public int BepaalHulpverlener()
+        {
+            return _interface.BepaalHulpverlener();
         }
     }
 }

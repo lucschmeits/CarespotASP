@@ -10,17 +10,18 @@ namespace CarespotASP.Dal.Context
 {
     public class HulpbehoevendeSqlContext : IHulpbehoevende
     {
-        public void CreateHulpbehoevende(int id)
+        public void CreateHulpbehoevende(int id, int hulpverlenerId)
         {
             //Maak aan doormiddel van gebruiker repo
             try
             {
                 using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
-                    string query = "INSERT INTO Hulpbehoevende (GebruikerId) VALUES (" + id + ")";
+                    var query = "INSERT INTO Hulpbehoevende (GebruikerId, HulpverlenerId) VALUES (@id, @hulpId)";
 
-                    SqlCommand cmd = new SqlCommand(query, con);
-
+                    var cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@hulpId", hulpverlenerId);
                     con.Open();
 
                     cmd.ExecuteNonQuery();
@@ -171,6 +172,31 @@ namespace CarespotASP.Dal.Context
         public void UpdateHulpbehoevende(int id, Hulpbehoevende hulpbehoevende)
         {
             throw new NotImplementedException();
+        }
+
+        public int BepaalHulpverlener()
+        {
+            try
+            {
+                var id = 0;
+                using (var con = new SqlConnection(Env.ConnectionString))
+                {
+                    con.Open();
+                    var cmdString = "SELECT TOP 1 Gebruiker.id FROM Gebruiker LEFT JOIN Hulpverlener ON Hulpverlener.gebruikerId = Gebruiker.id LEFT JOIN Hulpbehoevende ON Hulpbehoevende.hulpverlenerId = Hulpverlener.gebruikerId WHERE Gebruiker.id IN(SELECT Hulpverlener.gebruikerId FROM Hulpverlener) GROUP BY Gebruiker.id ORDER BY COUNT(Hulpbehoevende.gebruikerId) ASC";
+                    var command = new SqlCommand(cmdString, con);
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                        id = reader.GetInt32(0);
+                    reader.Close();
+                    con.Close();
+                    return id;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

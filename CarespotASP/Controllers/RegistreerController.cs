@@ -16,6 +16,9 @@ namespace CarespotASP.Controllers
         // GET: Registreer
         public ActionResult Index()
         {
+            var vsql = new VaardigheidSqlContext();
+            var vrepo = new VaardigheidRepository(vsql);
+            ViewData["vaardigheden"] = vrepo.GetAll();
             return View("Registreer");
         }
 
@@ -33,36 +36,74 @@ namespace CarespotASP.Controllers
                 }
 
             }
-            
-            var gebruiker1 = new Gebruiker();
-            gebruiker1.Image = array;
-            gebruiker1.Geslacht = (Geslacht) Enum.Parse(typeof(Geslacht), form["geslacht"]);
-            gebruiker1.Adres = form["adres"];
-            gebruiker1.Email = form["email"];
-            gebruiker1.Geboortedatum = Convert.ToDateTime(form["geboortedatum"]);
-            gebruiker1.Woonplaats = form["plaats"];
-            gebruiker1.Land = form["land"];
-            gebruiker1.Postcode = form["postcode"];
-            gebruiker1.Telefoonnummer = form["telnr"];
-           // gebruiker1.Huisnummer = form["huisnr"];
-            gebruiker1.Wachtwoord = form["wachtwoord"];
-            gebruiker1.Gebruikersnaam = form["gebruikersnaam"];
-            gebruiker1.Naam = form["naam"];
-            gebruiker1.HeeftAuto = bool.Parse(form["auto"]);
-            gebruiker1.HeeftRijbewijs = bool.Parse(form["rijbewijs"]);
-            gebruiker1.HeeftOv = bool.Parse(form["ov"]);
-            gebruiker1.Barcode = "123";
+            if (form["vrij"] == null && form["hulp"] == null)
+            {
+                return RedirectToAction("Index", "Registreer");
+            }
+            if (form["wachtwoord"] == form["wachtwoordherhalen"])
+            {
+                var gebruiker1 = new Gebruiker();
+                gebruiker1.Image = array;
+                gebruiker1.Geslacht = (Geslacht)Enum.Parse(typeof(Geslacht), form["geslacht"]);
+                gebruiker1.Adres = form["adres"];
+                gebruiker1.Email = form["email"];
+                gebruiker1.Geboortedatum = Convert.ToDateTime(form["geboortedatum"]);
+                gebruiker1.Woonplaats = form["plaats"];
+                gebruiker1.Land = form["land"];
+                gebruiker1.Postcode = form["postcode"];
+                gebruiker1.Telefoonnummer = form["telnr"];
+                // gebruiker1.Huisnummer = form["huisnr"];
+                gebruiker1.Wachtwoord = form["wachtwoord"];
+                gebruiker1.Gebruikersnaam = form["gebruikersnaam"];
+                gebruiker1.Naam = form["naam"];
+                gebruiker1.HeeftAuto = bool.Parse(form["auto"]);
+                gebruiker1.HeeftRijbewijs = bool.Parse(form["rijbewijs"]);
+                gebruiker1.HeeftOv = bool.Parse(form["ov"]);
+                gebruiker1.Barcode = "";
 
-           
-            var sql = new GebruikerSqlContext();
-            var repo = new GebruikerRepository(sql);
-            int id = repo.Create(gebruiker1);
-            var vrijwilliger = new Vrijwilliger(id, vog.FileName, false);
-            var vsql = new VrijwilligerSqlContext();
-            var vrepo = new VrijwilligerRepository(vsql);
-            vrepo.Create(vrijwilliger.Id, vrijwilliger.VOG);
+                var vaardigheidIds = form.GetValues("vaardigheden");
+                var vaardigheidIdList = new List<int>();
+                if (vaardigheidIds != null)
+                {
+                    foreach (var vaardigheidId in vaardigheidIds)
+                    {
+                        vaardigheidIdList.Add(Convert.ToInt32(vaardigheidId));
+                    }
+                }
 
-            return RedirectToAction("Index", "Login");
+                var sql = new GebruikerSqlContext();
+                var repo = new GebruikerRepository(sql);
+                int id = repo.Create(gebruiker1);
+                if (form["hulp"] != null && form["hulp"].ToString() == "hulpbehoevende")
+                {
+                    var hulpbehoevende = new Hulpbehoevende(id);
+                    hulpbehoevende.Id = id;
+                    var hsql = new HulpbehoevendeSqlContext();
+                    var hrepo = new HulpbehoevendeRepository(hsql);
+                    hrepo.CreateHulpbehoevende(hulpbehoevende.Id, hrepo.BepaalHulpverlener());
+                }
+
+                if (form["vrij"] != null && form["vrij"].ToString() == "vrijwilliger")
+                {
+                    var vrijwilliger = new Vrijwilliger(id, vog.FileName, false);
+                    var vsql = new VrijwilligerSqlContext();
+                    var vrepo = new VrijwilligerRepository(vsql);
+                    vrepo.Create(vrijwilliger.Id, vrijwilliger.VOG);
+                    if (vaardigheidIdList.Count != 0)
+                    {
+                        vrepo.CreateVrijwilligerWithVaardigheid(vrijwilliger.Id, vaardigheidIdList);
+                    }
+                    
+                }
+
+              
+
+                return RedirectToAction("Index", "Login");
+            }
+
+
+            return RedirectToAction("Index", "Registreer");
+
         }
     }
 }

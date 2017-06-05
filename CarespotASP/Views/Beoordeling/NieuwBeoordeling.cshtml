@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "NieuwBeoordeling";
+}
+
+@using (Html.BeginForm())
+{
+    <h2>Schrijf een nieuwe beoordeling</h2>
+    <p>U  schrijft een beoordeling over: ......</p>
+
+    <div class="form-group">
+        <label for="formGroupExampleInput">Titel</label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Titel">
+    </div>
+    <div class="form-group">
+        <label for="comment">Recensie:</label>
+        <textarea class="form-control" rows="5" id="comment" placeholder="Recensie"></textarea>
+        <input type="number" name="quantity" min="1" max="10"><br/>
+        <button type="button" class="btn btn-default navbar-btn">Beoordeling insturen</button>
+    </div>
+}
+

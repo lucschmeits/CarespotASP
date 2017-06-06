@@ -59,7 +59,7 @@ namespace CarespotASP.Controllers
                 gebruiker1.HeeftAuto = bool.Parse(form["auto"]);
                 gebruiker1.HeeftRijbewijs = bool.Parse(form["rijbewijs"]);
                 gebruiker1.HeeftOv = bool.Parse(form["ov"]);
-                gebruiker1.Barcode = "";
+                gebruiker1.Barcode = form["barcode"];
 
                 var vaardigheidIds = form.GetValues("vaardigheden");
                 var vaardigheidIdList = new List<int>();

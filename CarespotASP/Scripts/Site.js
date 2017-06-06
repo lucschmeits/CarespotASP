@@ -77,7 +77,7 @@ function ShowVrijwilliger() {
                 count++;
             }
             else if (count > 0) {
-                alert(checked + "tweede");
+                //alert(checked + "tweede");
                 $("#vog").addClass("hidden");
                 $("#vaardigheid").addClass("hidden");
                 $("#voginput").prop('required', false);

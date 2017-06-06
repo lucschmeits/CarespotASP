@@ -1,0 +1,88 @@
+﻿@using CarespotASP.Models
+@{
+    Gebruiker g = ViewBag.SelectedUser;
+    ViewBag.Title = "Gebruiker: " + @g.Naam;
+
+
+  //  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 center">
+        <br />
+        <img src="http://www.verhuisgoedkoop.nu/wp-content/uploads/2016/04/holder.png" style="height: 200px"/>
+
+        <br/>
+        <br/>
+        <table class="center" style="width: 60%; margin: auto;">
+            <tr>
+                <td><b>Naam:</b></td>
+                <td>@g.Naam</td>
+            </tr>
+
+            <tr>
+                <td><b>Email:</b></td>
+                <td>@g.Email</td>
+            </tr>
+            <tr>
+                <td><b>Woonplaats:</b></td>
+                <td>@g.Woonplaats</td>
+            </tr>
+
+
+        </table>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 ">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#Reviews">Reviews</a></li>
+        
+        </ul>
+
+        <div class="tab-content">
+            <div id="Reviews" class="tab-pane fade in active">
+                <br />
+              @if (ViewBag.Reviews != null)
+              {
+
+                  foreach (Review r in ViewBag.Reviews)
+                   {
+                       
+                       <div class="row">
+                           <div class="col-md-10" style="height: auto;">
+                               <br/>
+                               <p><b>Omschrijving:</b> @r.Omschrijving</p>
+                               <p><b>Geplaats door:</b> @r.ReturnAutheurObj().Naam</p>
+
+                           </div>
+                           <div class="col-md-2">                             
+                               <h1>@r.Beoordeling</h1>
+                           </div>                            
+                           <br/>
+                          
+                       </div>
+                       <hr/>
+                        
+                   }
+
+              }
+              else
+              {
+                  <p>Deze gebruiker heeft geen reviews.</p>
+              }
+
+
+            </div>
+        
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+
+

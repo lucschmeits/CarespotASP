@@ -70,7 +70,7 @@ function ShowVrijwilliger() {
         var checked = $('#vrij').prop('checked');
         if (checked) {
             if (count === 0) {
-                alert(checked + "eerste");
+               // alert(checked + "eerste");
                 $("#vog").removeClass("hidden");
                 $("#vaardigheid").removeClass("hidden");
                 $("#voginput").prop('required', true);

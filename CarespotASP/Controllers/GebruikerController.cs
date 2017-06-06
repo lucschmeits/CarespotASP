@@ -5,8 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using CarespotASP.Dal.Context;
 using CarespotASP.Dal.Repositorys;
+
 using CarespotASP.Enums;
 using CarespotASP.Models;
+
 
 namespace CarespotASP.Controllers
 {
@@ -17,7 +19,7 @@ namespace CarespotASP.Controllers
         {
             return View("NieuwGebruiker");
         }
-
+        
         public ActionResult Gegevens(int id)
         {
             var sql = new GebruikerSqlContext();
@@ -57,7 +59,7 @@ namespace CarespotASP.Controllers
             {
                 gebruiker.Wachtwoord = form["wachtwoord"];
             }
-            gebruiker.Geslacht = (Geslacht)Enum.Parse(typeof(Geslacht), form["geslacht"]);
+            gebruiker.Geslacht = (Geslacht) Enum.Parse(typeof(Geslacht), form["geslacht"]);
             gebruiker.Adres = form["adres"];
             gebruiker.Email = form["email"];
             gebruiker.Geboortedatum = Convert.ToDateTime(form["geboortedatum"]);
@@ -88,6 +90,21 @@ namespace CarespotASP.Controllers
             repo.Update(gebruiker);
 
             return View("GegevensWijzigen");
+        }
+
+        //Get /Details/{id}
+        public ActionResult Details(int id)
+        {
+            GebruikerSqlContext gsc = new GebruikerSqlContext();
+            GebruikerRepository gr = new GebruikerRepository(gsc);
+
+            ReviewSqlContext rsc = new ReviewSqlContext();
+            ReviewRepository rr = new ReviewRepository(rsc);
+
+            ViewBag.SelectedUser = gr.GetById(id);
+            ViewBag.Reviews = rr.GetReviewByVrijwilligerId(id);
+            return View("~/Views/Gebruiker/Details.cshtml");
+
         }
     }
 }

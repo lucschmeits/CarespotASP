@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using CarespotASP.Dal.Interfaces;
-using CarespotASP.Models;
 using System.Data.SqlClient;
+using CarespotASP.Dal.Interfaces;
 using CarespotASP.Dal.Repositorys;
 using CarespotASP.Enums;
+using CarespotASP.Models;
 
 namespace CarespotASP.Dal.Context
 {
@@ -12,11 +12,10 @@ namespace CarespotASP.Dal.Context
     {
         public void CreateHulpbehoevende(int id, int hulpverlenerId)
         {
-
             //Maak aan doormiddel van gebruiker repo
             try
             {
-                using (var con = new SqlConnection(Env.ConnectionString))
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
                     var query = "INSERT INTO Hulpbehoevende (GebruikerId, HulpverlenerId) VALUES (@id, @hulpId)";
 
@@ -47,27 +46,25 @@ namespace CarespotASP.Dal.Context
             List<Hulpbehoevende> returnList = new List<Hulpbehoevende>();
             try
             {
-                using (var con = new SqlConnection(Env.ConnectionString))
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "SELECT Gebruiker.*, Hulpbehoevende.HulpverlenerId FROM Hulpbehoevende INNER JOIN Gebruiker ON Hulpbehoevende.GebruikerId = Gebruiker.Id";
-                    var cmd = new SqlCommand(query, con);
+                    string query = "SELECT Gebruiker.*, Hulpbehoevende.HulpverlenerId FROM Hulpbehoevende INNER JOIN Gebruiker ON Hulpbehoevende.GebruikerId = Gebruiker.Id";
+                    SqlCommand cmd = new SqlCommand(query, con);
                     con.Open();
-                    var reader = cmd.ExecuteReader();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
                     {
-                        var foto = new byte[10];
+                        byte[] foto = new byte[10];
                         if (!reader.IsDBNull(1))
                             foto = (byte[])reader[1];
 
-                        var sql = new HulpverlenerSqlContext();
-                        var repo = new HulpverlenerRepository(sql);
+                        HulpverlenerSqlContext sql = new HulpverlenerSqlContext();
+                        HulpverlenerRepository repo = new HulpverlenerRepository(sql);
 
+                        Hulpverlener hulpverlener = repo.GetById(reader.GetInt32(18));
 
-                        var hulpverlener = repo.GetById(reader.GetInt32(18));
-
-
-                       var hv = new Hulpbehoevende(
+                        Hulpbehoevende hv = new Hulpbehoevende(
                             reader.GetInt32(0),
                             foto,
                             reader.GetString(2),
@@ -84,21 +81,16 @@ namespace CarespotASP.Dal.Context
                             reader.GetString(14),
                             reader.GetString(15),
                             (Geslacht)Enum.Parse(typeof(Geslacht), reader.GetString(16)),
-                             hulpverlener
+                            hulpverlener
                         );
 
                         //Barcode
                         if (!reader.IsDBNull(17))
-                        {
                             hv.Barcode = reader.GetString(17);
-                        }
 
                         //Uitschrijfdatum
                         if (!reader.IsDBNull(11))
-                        {
                             hv.Uitschrijfdatum = reader.GetDateTime(11);
-                        }
-
 
                         returnList.Add(hv);
                     }
@@ -119,30 +111,27 @@ namespace CarespotASP.Dal.Context
             Hulpbehoevende returnHulpbehoevende = null;
             try
             {
-                using (var con = new SqlConnection(Env.ConnectionString))
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "SELECT Gebruiker.*, Hulpbehoevende.HulpverlenerId FROM Hulpbehoevende INNER JOIN Gebruiker ON Hulpbehoevende.GebruikerId = Gebruiker.Id where Id = @key";
-                    var cmd = new SqlCommand(query, con);
+                    string query = "SELECT Gebruiker.*, Hulpbehoevende.HulpverlenerId FROM Hulpbehoevende INNER JOIN Gebruiker ON Hulpbehoevende.GebruikerId = Gebruiker.Id where Id = @key";
+                    SqlCommand cmd = new SqlCommand(query, con);
                     con.Open();
 
                     cmd.Parameters.AddWithValue("@key", id);
-                    var reader = cmd.ExecuteReader();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
                     {
-
-                        var foto = new byte[10];
+                        byte[] foto = new byte[10];
                         if (!reader.IsDBNull(1))
                             foto = (byte[])reader[1];
 
-                        var sql = new HulpverlenerSqlContext();
-                        var repo = new HulpverlenerRepository(sql);
+                        HulpverlenerSqlContext sql = new HulpverlenerSqlContext();
+                        HulpverlenerRepository repo = new HulpverlenerRepository(sql);
 
+                        Hulpverlener hulpverlener = repo.GetById(reader.GetInt32(18));
 
-                        var hulpverlener = repo.GetById(reader.GetInt32(18));
-
-
-                         returnHulpbehoevende = new Hulpbehoevende(
+                        returnHulpbehoevende = new Hulpbehoevende(
                             reader.GetInt32(0),
                             foto,
                             reader.GetString(2),
@@ -161,19 +150,15 @@ namespace CarespotASP.Dal.Context
                             (Geslacht)Enum.Parse(typeof(Geslacht), reader.GetString(16)),
                             hulpverlener
                         );
-                      //Barcode
+                        //Barcode
                         if (!reader.IsDBNull(17))
-                        {
                             returnHulpbehoevende.Barcode = reader.GetString(17);
-                        }
 
                         //Uitschrijfdatum
                         if (!reader.IsDBNull(11))
-                        {
                             returnHulpbehoevende.Uitschrijfdatum = reader.GetDateTime(11);
-                        }
                     }
-                   con.Close();
+                    con.Close();
                 }
                 return returnHulpbehoevende;
             }
@@ -206,7 +191,6 @@ namespace CarespotASP.Dal.Context
                     con.Close();
                     return id;
                 }
-                 
             }
             catch (Exception e)
             {

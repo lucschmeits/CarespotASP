@@ -27,7 +27,54 @@
         <div class="tab-content">
             <div id="contacten" class="tab-pane fade in active">
                 <h3>Contactgegevens</h3>
-                <p></p>
+                <h4>Hulpbehoevende</h4>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Hulpbehoevende.Naam)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Hulpbehoevende.Naam)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Hulpbehoevende.Email)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Hulpbehoevende.Email)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Hulpbehoevende.Telefoonnummer)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Hulpbehoevende.Telefoonnummer)
+                    </dd>
+                </dl>
+                <h4>Vrijwilliger</h4>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Vrijwilliger.Naam)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Vrijwilliger.Naam)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Vrijwilliger.Email)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Vrijwilliger.Email)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Vrijwilliger.Telefoonnummer)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Vrijwilliger.Telefoonnummer)
+                    </dd>
+                </dl>
             </div>
             <div id="reacties" class="tab-pane fade">
                 <h3>Reacties</h3>

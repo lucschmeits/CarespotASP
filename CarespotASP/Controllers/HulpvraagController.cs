@@ -21,6 +21,7 @@ namespace CarespotASP.Controllers
             HulpvraagSqlContext hsc = new HulpvraagSqlContext();
             HulpvraagRepository hr = new HulpvraagRepository(hsc);
             Hulpvraag hulpvrg = hr.GetById(id);
+
             return View(hulpvrg);
         }
 

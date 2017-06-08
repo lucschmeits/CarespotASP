@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using CarespotASP.Dal.Context;
 using CarespotASP.Dal.Repositorys;
+using CarespotASP.Enums;
 using CarespotASP.Models;
 
 namespace CarespotASP.Controllers
@@ -24,15 +25,15 @@ namespace CarespotASP.Controllers
 
         }
 
-        [HttpGet]
-        public ActionResult DeleteHulpvraag(int id)
+        public ActionResult NieuweOpdracht()
         {
-            HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
-            HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
+            VaardigheidSqlContext vsc = new VaardigheidSqlContext();
+            VaardigheidRepository vr = new VaardigheidRepository(vsc);
 
-            hvr.Delete(id);
+            ViewBag.vaardigheden = vr.GetAll();
 
-            return Index();
+            return View("~/Views/Hulpbehoevende/NieuweOpdracht.cshtml");
+
         }
     }
 }

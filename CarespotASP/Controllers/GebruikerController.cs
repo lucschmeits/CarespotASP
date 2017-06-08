@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -46,15 +47,22 @@ namespace CarespotASP.Controllers
                 var vrepo = new VrijwilligerRepository(vsql);
                 var gebruiker = new Gebruiker();
                 gebruiker.Id = id;
-                byte[] array = new byte[0];
+                var path = "";
+                var fotoPath = "";
                 if (foto != null)
                 {
                     if (foto.ContentLength > 0)
                     {
-                        var fileBytes = new byte[foto.ContentLength];
-                        foto.InputStream.Read(fileBytes, 0, fileBytes.Length);
-                        array = fileBytes;
-                        gebruiker.Image = array;
+                        if (Path.GetExtension(foto.FileName).ToLower() == ".png" || Path.GetExtension(foto.FileName).ToLower() == ".jpg" ||
+                            Path.GetExtension(foto.FileName).ToLower() == ".jpeg")
+                        {
+                            path = Path.Combine(Server.MapPath("~/Content/Foto"), foto.FileName);
+                            foto.SaveAs(path);
+                            fotoPath = "../../Content/Foto/" + foto.FileName;
+                            gebruiker.Image = fotoPath;
+                        }
+
+
                     }
 
                 }

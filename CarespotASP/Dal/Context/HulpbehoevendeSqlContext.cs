@@ -55,9 +55,12 @@ namespace CarespotASP.Dal.Context
 
                     while (reader.Read())
                     {
-                        byte[] foto = new byte[10];
+                        var foto = "";
+
                         if (!reader.IsDBNull(1))
-                            foto = (byte[])reader[1];
+                        {
+                            foto = reader.GetString(1);
+                        }
 
                         HulpverlenerSqlContext sql = new HulpverlenerSqlContext();
                         HulpverlenerRepository repo = new HulpverlenerRepository(sql);
@@ -122,9 +125,12 @@ namespace CarespotASP.Dal.Context
 
                     while (reader.Read())
                     {
-                        byte[] foto = new byte[10];
+                        var foto = "";
+
                         if (!reader.IsDBNull(1))
-                            foto = (byte[])reader[1];
+                        {
+                            foto = reader.GetString(1);
+                        }
 
                         HulpverlenerSqlContext sql = new HulpverlenerSqlContext();
                         HulpverlenerRepository repo = new HulpverlenerRepository(sql);

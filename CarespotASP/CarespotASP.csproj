@@ -148,6 +148,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HulpbehoevendeController.cs" />
     <Compile Include="Controllers\HulpverlenerController.cs" />
+    <Compile Include="Controllers\HulpvraagController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistreerController.cs" />
     <Compile Include="Controllers\VrijwilligerController.cs" />
@@ -258,13 +259,18 @@
     <Content Include="Views\Vrijwilliger\Hoofdscherm.cshtml" />
     <Content Include="Views\Beheerder\Index.cshtml" />
     <Content Include="Views\Chat\Index.cshtml" />
+    <Content Include="Views\Beheerder\Details.cshtml" />
+    <Content Include="Views\Hulpbehoevende\NieuweOpdracht.cshtml" />
     <Content Include="Views\Gebruiker\GegevensWijzigen.cshtml" />
     <Content Include="Views\Gebruiker\Details.cshtml" />
     <Content Include="Views\Registreer\RegistreerBeheerderHulpverlener.cshtml" />
     <Content Include="Views\Hulpverlener\Hulpverlener.cshtml" />
+    <Content Include="Views\Hulpvraag\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Foto\" />
+    <Folder Include="Content\VOG\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

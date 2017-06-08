@@ -1,0 +1,131 @@
+﻿@model CarespotASP.Models.Hulpvraag
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        <h2>@Html.DisplayFor(model => model.Titel)</h2>
+        <p>@Html.DisplayFor(model => model.Omschrijving)</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a data-toggle="tab" href="#contacten">Contacten</a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#reacties">Reacties</a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#extra">Extra info</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="contacten" class="tab-pane fade in active">
+                <h3>Contactgegevens</h3>
+                <h4>Hulpbehoevende</h4>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Hulpbehoevende.Naam)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Hulpbehoevende.Naam)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Hulpbehoevende.Email)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Hulpbehoevende.Email)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Hulpbehoevende.Telefoonnummer)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Hulpbehoevende.Telefoonnummer)
+                    </dd>
+                </dl>
+                <h4>Vrijwilliger</h4>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Vrijwilliger.Naam)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Vrijwilliger.Naam)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Vrijwilliger.Email)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Vrijwilliger.Email)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Vrijwilliger.Telefoonnummer)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Vrijwilliger.Telefoonnummer)
+                    </dd>
+                </dl>
+            </div>
+            <div id="reacties" class="tab-pane fade">
+                <h3>Reacties</h3>
+                <p></p>
+            </div>
+            <div id="extra" class="tab-pane fade">
+                <h3>Extra informatie</h3>
+                <p>
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.OpdrachtDatum)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.OpdrachtDatum)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CreateDatum)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.CreateDatum)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Locatie)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Locatie)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Urgent)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Urgent)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.IsAfgerond)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.IsAfgerond)
+                        </dd>
+                    </dl>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

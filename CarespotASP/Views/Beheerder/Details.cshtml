@@ -1,0 +1,69 @@
+﻿@model CarespotASP.Models.Hulpvraag
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>@Html.DisplayFor(model => model.Titel)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Titel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Omschrijving)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Omschrijving)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OpdrachtDatum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OpdrachtDatum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDatum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateDatum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Locatie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Locatie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Urgent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Urgent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAfgerond)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsAfgerond)
+        </dd>
+    </dl>
+</div>

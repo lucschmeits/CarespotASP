@@ -1,0 +1,78 @@
+﻿@using CarespotASP.Models
+
+@{
+    ViewBag.Title = "NieuweOpdracht";
+}
+
+<body>
+<h2>Nieuwe Opdracht</h2>
+    
+<form action="/Hulpvraag/CreateOpdracht" method="POST">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Titel:</label>
+                    <input type="text" class="form-control" name="titel">
+                </div>
+
+                <div class="form-group">
+                    <label>Beschrijving:</label>
+                    <textarea class="form-control" rows="5" name="beschrijving"></textarea>
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Datum voor opdracht:</label>
+                    <input type="datetime-local" class="form-control" name="opdrachtdatum">
+                </div>
+
+                <div class="form-group">
+                    <label>Locatie:</label>
+                    <input type="text" class="form-control" name="locatie">
+                </div>
+
+                <div class="form-group">
+                    <label>Vervoertype:</label>
+                    <select class="form-control" name="vervoertype">
+                        <option>n.v.t</option>
+                        <option>Auto</option>
+                        <option>Fiets</option>
+                        <option>OV</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                        <label>Vaardigheden:</label>
+                        @foreach (Vaardigheid vaardigheid in ViewBag.vaardigheden)
+                        {
+                            <div class="form-group">
+                                <label><input type="checkbox" name="vaardigheden[]" value="@vaardigheid.Id">@vaardigheid.Omschrijving</label>
+                            </div>
+
+                                }
+                            </div>
+
+                <div class="form-group">
+                    <label>Urgent:</label>
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="urgent" name="urgent"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9">
+        </div>
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-primary">Aanmaken</button>
+        </div>
+    </div>
+</form>
+</body>
+

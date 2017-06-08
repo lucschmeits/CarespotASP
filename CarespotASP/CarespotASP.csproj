@@ -146,6 +146,7 @@
     <Compile Include="Controllers\GebruikerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HulpbehoevendeController.cs" />
+    <Compile Include="Controllers\HulpvraagController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistreerController.cs" />
     <Compile Include="Dal\Context\BeheerderSqlContext.cs" />
@@ -251,9 +252,11 @@
     <Content Include="Views\Gebruiker\NieuwGebruiker.cshtml" />
     <Content Include="Views\Beheerder\Index.cshtml" />
     <Content Include="Views\Chat\Index.cshtml" />
+    <Content Include="Views\Hulpbehoevende\NieuweOpdracht.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Hulpvraag\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

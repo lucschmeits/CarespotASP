@@ -29,13 +29,10 @@ namespace CarespotASP.Controllers
         public ActionResult CreateOpdracht(FormCollection form)
         {
 
-<<<<<<< HEAD
             //Vervoerstype parsen
             VervoerType vervoerstype = (VervoerType) Enum.Parse(typeof(VervoerType), form["vervoertype"]);
 
             //Urgentie controleren
-=======
->>>>>>> c6771e3368cab1771936bf7af055a6864ed0b47d
             bool urgent = false;
 
             if (form["urgent"] == "urgent")
@@ -46,11 +43,8 @@ namespace CarespotASP.Controllers
             HulpbehoevendeSqlContext hbsc = new HulpbehoevendeSqlContext();
             HulpbehoevendeRepository hbr = new HulpbehoevendeRepository(hbsc);
 
-<<<<<<< HEAD
-            Hulpbehoevende hulpbehoevende = hbr.GetHulpbehoevendeById(1027); //Hier straks de ingelogde gebruiker 
-=======
-            Hulpbehoevende hulpbehoevende = hbr.GetHulpbehoevendeById(4); //Hier straks de ingelogde gebruiker
->>>>>>> c6771e3368cab1771936bf7af055a6864ed0b47d
+
+            Hulpbehoevende hulpbehoevende = hbr.GetHulpbehoevendeById(1027); //Hier straks de ingelogde gebruiker !!!!!@@@@@@
 
             Hulpvraag hulpvraag = new Hulpvraag(
                 form["titel"],

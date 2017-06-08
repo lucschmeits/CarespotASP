@@ -11,8 +11,7 @@
 <section id="registreer">
     <div class="container">
         <div class="row">
-            @using (Html.BeginForm("Update", "Gebruiker", FormMethod.Post,new
-            { enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("Update", "Gebruiker", new { enctype = "multipart/form-data", id = gebruiker.Id}, FormMethod.Post))
             {
                 if (gebruiker != null)
                 {
@@ -27,11 +26,11 @@
                         </div>
                         <p>Niew wachtwoord</p>
                         <div class="form-group">
-                            <input id="wachtwoord" name="wachtwoord" class="form-control" type="password" placeholder="" value="@gebruiker.Wachtwoord" required="required"/>
+                            <input id="wachtwoord" name="wachtwoord" class="form-control" type="password" placeholder="" value=""/>
                         </div>
                         <p>Herhaal niew wachtwoord</p>
                         <div class="form-group">
-                            <input id="wachtwoordherhalen" name="wachtwoordniew" class="form-control" type="password" placeholder="" required="required"/>
+                            <input id="wachtwoordherhalen" name="wachtwoordniew" class="form-control" type="password" placeholder=""/>
                         </div>
                         <p>Naam</p>
                         <div class="form-group">
@@ -82,7 +81,7 @@
                            
                         </div>
                         <div class="form-group">
-                            <img src="data:image;base64,@Convert.ToBase64String(gebruiker.Image)" alt="foto" class="img-responsive"/>
+                            <img src="@gebruiker.Image" alt="foto" class="img-responsive"/>
                         </div>
                     </div>
 

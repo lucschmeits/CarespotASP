@@ -38,14 +38,19 @@ namespace CarespotASP.Controllers
                     }
                 }
             }
-            byte[] array = new byte[0];
+            var fotoPath = "";
             if (foto != null)
             {
                 if (foto.ContentLength > 0)
                 {
-                    var fileBytes = new byte[foto.ContentLength];
-                    foto.InputStream.Read(fileBytes, 0, fileBytes.Length);
-                    array = fileBytes;
+                    if (Path.GetExtension(foto.FileName).ToLower() == ".png" || Path.GetExtension(foto.FileName).ToLower() == ".jpg" ||
+                        Path.GetExtension(foto.FileName).ToLower() == ".jpeg")
+                    {
+                        path = Path.Combine(Server.MapPath("~/Content/Foto"), foto.FileName);
+                        foto.SaveAs(path);
+                        fotoPath = "../../Content/Foto/" + foto.FileName;
+                    }
+                   
 
                 }
 
@@ -57,7 +62,7 @@ namespace CarespotASP.Controllers
             if (form["wachtwoord"] == form["wachtwoordherhalen"])
             {
                 var gebruiker1 = new Gebruiker();
-                gebruiker1.Image = array;
+                gebruiker1.Image = fotoPath;
                 gebruiker1.Geslacht = (Geslacht)Enum.Parse(typeof(Geslacht), form["geslacht"]);
                 gebruiker1.Adres = form["adres"];
                 gebruiker1.Email = form["email"];
@@ -126,14 +131,20 @@ namespace CarespotASP.Controllers
         }
         public ActionResult SaveBeheerHulp(FormCollection form, HttpPostedFileBase foto)
         {
-            byte[] array = new byte[0];
+            var path = "";
+            var fotoPath = "";
             if (foto != null)
             {
                 if (foto.ContentLength > 0)
                 {
-                    var fileBytes = new byte[foto.ContentLength];
-                    foto.InputStream.Read(fileBytes, 0, fileBytes.Length);
-                    array = fileBytes;
+                    if (Path.GetExtension(foto.FileName).ToLower() == ".png" || Path.GetExtension(foto.FileName).ToLower() == ".jpg" ||
+                        Path.GetExtension(foto.FileName).ToLower() == ".jpeg")
+                    {
+                        path = Path.Combine(Server.MapPath("~/Content/Foto"), foto.FileName);
+                        foto.SaveAs(path);
+                        fotoPath = "../../Content/Foto/" + foto.FileName;
+                    }
+
 
                 }
 
@@ -145,7 +156,7 @@ namespace CarespotASP.Controllers
             if (form["wachtwoord"] == form["wachtwoordherhalen"])
             {
                 var gebruiker1 = new Gebruiker();
-                gebruiker1.Image = array;
+                gebruiker1.Image = fotoPath;
                 gebruiker1.Geslacht = (Geslacht)Enum.Parse(typeof(Geslacht), form["geslacht"]);
                 gebruiker1.Adres = form["adres"];
                 gebruiker1.Email = form["email"];

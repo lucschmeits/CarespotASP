@@ -267,6 +267,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Foto\" />
     <Folder Include="Content\VOG\" />
   </ItemGroup>
   <ItemGroup>

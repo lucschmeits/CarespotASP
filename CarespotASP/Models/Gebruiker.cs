@@ -10,7 +10,7 @@ namespace CarespotASP.Models
     {
         public int Id { get;  set; }
 
-        public byte[] Image { get;  set; }
+        public string Image { get;  set; }
 
         public string Email { get;  set; }
 
@@ -46,7 +46,7 @@ namespace CarespotASP.Models
 
       
 
-        public Gebruiker(int id, byte[] image, string email, string wachtwoord, string gebruikersnaam, string naam, DateTime geboortedatum, bool heeftRijbewijs, bool heeftOv, bool heeftAuto, string telefoonnummer, string adres, string woonplaats, string land, string postcode, Geslacht geslacht)
+        public Gebruiker(int id, string image, string email, string wachtwoord, string gebruikersnaam, string naam, DateTime geboortedatum, bool heeftRijbewijs, bool heeftOv, bool heeftAuto, string telefoonnummer, string adres, string woonplaats, string land, string postcode, Geslacht geslacht)
         {
             Id = id;
             Image = image;
@@ -66,7 +66,7 @@ namespace CarespotASP.Models
             Geslacht = geslacht;
         }
 
-        public Gebruiker(byte[] image, string email, string wachtwoord, string gebruikersnaam, string naam, DateTime geboortedatum, bool heeftRijbewijs, bool heeftOv, bool heeftAuto, string telefoonnummer, string adres, string woonplaats, string land, string postcode, Geslacht geslacht)
+        public Gebruiker(string image, string email, string wachtwoord, string gebruikersnaam, string naam, DateTime geboortedatum, bool heeftRijbewijs, bool heeftOv, bool heeftAuto, string telefoonnummer, string adres, string woonplaats, string land, string postcode, Geslacht geslacht)
         {
             Image = image;
             Email = email;
@@ -90,7 +90,7 @@ namespace CarespotASP.Models
             Id = id;
         }
 
-        public Gebruiker(int id, byte[] image, string email, string wachtwoord, string gebruikersnaam, string naam, DateTime geboortedatum, bool heeftRijbewijs, bool heeftOv, bool heeftAuto, string telefoonnummer, DateTime uitschrijfdatum, string adres, string woonplaats, string land, string postcode, Geslacht geslacht, string barcode)
+        public Gebruiker(int id, string image, string email, string wachtwoord, string gebruikersnaam, string naam, DateTime geboortedatum, bool heeftRijbewijs, bool heeftOv, bool heeftAuto, string telefoonnummer, DateTime uitschrijfdatum, string adres, string woonplaats, string land, string postcode, Geslacht geslacht, string barcode)
         {
             Id = id;
             Image = image;

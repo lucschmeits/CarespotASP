@@ -40,7 +40,7 @@
                     <th>Naam</th>
                     <th>VOG</th>
                     <th>Accepteren</th>
-                    <th>Afwijzen</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -56,11 +56,9 @@
                                 <td>@v.Naam</td>
                                 <td><a href="@v.VOG" target="_blank">VOG</a></td>
                                 <td>
-                                    <button type="button">Open</button>
+                                    <button class="btn btn-success" type="button">Accepteer</button>
                                 </td>
-                                <td>
-                                    <button type="button">Open</button>
-                                </td>
+                               
                             </tr>
                         }
                     }
@@ -87,7 +85,7 @@
                         <td>@item.Naam</td>
                         <td>@item.GetType().Name</td>
                         <td>
-                            <button type="button">Open</button>
+                            <button class="btn btn-danger" type="button">Verwijder</button>
                         </td>
                     </tr>
                 }

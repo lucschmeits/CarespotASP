@@ -38,13 +38,14 @@ namespace CarespotASP.Controllers
             if (form["urgent"] == "urgent")
                 urgent = true;
 
+            //Haal de ingelogde gebruiker op
+            var hulpbehoevende = (Hulpbehoevende)Session["LoggedInUser"];
 
-            //Hulpbehoevende ophalen/toevoegen
-            HulpbehoevendeSqlContext hbsc = new HulpbehoevendeSqlContext();
-            HulpbehoevendeRepository hbr = new HulpbehoevendeRepository(hbsc);
+            ////Hulpbehoevende ophalen/toevoegen
+            //HulpbehoevendeSqlContext hbsc = new HulpbehoevendeSqlContext();
+            //HulpbehoevendeRepository hbr = new HulpbehoevendeRepository(hbsc);
 
-
-            Hulpbehoevende hulpbehoevende = hbr.GetHulpbehoevendeById(1027); //Hier straks de ingelogde gebruiker !!!!!@@@@@@
+            //Hulpbehoevende hulpbehoevende = hbr.GetHulpbehoevendeById(gebruiker.Id);
 
             Hulpvraag hulpvraag = new Hulpvraag(
                 form["titel"],

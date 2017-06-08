@@ -28,7 +28,6 @@ namespace CarespotASP.Dal.Context
 
                     returnId = (int)cmd.ExecuteScalar();
 
-                    cmd.ExecuteNonQuery();
                     con.Close();
                 }
                 return returnId;

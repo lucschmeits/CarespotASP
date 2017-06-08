@@ -15,10 +15,12 @@ namespace CarespotASP.Controllers
         // GET: Hulpbehoevende
         public ActionResult Index()
         {
+            var hulpbehoevende = (Hulpbehoevende)Session["LoggedInUser"];
+
             HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
             HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
 
-            List<Hulpvraag> hulpvragen = hvr.GetHulpvragenByHulpbehoevendeId(1027);
+            List<Hulpvraag> hulpvragen = hvr.GetHulpvragenByHulpbehoevendeId(hulpbehoevende.Id);
             ViewBag.hulpvragen = hulpvragen;
 
             return View("~/Views/Hulpbehoevende/Opdrachten.cshtml");

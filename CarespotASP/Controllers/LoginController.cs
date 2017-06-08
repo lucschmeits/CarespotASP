@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using CarespotASP.Dal.Context;
+﻿using CarespotASP.Dal.Context;
 using CarespotASP.Dal.Repositorys;
 using CarespotASP.Enums;
 using CarespotASP.Models;
+using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace CarespotASP.Controllers
 {
@@ -28,7 +26,6 @@ namespace CarespotASP.Controllers
 
             if (g == null)
             {
-
                 ViewBag.LoginResult = false;
                 return View("~/Views/Login/Login.cshtml");
             }
@@ -39,12 +36,11 @@ namespace CarespotASP.Controllers
 
                 foreach (Gebruiker gebr in users)
                 {
-                   types.Add((GebruikerType)Enum.Parse(typeof(GebruikerType), gebr.GetType().Name));                   
+                    types.Add((GebruikerType)Enum.Parse(typeof(GebruikerType), gebr.GetType().Name));
                 }
 
                 if (types.Contains(GebruikerType.Hulpbehoevende) && types.Contains(GebruikerType.Vrijwilliger))
                 {
-
                     ViewBag.Accounts = users;
                     ViewBag.Types = types;
 
@@ -54,39 +50,34 @@ namespace CarespotASP.Controllers
                 {
                     HulpbehoevendeSqlContext hsc = new HulpbehoevendeSqlContext();
                     HulpbehoevendeRepository hr = new HulpbehoevendeRepository(hsc);
-                    
+
                     Session["LoggedInUser"] = hr.GetHulpbehoevendeById(g.Id);
-                    return RedirectToAction("Index", "Beheerder");
+                    return RedirectToAction("Index", "Hulpbehoevende");
                 }
                 else if (types.Contains(GebruikerType.Vrijwilliger))
                 {
-                    //Ga naar vrijwilliger scherm
+                    VrijwilligerSqlContext vsc = new VrijwilligerSqlContext();
+                    VrijwilligerRepository vr = new VrijwilligerRepository(vsc);
+                    Session["LoggedInUser"] = vr.GetVrijwilligerById(g.Id);
+                    return RedirectToAction("Index", "Vrijwilliger");
                 }
                 else if (types.Contains(GebruikerType.Beheerder))
                 {
-                    Session["LoggedInUser"] = "";
+                    BeheerderSqlContext bsc = new BeheerderSqlContext();
+                    BeheerderRepository br = new BeheerderRepository(bsc);
+                    Session["LoggedInUser"] = br.GetById(g.Id);
                     return RedirectToAction("Index", "Beheerder");
                 }
-                else if(types.Contains(GebruikerType.Hulpverlener))
+                else if (types.Contains(GebruikerType.Hulpverlener))
                 {
-                    //Ga naar hulppverlener scherm
                     HulpverlenerSqlContext hsc = new HulpverlenerSqlContext();
                     HulpverlenerRepository hr = new HulpverlenerRepository(hsc);
-
                     Session["LoggedInUser"] = hr.GetById(g.Id);
-
                     return RedirectToAction("Index", "Hulpverlener");
-
                 }
-
                 return RedirectToAction("Index", "Login");
-
             }
-
-
         }
-
-
 
         public ActionResult Keuze()
         {

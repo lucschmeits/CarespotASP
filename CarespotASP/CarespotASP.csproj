@@ -257,6 +257,7 @@
     <Content Include="Views\Vrijwilliger\Hoofdscherm.cshtml" />
     <Content Include="Views\Beheerder\Index.cshtml" />
     <Content Include="Views\Chat\Index.cshtml" />
+    <Content Include="Views\Beheerder\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

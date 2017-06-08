@@ -42,5 +42,10 @@ namespace CarespotASP.Dal.Repositorys
         {
             _interface.DeleteVrijwilligerById(id);
         }
+
+        public void CreateVrijwilligerWithVaardigheid(int vrijwilligerId, List<int> vaardigheidList)
+        {
+            _interface.CreateVrijwilligerWithVaardigheid(vrijwilligerId, vaardigheidList);
+        }
     }
 }

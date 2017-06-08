@@ -9,10 +9,12 @@ namespace CarespotASP.Dal.Interfaces
 
         Hulpbehoevende GetHulpbehoevendeById(int id);
 
-        void CreateHulpbehoevende(int id);
+        void CreateHulpbehoevende(int id, int hulpverlenerId);
 
         void UpdateHulpbehoevende(int id, Hulpbehoevende hulpbehoevende);
 
         void DeleteHulpbehoevendeById(int id);
+
+        int BepaalHulpverlener();
     }
 }

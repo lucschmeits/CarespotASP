@@ -163,7 +163,7 @@ namespace CarespotASP.Dal.Context
 
                     returnId = (int)cmd.ExecuteScalar();
 
-                    cmd.ExecuteNonQuery();
+                    //cmd.ExecuteNonQuery();
                     con.Close();
                 }
 

@@ -45,20 +45,24 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (Vrijwilliger item in Model.LstGebruiker)
-            {
-                if (!item.IsGoedgekeurd)
+                @foreach (Gebruiker item in Model.LstGebruiker)
                 {
-                        <tr>
-                            <td>@item.Naam</td>
-                            <td>@item.VOG</td>
-                            <td>
-                                <button type="button">Open</button>
-                            </td>
-                            <td>
-                                <button type="button">Open</button>
-                            </td>
-                        </tr>
+                    if (item.GetType() == typeof(Vrijwilliger))
+                    {
+                        Vrijwilliger v = (Vrijwilliger)item;
+                        if (v.IsGoedgekeurd == false)
+                        {
+                            <tr>
+                                <td>@v.Naam</td>
+                                <td>@v.VOG</td>
+                                <td>
+                                    <button type="button">Open</button>
+                                </td>
+                                <td>
+                                    <button type="button">Open</button>
+                                </td>
+                            </tr>
+                        }
                     }
                 }
             </tbody>
@@ -79,7 +83,7 @@
             {
                     <tr>
                         <td>@item.Naam</td>
-                        <td>TYPE OFF</td>
+                        <td>@item.GetType().Name</td>
                         <td>
                             <button type="button">Open</button>
                         </td>

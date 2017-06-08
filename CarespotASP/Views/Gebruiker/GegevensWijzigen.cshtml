@@ -1,0 +1,183 @@
+﻿@using CarespotASP.Enums
+@using CarespotASP.Models
+
+@{
+    ViewBag.Title = "GegevensWijzigen";
+    var vaardigheden = ViewData["vaardigheden"] as List<Vaardigheid>;
+    var gebruiker = ViewData["gebruiker"] as Gebruiker;
+}
+
+<h2 class="registreer-header">Gegevens wijzigen</h2>
+<section id="registreer">
+    <div class="container">
+        <div class="row">
+            @using (Html.BeginForm("Update", "Gebruiker", FormMethod.Post,new
+            { enctype = "multipart/form-data" }))
+            {
+                if (gebruiker != null)
+                {
+                    <div class="col-md-3">
+                        <p>Gebruikersnaam</p>
+                        <div class="form-group">
+                            <input id="gebruikersnaam" name="gebruikersnaam" class="form-control" type="text" placeholder="" value="@gebruiker.Gebruikersnaam" required="required"/>
+                        </div>
+                        <p>E-mail</p>
+                        <div class="form-group">
+                            <input id="email" name="email" class="form-control" type="email" placeholder="" value="@gebruiker.Email"  required="required"/>
+                        </div>
+                        <p>Niew wachtwoord</p>
+                        <div class="form-group">
+                            <input id="wachtwoord" name="wachtwoord" class="form-control" type="password" placeholder="" value="@gebruiker.Wachtwoord" required="required"/>
+                        </div>
+                        <p>Herhaal niew wachtwoord</p>
+                        <div class="form-group">
+                            <input id="wachtwoordherhalen" name="wachtwoordniew" class="form-control" type="password" placeholder="" required="required"/>
+                        </div>
+                        <p>Naam</p>
+                        <div class="form-group">
+                            <input id="naam" name="naam" class="form-control" type="text" placeholder="" value="@gebruiker.Naam" required="required"/>
+                        </div>
+                        <p>Geslacht</p>
+                        <div class="form-group">
+                            <select name="geslacht" class="select">
+                                @if (gebruiker.Geslacht == Geslacht.Man)
+                                {
+                                    <option selected>Man</option>
+                                    <option>Vrouw</option>
+                                }
+                                @if (gebruiker.Geslacht == Geslacht.Vrouw)
+                                {
+                                    <option>Man</option>
+                                    <option selected>Vrouw</option>
+                                }
+
+                            </select>
+                        </div>
+                        <p>Telefoon nr</p>
+                        <div class="form-group">
+                            <input id="telnr" name="telnr" class="form-control" type="text" placeholder="" value="@gebruiker.Telefoonnummer" required="required"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <p>Adres</p>
+                        <div class="form-group">
+                            <input id="adres" name="adres" class="form-control" type="text" placeholder="" value="@gebruiker.Adres" required="required"/>
+                        </div>
+                       
+                        <p>Postcode</p>
+                        <div class="form-group">
+                            <input id="postcode" name="postcode" class="form-control" type="text" placeholder="" value="@gebruiker.Postcode" required="required"/>
+                        </div>
+                        <p>Plaats</p>
+                        <div class="form-group">
+                            <input id="plaats" name="plaats" class="form-control" type="text" placeholder="" value="@gebruiker.Woonplaats" required="required"/>
+                        </div>
+                        <p>Land</p>
+                        <div class="form-group">
+                            <input id="land" name="land" class="form-control" type="text" placeholder="" value="@gebruiker.Land"  required="required"/>
+                        </div>
+                        <p>Foto</p>
+                        <div class="form-group">
+                            <input class="btn btn-default btn-registreer" type="file" name="foto"/>
+                           
+                        </div>
+                        <div class="form-group">
+                            <img src="data:image;base64,@Convert.ToBase64String(gebruiker.Image)" alt="foto" class="img-responsive"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <p>Rijbewijs</p>
+                        <div class="form-group">
+                            <select name="rijbewijs" class="select">
+                                @if (gebruiker.HeeftRijbewijs)
+                                {
+                                    <option value="true" selected>Ja</option>
+                                    <option value="false">Nee</option>
+                                }
+                                else
+                                {
+                                    <option value="true">Ja</option>
+                                    <option value="false" selected>Nee</option>
+                                }
+                              
+                            </select>
+                        </div>
+                        <p>Auto</p>
+                        <div class="form-group">
+                            <select name="auto" class="select">
+                                @if (gebruiker.HeeftAuto)
+                                {
+                                    <option value="true" selected>Ja</option>
+                                    <option value="false">Nee</option>
+                                }
+                                else
+                                {
+                                    <option value="true">Ja</option>
+                                    <option value="false" selected>Nee</option>
+                                }
+                               
+                            </select>
+                        </div>
+                        <p>OV</p>
+                        <div class="form-group">
+                            <select name="ov" class="select">
+                                @if (gebruiker.HeeftOv)
+                                {
+                                    <option value="true" selected>Ja</option>
+                                    <option value="false">Nee</option>
+                                }
+                                else
+                                {
+                                    <option value="true">Ja</option>
+                                    <option value="false" selected>Nee</option>
+                                }
+                                @*<option value="true">Ja</option>
+                                <option value="false">Nee</option>*@
+                            </select>
+                        </div>
+                        <p>Geboortedatum</p>
+                        <div class="form-group">
+                            <input id="geboortedatum" name="geboortedatum" class="form-control" type="date" placeholder="" value="@gebruiker.Geboortedatum.Date" required/>
+                        </div>
+                        <p>Barcode</p>
+                        <div class="form-group">
+                            <input name="barcode" class="form-control" type="text" value="@gebruiker.Barcode"/>
+                        </div>
+                        
+                    </div>
+                     if (gebruiker.GetType() == typeof(Vrijwilliger))
+                     {
+                        
+                         
+                         <div class="col-md-3">
+                             <p>Vaardigheid</p>
+                             <select name="vaardigheden" class="form-control" multiple="multiple">
+                                 @if (vaardigheden != null)
+                                 {
+                                     foreach (var vaardigheid in vaardigheden)
+                                     {
+                                         <option value="@vaardigheid.Id">@vaardigheid.Omschrijving</option>
+                                     }
+                                 }
+                    
+                             </select>
+                
+                  
+                   
+                         </div>
+                     }
+                    
+                   
+                    <div class="form-group">
+                        <button class="btn btn-default btn-registreer" type="submit" id="submit">Update</button>
+                    </div>
+                }
+              
+            }
+
+          
+
+        </div>
+    </div>
+</section>

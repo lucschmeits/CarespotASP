@@ -257,11 +257,9 @@
     <Content Include="Views\Vrijwilliger\Hoofdscherm.cshtml" />
     <Content Include="Views\Beheerder\Index.cshtml" />
     <Content Include="Views\Chat\Index.cshtml" />
-
     <Content Include="Views\Gebruiker\GegevensWijzigen.cshtml" />
-
     <Content Include="Views\Gebruiker\Details.cshtml" />
-
+    <Content Include="Views\Registreer\RegistreerBeheerderHulpverlener.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -37,59 +37,72 @@ namespace CarespotASP.Controllers
 
         public ActionResult Update(FormCollection form, HttpPostedFileBase foto, int id)
         {
-            var sql = new GebruikerSqlContext();
-            var repo = new GebruikerRepository(sql);
-            var vsql = new VrijwilligerSqlContext();
-            var vrepo = new VrijwilligerRepository(vsql);
-            var gebruiker = new Gebruiker();
-            gebruiker.Id = id;
-            byte[] array = new byte[0];
-            if (foto != null)
+            if (Session["LoggedInUser"] != null)
             {
-                if (foto.ContentLength > 0)
+                var loggedinGebruiker = Session["LoggedInUser"] as Gebruiker;
+                var sql = new GebruikerSqlContext();
+                var repo = new GebruikerRepository(sql);
+                var vsql = new VrijwilligerSqlContext();
+                var vrepo = new VrijwilligerRepository(vsql);
+                var gebruiker = new Gebruiker();
+                gebruiker.Id = id;
+                byte[] array = new byte[0];
+                if (foto != null)
                 {
-                    var fileBytes = new byte[foto.ContentLength];
-                    foto.InputStream.Read(fileBytes, 0, fileBytes.Length);
-                    array = fileBytes;
-                    gebruiker.Image = array;
+                    if (foto.ContentLength > 0)
+                    {
+                        var fileBytes = new byte[foto.ContentLength];
+                        foto.InputStream.Read(fileBytes, 0, fileBytes.Length);
+                        array = fileBytes;
+                        gebruiker.Image = array;
+                    }
+
                 }
-
-            }
-            if (form["wachtwoord"] == form["wachtwoordnieuw"])
-            {
-                gebruiker.Wachtwoord = form["wachtwoord"];
-            }
-            gebruiker.Geslacht = (Geslacht) Enum.Parse(typeof(Geslacht), form["geslacht"]);
-            gebruiker.Adres = form["adres"];
-            gebruiker.Email = form["email"];
-            gebruiker.Geboortedatum = Convert.ToDateTime(form["geboortedatum"]);
-            gebruiker.Woonplaats = form["plaats"];
-            gebruiker.Land = form["land"];
-            gebruiker.Postcode = form["postcode"];
-            gebruiker.Telefoonnummer = form["telnr"];
-            gebruiker.Gebruikersnaam = form["gebruikersnaam"];
-            gebruiker.Naam = form["naam"];
-            gebruiker.HeeftAuto = bool.Parse(form["auto"]);
-            gebruiker.HeeftRijbewijs = bool.Parse(form["rijbewijs"]);
-            gebruiker.HeeftOv = bool.Parse(form["ov"]);
-            gebruiker.Barcode = form["barcode"];
-
-            var vaardigheidIds = form.GetValues("vaardigheden");
-            var vaardigheidIdList = new List<int>();
-            if (vaardigheidIds != null)
-            {
-                foreach (var vaardigheidId in vaardigheidIds)
+                else
                 {
-                    vaardigheidIdList.Add(Convert.ToInt32(vaardigheidId));
+                    gebruiker.Image = loggedinGebruiker.Image;
                 }
-            }
-            if (vaardigheidIdList.Count != 0)
-            {
-                vrepo.CreateVrijwilligerWithVaardigheid(gebruiker.Id, vaardigheidIdList);
-            }
-            repo.Update(gebruiker);
+                if (form["wachtwoord"] == form["wachtwoordnieuw"])
+                {
+                    gebruiker.Wachtwoord = form["wachtwoord"];
+                }
+                else
+                {
+                    gebruiker.Wachtwoord = loggedinGebruiker.Wachtwoord;
+                }
+                gebruiker.Geslacht = (Geslacht) Enum.Parse(typeof(Geslacht), form["geslacht"]);
+                gebruiker.Adres = form["adres"];
+                gebruiker.Email = form["email"];
+                gebruiker.Geboortedatum = Convert.ToDateTime(form["geboortedatum"]);
+                gebruiker.Woonplaats = form["plaats"];
+                gebruiker.Land = form["land"];
+                gebruiker.Postcode = form["postcode"];
+                gebruiker.Telefoonnummer = form["telnr"];
+                gebruiker.Gebruikersnaam = form["gebruikersnaam"];
+                gebruiker.Naam = form["naam"];
+                gebruiker.HeeftAuto = bool.Parse(form["auto"]);
+                gebruiker.HeeftRijbewijs = bool.Parse(form["rijbewijs"]);
+                gebruiker.HeeftOv = bool.Parse(form["ov"]);
+                gebruiker.Barcode = form["barcode"];
 
-            return View("GegevensWijzigen");
+                var vaardigheidIds = form.GetValues("vaardigheden");
+                var vaardigheidIdList = new List<int>();
+                if (vaardigheidIds != null)
+                {
+                    foreach (var vaardigheidId in vaardigheidIds)
+                    {
+                        vaardigheidIdList.Add(Convert.ToInt32(vaardigheidId));
+                    }
+                }
+                if (vaardigheidIdList.Count != 0)
+                {
+                    vrepo.CreateVrijwilligerWithVaardigheid(gebruiker.Id, vaardigheidIdList);
+                }
+                repo.Update(gebruiker);
+
+                return View("GegevensWijzigen");
+            }
+            return RedirectToAction("Index", "Login");
         }
 
         //Get /Details/{id}

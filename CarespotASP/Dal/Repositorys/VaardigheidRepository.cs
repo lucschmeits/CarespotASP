@@ -53,5 +53,10 @@ namespace CarespotASP.Dal.Repositorys
         {
             _interface.AddVaardigheidToHulpvraag(vaardigheid, hulpvraagid);
         }
+
+        public void DeleteAllVaardighedenByHulpvraagId(int hulpvraagid)
+        {
+            _interface.DeleteAllVaardighedenByHulpvraagId(hulpvraagid);
+        }
     }
 }

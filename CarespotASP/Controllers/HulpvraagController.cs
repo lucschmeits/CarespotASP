@@ -28,18 +28,23 @@ namespace CarespotASP.Controllers
         [HttpPost]
         public ActionResult CreateOpdracht(FormCollection form)
         {
-            HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
-            HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
 
+            //Vervoerstype parsen
+            VervoerType vervoerstype = (VervoerType) Enum.Parse(typeof(VervoerType), form["vervoertype"]);
+
+            //Urgentie controleren
             bool urgent = false;
 
             if (form["urgent"] == "urgent")
                 urgent = true;
 
+
+            //Hulpbehoevende ophalen/toevoegen
             HulpbehoevendeSqlContext hbsc = new HulpbehoevendeSqlContext();
             HulpbehoevendeRepository hbr = new HulpbehoevendeRepository(hbsc);
 
-            Hulpbehoevende hulpbehoevende = hbr.GetHulpbehoevendeById(4); //Hier straks de ingelogde gebruiker
+
+            Hulpbehoevende hulpbehoevende = hbr.GetHulpbehoevendeById(1027); //Hier straks de ingelogde gebruiker !!!!!@@@@@@
 
             Hulpvraag hulpvraag = new Hulpvraag(
                 form["titel"],
@@ -48,7 +53,7 @@ namespace CarespotASP.Controllers
                 DateTime.Now,
                 form["locatie"],
                 urgent,
-                VervoerType.Auto,
+                vervoerstype,
                 false,
                 hulpbehoevende
             );
@@ -70,6 +75,9 @@ namespace CarespotASP.Controllers
                     }
                 }
             }
+
+            HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
+            HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
 
             hvr.Create(hulpvraag);
 

@@ -251,5 +251,27 @@ namespace CarespotASP.Dal.Context
                 throw;
             }
         }
+
+        public void DeleteAllVaardighedenByHulpvraagId(int hulpvraagid)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
+                {
+                    con.Open();
+                    var cmdString = "DELETE FROM Hulpvraag_Vaardigheid WHERE HulpvraagId = @hulpvraagid";
+                    var command = new SqlCommand(cmdString, con);
+                    command.Parameters.AddWithValue("@Hulpvraagid", hulpvraagid);
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+
     }
 }

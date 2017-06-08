@@ -1,0 +1,48 @@
+﻿@using CarespotASP.Models
+
+@{
+    ViewBag.Title = "OpdrachtOverzicht";
+}
+
+<div class="row">
+    <div class="col-md-12 login">
+        <h2>Mijn opdrachten</h2>
+    </div>
+    <div class="col-md-12">
+        <table id="example" class="table table-striped table-bordered" width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th>Titel</th>
+                <th>Geplaatst door</th>
+                <th>Geplaatst op</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <th>Titel</th>
+                <th>Geplaatst door</th>
+                <th>Geplaatst op</th>
+                <th></th>
+            </tr>
+            </tfoot>
+            <tbody>
+            @foreach (Hulpvraag hulpvraag in ViewBag.hulpvragen)
+            {
+                <tr>
+                    <td>@hulpvraag.Titel</td>
+                    <td>@hulpvraag.Hulpbehoevende.Naam</td>
+                    <td>@hulpvraag.CreateDatum</td>
+                    <td>
+                        <form action="" method="GET">
+                            <button type="submit" class="btn btn-primary">Reageren</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+  
+</div>
+

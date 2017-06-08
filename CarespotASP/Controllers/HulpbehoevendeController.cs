@@ -18,7 +18,7 @@ namespace CarespotASP.Controllers
             HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
             HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
 
-            List<Hulpvraag> hulpvragen = hvr.GetHulpvragenByHulpbehoevendeId(4);
+            List<Hulpvraag> hulpvragen = hvr.GetHulpvragenByHulpbehoevendeId(1027);
             ViewBag.hulpvragen = hulpvragen;
 
             return View("~/Views/Hulpbehoevende/Opdrachten.cshtml");

@@ -152,13 +152,13 @@ namespace CarespotASP.Dal.Context
             {
                 using (var con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "UPDATE Vrijwilliger SET  VOG = @vog, IsGoedgekeurd = @isgoedgekeurd WHERE GebruikerId = @key ";
+                    var query = "UPDATE Vrijwilliger SET IsGoedgekeurd = @isgoedgekeurd WHERE GebruikerId = @key ";
 
 
                     var cmd = new SqlCommand(query, con);
 
                     cmd.Parameters.AddWithValue("@key", gebruikerId);
-                    cmd.Parameters.AddWithValue("@vog", vogPath);
+                    //cmd.Parameters.AddWithValue("@vog", vogPath);
                     cmd.Parameters.AddWithValue("@IsGoedgekeurd", Convert.ToInt32(isGoedgekeurd));
                     con.Open();
 
@@ -237,6 +237,11 @@ namespace CarespotASP.Dal.Context
                 using (var con = new SqlConnection(Env.ConnectionString))
                 {
                     con.Open();
+                    var query = "DELETE FROM Vrijwilliger_Vaardigheid WHERE VrijwilligerId = @id";
+                    var cmd1 = new SqlCommand(query, con);
+                    cmd1.Parameters.AddWithValue("@id", vrijwilligerId);
+                    cmd1.ExecuteNonQuery();
+
                     DataTable tvp = new DataTable();
                     tvp.Columns.Add("VrijwilligerId", typeof(int));
                     tvp.Columns.Add("VaardigheidId", typeof(int));

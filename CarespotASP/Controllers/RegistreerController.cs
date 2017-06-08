@@ -24,6 +24,20 @@ namespace CarespotASP.Controllers
 
         public ActionResult Save(FormCollection form, HttpPostedFileBase foto, HttpPostedFileBase vog)
         {
+            var vogPath = "";
+            var path = "";
+            if (vog != null)
+            {
+                if (vog.ContentLength > 0)
+                {
+                    if (Path.GetExtension(vog.FileName).ToLower() == ".pdf")
+                    {
+                        path = Path.Combine(Server.MapPath("~/Content/VOG"), vog.FileName);
+                        foto.SaveAs(path);
+                        vogPath = "../../Content/VOG/" + vog.FileName;
+                    }
+                }
+            }
             byte[] array = new byte[0];
             if (foto != null)
             {
@@ -59,7 +73,7 @@ namespace CarespotASP.Controllers
                 gebruiker1.HeeftAuto = bool.Parse(form["auto"]);
                 gebruiker1.HeeftRijbewijs = bool.Parse(form["rijbewijs"]);
                 gebruiker1.HeeftOv = bool.Parse(form["ov"]);
-                gebruiker1.Barcode = "";
+                gebruiker1.Barcode = form["barcode"];
 
                 var vaardigheidIds = form.GetValues("vaardigheden");
                 var vaardigheidIdList = new List<int>();
@@ -85,7 +99,7 @@ namespace CarespotASP.Controllers
 
                 if (form["vrij"] != null && form["vrij"].ToString() == "vrijwilliger")
                 {
-                    var vrijwilliger = new Vrijwilliger(id, vog.FileName, false);
+                    var vrijwilliger = new Vrijwilliger(id, vogPath, false);
                     var vsql = new VrijwilligerSqlContext();
                     var vrepo = new VrijwilligerRepository(vsql);
                     vrepo.Create(vrijwilliger.Id, vrijwilliger.VOG);
@@ -104,6 +118,80 @@ namespace CarespotASP.Controllers
 
             return RedirectToAction("Index", "Registreer");
 
+        }
+
+        public ActionResult Beheerder()
+        {
+            return View("RegistreerBeheerderHulpverlener");
+        }
+        public ActionResult SaveBeheerHulp(FormCollection form, HttpPostedFileBase foto)
+        {
+            byte[] array = new byte[0];
+            if (foto != null)
+            {
+                if (foto.ContentLength > 0)
+                {
+                    var fileBytes = new byte[foto.ContentLength];
+                    foto.InputStream.Read(fileBytes, 0, fileBytes.Length);
+                    array = fileBytes;
+
+                }
+
+            }
+            if (form["radio"] == null)
+            {
+                return RedirectToAction("Index", "Registreer");
+            }
+            if (form["wachtwoord"] == form["wachtwoordherhalen"])
+            {
+                var gebruiker1 = new Gebruiker();
+                gebruiker1.Image = array;
+                gebruiker1.Geslacht = (Geslacht)Enum.Parse(typeof(Geslacht), form["geslacht"]);
+                gebruiker1.Adres = form["adres"];
+                gebruiker1.Email = form["email"];
+                gebruiker1.Geboortedatum = Convert.ToDateTime(form["geboortedatum"]);
+                gebruiker1.Woonplaats = form["plaats"];
+                gebruiker1.Land = form["land"];
+                gebruiker1.Postcode = form["postcode"];
+                gebruiker1.Telefoonnummer = form["telnr"];
+                // gebruiker1.Huisnummer = form["huisnr"];
+                gebruiker1.Wachtwoord = form["wachtwoord"];
+                gebruiker1.Gebruikersnaam = form["gebruikersnaam"];
+                gebruiker1.Naam = form["naam"];
+                //gebruiker1.HeeftAuto = bool.Parse(form["auto"]);
+                //gebruiker1.HeeftRijbewijs = bool.Parse(form["rijbewijs"]);
+                //gebruiker1.HeeftOv = bool.Parse(form["ov"]);
+                gebruiker1.Barcode = form["barcode"];
+
+
+                var sql = new GebruikerSqlContext();
+                var repo = new GebruikerRepository(sql);
+                int id = repo.Create(gebruiker1);
+                if (form["radio"] != null && form["radio"].ToString() == "Beheerder")
+                {
+                   var beheerder = new Beheerder(id);
+                   var bsql = new BeheerderSqlContext();
+                    var brepo = new BeheerderRepository(bsql);
+                    brepo.Create(id);
+
+                }
+
+                if (form["radio"] != null && form["radio"].ToString() == "Hulpverlener")
+                {
+                   var hulpverlener = new Hulpverlener(id);
+                    var hsql = new HulpverlenerSqlContext();
+                    var hrepo = new HulpverlenerRepository(hsql);
+                    hrepo.Create(id);
+
+                }
+
+
+
+                return RedirectToAction("Index", "Login");
+            }
+
+
+            return RedirectToAction("Index", "Registreer");
         }
     }
 }

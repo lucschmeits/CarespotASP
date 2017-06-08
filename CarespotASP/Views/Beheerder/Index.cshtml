@@ -22,7 +22,7 @@
             {
                     <tr>
                         <td>
-                            @Html.ActionLink("" + Html.DisplayFor(modelItem => item.Titel) + "", "Details", new { id = item.Id })
+                            @Html.ActionLink("" + Html.DisplayFor(modelItem => item.Titel) + "","Details", "Hulpvraag", new { id = item.Id }, null)
                         </td>
                         <td>@item.CreateDatum</td>
                         <td>@item.OpdrachtDatum</td>

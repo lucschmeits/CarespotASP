@@ -1,4 +1,7 @@
-﻿namespace CarespotASP.Models
+﻿using CarespotASP.Dal.Context;
+using CarespotASP.Dal.Repositorys;
+
+namespace CarespotASP.Models
 {
     public class Review
     {
@@ -27,6 +30,13 @@
             GebruikerId = gebruikerId;
             Omschrijving = omschrijving;
             Beoordeling = beoordeling;
+        }
+
+        public Gebruiker ReturnAutheurObj()
+        {
+            GebruikerSqlContext gsc = new GebruikerSqlContext();
+            GebruikerRepository gr = new GebruikerRepository(gsc);
+            return gr.GetById(this.AuteurId);
         }
     }
 }

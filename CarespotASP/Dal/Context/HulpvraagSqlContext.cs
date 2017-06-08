@@ -14,38 +14,45 @@ namespace CarespotASP.Dal.Context
     {
         public void Create(Hulpvraag hulpvraag)
         {
+            int hulpvraagid;
             try
             {
                 using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
                     con.Open();
-                    var cmdString = "INSERT INTO Hulpvraag (Titel, Omschrijving, OpdrachtDatum, CreatedDatum, Locatie, Urgent, Vervoertype, IsAfgerond, HulpbehoevendeId) VALUES (@Titel, @Omschrijving, @Opdrachtdatum, @Createdatum, @Locatie, @Urgent, @VervoerType, @IsAfgerond, @HulpbehoevendeId);";
+                    var cmdString = "INSERT INTO Hulpvraag (Titel, Omschrijving, OpdrachtDatum, CreatedDatum, Locatie, Urgent, Vervoertype, IsAfgerond, HulpbehoevendeId) VALUES (@Titel, @Omschrijving, @Opdrachtdatum, @Createdatum, @Locatie, @Urgent, @VervoerType, @IsAfgerond, @HulpbehoevendeId);SELECT CAST(scope_identity() AS int);";
                     var command = new SqlCommand(cmdString, con);
                     command.Parameters.AddWithValue("@Titel", hulpvraag.Titel);
                     command.Parameters.AddWithValue("@Omschrijving", hulpvraag.Omschrijving);
                     command.Parameters.AddWithValue("@Opdrachtdatum", hulpvraag.OpdrachtDatum.ToString("yyyy-MM-dd"));
-                    command.Parameters.AddWithValue("@Createdatum", hulpvraag.OpdrachtDatum.ToString("yyyy-MM-dd"));
+                    command.Parameters.AddWithValue("@Createdatum", hulpvraag.CreateDatum);
                     command.Parameters.AddWithValue("@Locatie", hulpvraag.Locatie);
                     command.Parameters.AddWithValue("@Urgent", Convert.ToInt32(hulpvraag.Urgent));
                     command.Parameters.AddWithValue("@Vervoertype", Convert.ToString(hulpvraag.VervoerType));
-                    command.Parameters.AddWithValue("@IsAfgerond", Convert.ToInt32(hulpvraag.IsAfgerond));
-                    command.Parameters.AddWithValue("@HulpbehoevendeId", hulpvraag.Hulpbehoevende.Id);   
+                    command.Parameters.AddWithValue("@IsAfgerond", 0);
+                    command.Parameters.AddWithValue("@HulpbehoevendeId", hulpvraag.Hulpbehoevende.Id);
+
+                    hulpvraagid = (int)command.ExecuteScalar();
+
                     command.ExecuteNonQuery();
                 }
 
                 //Voeg de vaardigheden toe in de koppeltabel
-                foreach (var vaardigheid in hulpvraag.Vaardigheden)
+                if (hulpvraag.Vaardigheden != null)
                 {
-                    VaardigheidSqlContext vsc = new VaardigheidSqlContext();
-                    VaardigheidRepository vr = new VaardigheidRepository(vsc);
+                    foreach (var vaardigheid in hulpvraag.Vaardigheden)
+                    {
+                        VaardigheidSqlContext vsc = new VaardigheidSqlContext();
+                        VaardigheidRepository vr = new VaardigheidRepository(vsc);
 
-                    vr.AddVaardigheidToHulpvraag(vaardigheid,hulpvraag.Id);
+                        vr.AddVaardigheidToHulpvraag(vaardigheid, hulpvraagid);
+                    }
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw;
+               throw;
             }
         }
 

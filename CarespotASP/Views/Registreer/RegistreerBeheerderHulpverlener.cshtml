@@ -1,8 +1,6 @@
-﻿@using CarespotASP.Models
-
+﻿
 @{
-    ViewBag.Title = "Registreer";
-    var vaardigheden = ViewData["vaardigheden"] as List<Vaardigheid>;
+    ViewBag.Title = "RegistreerBeheerderHulpverlener";
 }
 
 <h2 class="registreer-header">Registreer</h2>
@@ -10,7 +8,7 @@
 <section id="registreer">
     <div class="container">
         <div class="row">
-            @using (Html.BeginForm("save", "Registreer", FormMethod.Post,new 
+            @using (Html.BeginForm("saveBeheerHulp", "Registreer", FormMethod.Post,new 
             { enctype = "multipart/form-data" }))
             {
                 <div class="col-md-3">
@@ -69,12 +67,12 @@
                     </div>
                     <p>Foto</p>
                     <div class="form-group">
-                        <input class="btn btn-default btn-registreer" type="file" name="foto"/>
+                        <input class="btn btn-default btn-registreer" type="file" name="foto"/>Upload
                     </div>
                 </div>
 
                 <div class="col-md-3">
-                    <p>Rijbewijs</p>
+                    @*<p>Rijbewijs</p>
                     <div class="form-group">
                         <select name="rijbewijs" class="select">
                             <option value="true">Ja</option>
@@ -94,41 +92,23 @@
                             <option value="true">Ja</option>
                             <option value="false">Nee</option>
                         </select>
-                    </div>
+                    </div>*@
                     <p>Geboortedatum</p>
                     <div class="form-group">
                         <input id="geboortedatum" name="geboortedatum" class="form-control" type="date" placeholder="" required/>
                     </div>
                     <p>Barcode</p>
-                <div class="form-group">
-                    <input name="barcode" class="form-control" type="text"/>
-                </div>
-                    <p>VOG</p>
-                    <div class="form-group" id="vog">
-                        <input class="btn btn-default btn-registreer" type="file" name="vog" id="voginput"/>
+                    <div class="form-group">
+                        <input name="barcode" class="form-control" type="text"/>
                     </div>
+                  
                 </div>
 
-                <div class="col-md-3" id="vaardigheid">
-                    <p>Vaardigheid</p>
-                    <select name="vaardigheden" class="form-control" multiple="multiple">
-                        @if (vaardigheden != null)
-                        {
-                            foreach (var vaardigheid in vaardigheden)
-                            {
-                                <option value="@vaardigheid.Id">@vaardigheid.Omschrijving</option>
-                            }
-                        }
-                    
-                    </select>
                 
-                  
-                   
-                </div>
                 <div class="form-group">
                     
-                    <label>Hulpbehoevende</label><input type="radio" name="hulp" id="hulp" value="hulpbehoevende" />
-                    <label>Vrijwilliger</label><input type="radio" name="vrij" id="vrij" value="vrijwilliger" />
+                    <label>Hulpverlener</label><input type="radio" name="radio"  value="Hulpverlener" />
+                    <label>Beheerder</label><input type="radio" name="radio"  value="Beheerder" />
                 </div>
                 <div class="form-group">
                     <button class="btn btn-default btn-registreer" type="submit" id="submit">Registreer</button>
@@ -140,6 +120,4 @@
         </div>
     </div>
 </section>
-
-
 

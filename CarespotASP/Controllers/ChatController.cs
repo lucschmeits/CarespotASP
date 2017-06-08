@@ -31,8 +31,8 @@ namespace CarespotASP.Controllers
             var sql = new ChatSqlContext();
             var chatRepo = new ChatRepository(sql);
       
-         //   Gebruiker loggedInUser= (Gebruiker) Session["LoggedInUser"];
-            Gebruiker loggedInUser = gr.GetById(1);
+       Gebruiker loggedInUser= (Gebruiker) Session["LoggedInUser"];
+          //  Gebruiker loggedInUser = gr.GetById(1);
             
             ViewBag.LoggedInUser = loggedInUser;
             ViewBag.Gebruikers = gr.GetAll();

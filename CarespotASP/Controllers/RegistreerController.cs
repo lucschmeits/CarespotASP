@@ -24,6 +24,20 @@ namespace CarespotASP.Controllers
 
         public ActionResult Save(FormCollection form, HttpPostedFileBase foto, HttpPostedFileBase vog)
         {
+            var vogPath = "";
+            var path = "";
+            if (vog != null)
+            {
+                if (vog.ContentLength > 0)
+                {
+                    if (Path.GetExtension(vog.FileName).ToLower() == ".pdf")
+                    {
+                        path = Path.Combine(Server.MapPath("~/Content/VOG"), vog.FileName);
+                        foto.SaveAs(path);
+                        vogPath = "../../Content/VOG/" + vog.FileName;
+                    }
+                }
+            }
             byte[] array = new byte[0];
             if (foto != null)
             {
@@ -85,7 +99,7 @@ namespace CarespotASP.Controllers
 
                 if (form["vrij"] != null && form["vrij"].ToString() == "vrijwilliger")
                 {
-                    var vrijwilliger = new Vrijwilliger(id, vog.FileName, false);
+                    var vrijwilliger = new Vrijwilliger(id, vogPath, false);
                     var vsql = new VrijwilligerSqlContext();
                     var vrepo = new VrijwilligerRepository(vsql);
                     vrepo.Create(vrijwilliger.Id, vrijwilliger.VOG);

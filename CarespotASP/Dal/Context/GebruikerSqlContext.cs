@@ -204,7 +204,15 @@ namespace CarespotASP.Dal.Context
                     cmd.Parameters.AddWithValue("@heeftOv", Convert.ToInt32(obj.HeeftOv));
                     cmd.Parameters.AddWithValue("@heeftAuto", Convert.ToInt32(obj.HeeftAuto));
                     cmd.Parameters.AddWithValue("@telefoonnummer", obj.Telefoonnummer);
-                    cmd.Parameters.AddWithValue("@uitschrijfdatum", obj.Uitschrijfdatum);
+                    if (obj.Uitschrijfdatum == DateTime.Parse("1-1-0001 00:00:00"))
+                    {
+                        cmd.Parameters.AddWithValue("@uitschrijfdatum", DBNull.Value);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@uitschrijfdatum", obj.Uitschrijfdatum);
+                    }
+                   
                     cmd.Parameters.AddWithValue("@adres", obj.Adres);
                     cmd.Parameters.AddWithValue("@woonplaats", obj.Woonplaats);
                     cmd.Parameters.AddWithValue("@land", obj.Land);

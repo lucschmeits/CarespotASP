@@ -36,7 +36,7 @@ namespace CarespotASP.Controllers
             return View("GegevensWijzigen");
         }
 
-        public ActionResult Update(FormCollection form, HttpPostedFileBase foto, int id)
+        public ActionResult Update(FormCollection form, int id, HttpPostedFileBase foto)
         {
             if (Session["LoggedInUser"] != null)
             {
@@ -70,18 +70,19 @@ namespace CarespotASP.Controllers
                 {
                     gebruiker.Image = loggedinGebruiker.Image;
                 }
-                if (form["wachtwoord"] != "" && form["wachtwoordniew"] != "")
+                if (form["wachtwoord"] != "" && form["wachtwoordnieuw"] != "")
                 {
                     if (form["wachtwoord"] == form["wachtwoordnieuw"])
                     {
                         gebruiker.Wachtwoord = form["wachtwoord"];
                     }
-                    else
-                    {
-                        gebruiker.Wachtwoord = loggedinGebruiker.Wachtwoord;
-                    }
+                    
                 }
-               
+                else
+                {
+                    gebruiker.Wachtwoord = loggedinGebruiker.Wachtwoord;
+                }
+
                 gebruiker.Geslacht = (Geslacht) Enum.Parse(typeof(Geslacht), form["geslacht"]);
                 gebruiker.Adres = form["adres"];
                 gebruiker.Email = form["email"];
@@ -112,7 +113,7 @@ namespace CarespotASP.Controllers
                 }
                 repo.Update(gebruiker);
 
-                return View("GegevensWijzigen");
+                return RedirectToAction("Gegevens", "Gebruiker", new {id = gebruiker.Id});
             }
             return RedirectToAction("Index", "Login");
         }

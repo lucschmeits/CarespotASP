@@ -11,7 +11,7 @@
 <section id="registreer">
     <div class="container">
         <div class="row">
-            @using (Html.BeginForm("Update", "Gebruiker", new { enctype = "multipart/form-data", id = gebruiker.Id}, FormMethod.Post))
+            @using (Html.BeginForm("Update", "Gebruiker", new { id = gebruiker.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 if (gebruiker != null)
                 {
@@ -30,7 +30,7 @@
                         </div>
                         <p>Herhaal niew wachtwoord</p>
                         <div class="form-group">
-                            <input id="wachtwoordherhalen" name="wachtwoordniew" class="form-control" type="password" placeholder=""/>
+                            <input id="wachtwoordherhalen" name="wachtwoordnieuw" class="form-control" type="password" placeholder=""/>
                         </div>
                         <p>Naam</p>
                         <div class="form-group">

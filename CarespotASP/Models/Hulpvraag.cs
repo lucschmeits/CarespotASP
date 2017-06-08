@@ -46,5 +46,18 @@ namespace CarespotASP.Models
             VervoerType = vervoertype;
             IsAfgerond = isafgerond;
         }
+
+        public Hulpvraag(string titel, string omschrijving, DateTime opdrachtdatum, DateTime createdatum, string locatie, bool urgent, VervoerType vervoertype, bool isafgerond, Hulpbehoevende hulpbehoevende)
+        {
+            Titel = titel;
+            Omschrijving = omschrijving;
+            OpdrachtDatum = opdrachtdatum;
+            CreateDatum = createdatum;
+            Locatie = locatie;
+            Urgent = urgent;
+            VervoerType = vervoertype;
+            IsAfgerond = isafgerond;
+            Hulpbehoevende = hulpbehoevende;
+        }
     }
 }

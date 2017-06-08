@@ -70,9 +70,12 @@ namespace CarespotASP.Dal.Context
 
                     while (reader.Read())
                     {
-                        var foto = new byte[10];
+                        var foto = "";
+
                         if (!reader.IsDBNull(1))
-                            foto = (byte[])reader[1];
+                        {
+                            foto = reader.GetString(1);
+                        }
 
                         var h = new Hulpverlener(
                             reader.GetInt32(0),
@@ -123,9 +126,12 @@ namespace CarespotASP.Dal.Context
 
                     while (reader.Read())
                     {
-                        var foto = new byte[10];
+                        var foto = "";
+
                         if (!reader.IsDBNull(1))
-                            foto = (byte[])reader[1];
+                        {
+                            foto = reader.GetString(1);
+                        }
 
                         returnHulpverlener = new Hulpverlener(
                            reader.GetInt32(0),

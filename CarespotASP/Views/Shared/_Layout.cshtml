@@ -22,13 +22,18 @@
                 </button>
                 @Html.ActionLink("Carespot", "Index", "Login", new { area = "" }, new { @class = "navbar-brand" })
             </div>
+            
+        @if (Session["LoggedInUser"] != null)
+        {
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Chat", "Index", "Chat")</li>                
                 </ul>
-            </div>
+            </div> 
+        }
+        
+           
+
         </div>
     </div>
     <div class="container body-content">

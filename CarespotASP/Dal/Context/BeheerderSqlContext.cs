@@ -23,9 +23,12 @@ namespace CarespotASP.Dal.Context
 
                     while (reader.Read())
                     {
-                        var foto = new byte[10];
+                        var foto = "";
+
                         if (!reader.IsDBNull(1))
-                            foto = (byte[])reader[1];
+                        {
+                            foto = reader.GetString(1);
+                        }
 
                         Beheerder b = new Beheerder(
                             reader.GetInt32(0),
@@ -76,13 +79,16 @@ namespace CarespotASP.Dal.Context
 
                     while (reader.Read())
                     {
-                        var foto = new byte[10];
-                        if (!reader.IsDBNull(1))
-                            foto = (byte[])reader[1];
 
+                        var foto = "";
+
+                        if (!reader.IsDBNull(1))
+                        {
+                            foto = reader.GetString(1);
+                        }
                         returnBeheerder = new Beheerder(
                            reader.GetInt32(0),
-                           foto,
+                          foto,
                            reader.GetString(2),
                            reader.GetString(3),
                            reader.GetString(4),

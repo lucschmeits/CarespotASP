@@ -24,9 +24,12 @@ namespace CarespotASP.Dal.Context
 
                     while (reader.Read())
                     {
-                        var foto = new byte[10];
+                        var foto = "";
+
                         if (!reader.IsDBNull(1))
-                            foto = (byte[])reader[1];
+                        {
+                            foto = reader.GetString(1);
+                        }
 
                         Vrijwilliger v = new Vrijwilliger(
                             reader.GetInt32(0),//id
@@ -80,10 +83,12 @@ namespace CarespotASP.Dal.Context
 
                     while (reader.Read())
                     {
-                        var foto = new byte[10];
-                        if (!reader.IsDBNull(1))
-                            foto = (byte[])reader[1];
+                        var foto = "";
 
+                        if (!reader.IsDBNull(1))
+                        {
+                            foto = reader.GetString(1);
+                        }
                         returnVrijwilliger = new Vrijwilliger(
                             reader.GetInt32(0),//id
                             foto,//foto

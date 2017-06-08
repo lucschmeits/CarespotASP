@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using CarespotASP.Dal.Context;
 using CarespotASP.Dal.Repositorys;
@@ -18,29 +16,43 @@ namespace CarespotASP.Controllers
             return View();
         }
 
+        public ActionResult Details(int id)
+        {
+            HulpvraagSqlContext hsc = new HulpvraagSqlContext();
+            HulpvraagRepository hr = new HulpvraagRepository(hsc);
+            Hulpvraag hulpvrg = hr.GetById(id);
+
+            return View(hulpvrg);
+        }
+
         [HttpPost]
         public ActionResult CreateOpdracht(FormCollection form)
         {
 
+<<<<<<< HEAD
             //Vervoerstype parsen
             VervoerType vervoerstype = (VervoerType) Enum.Parse(typeof(VervoerType), form["vervoertype"]);
 
             //Urgentie controleren
+=======
+>>>>>>> c6771e3368cab1771936bf7af055a6864ed0b47d
             bool urgent = false;
 
             if (form["urgent"] == "urgent")
-            {
                 urgent = true;
-            }
 
 
             //Hulpbehoevende ophalen/toevoegen
             HulpbehoevendeSqlContext hbsc = new HulpbehoevendeSqlContext();
             HulpbehoevendeRepository hbr = new HulpbehoevendeRepository(hbsc);
 
+<<<<<<< HEAD
             Hulpbehoevende hulpbehoevende = hbr.GetHulpbehoevendeById(1027); //Hier straks de ingelogde gebruiker 
+=======
+            Hulpbehoevende hulpbehoevende = hbr.GetHulpbehoevendeById(4); //Hier straks de ingelogde gebruiker
+>>>>>>> c6771e3368cab1771936bf7af055a6864ed0b47d
 
-            var hulpvraag = new Hulpvraag(
+            Hulpvraag hulpvraag = new Hulpvraag(
                 form["titel"],
                 form["beschrijving"],
                 DateTime.Parse(form["opdrachtdatum"]),
@@ -51,7 +63,6 @@ namespace CarespotASP.Controllers
                 false,
                 hulpbehoevende
             );
-
 
             if (form["vaardigheden[]"] != null)
             {
@@ -65,10 +76,10 @@ namespace CarespotASP.Controllers
 
                     foreach (int id in vaardighedenids)
                     {
-                        var vaardigheid = new Vaardigheid(id);
+                        Vaardigheid vaardigheid = new Vaardigheid(id);
                         hulpvraag.Vaardigheden.Add(vaardigheid);
                     }
-                }           
+                }
             }
 
             HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
@@ -76,9 +87,8 @@ namespace CarespotASP.Controllers
 
             hvr.Create(hulpvraag);
 
-           return RedirectToAction("Index", "Hulpbehoevende");
+            return RedirectToAction("Index", "Hulpbehoevende");
         }
-
 
         [HttpGet]
         public ActionResult DeleteHulpvraag(int id)

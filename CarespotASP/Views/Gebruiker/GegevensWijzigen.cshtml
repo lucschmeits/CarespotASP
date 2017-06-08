@@ -84,67 +84,70 @@
                             <img src="@gebruiker.Image" alt="foto" class="img-responsive"/>
                         </div>
                     </div>
-
-                    <div class="col-md-3">
-                        <p>Rijbewijs</p>
-                        <div class="form-group">
-                            <select name="rijbewijs" class="select">
-                                @if (gebruiker.HeeftRijbewijs)
-                                {
-                                    <option value="true" selected>Ja</option>
-                                    <option value="false">Nee</option>
-                                }
-                                else
-                                {
-                                    <option value="true">Ja</option>
-                                    <option value="false" selected>Nee</option>
-                                }
+                    if (gebruiker.GetType() != typeof(Beheerder) && gebruiker.GetType() != typeof(Hulpverlener))
+                     {
+                         <div class="col-md-3">
+                             <p>Rijbewijs</p>
+                             <div class="form-group">
+                                 <select name="rijbewijs" class="select">
+                                     @if (gebruiker.HeeftRijbewijs)
+                                     {
+                                         <option value="true" selected>Ja</option>
+                                         <option value="false">Nee</option>
+                                     }
+                                     else
+                                     {
+                                         <option value="true">Ja</option>
+                                         <option value="false" selected>Nee</option>
+                                     }
                               
-                            </select>
-                        </div>
-                        <p>Auto</p>
-                        <div class="form-group">
-                            <select name="auto" class="select">
-                                @if (gebruiker.HeeftAuto)
-                                {
-                                    <option value="true" selected>Ja</option>
-                                    <option value="false">Nee</option>
-                                }
-                                else
-                                {
-                                    <option value="true">Ja</option>
-                                    <option value="false" selected>Nee</option>
-                                }
+                                 </select>
+                             </div>
+                             <p>Auto</p>
+                             <div class="form-group">
+                                 <select name="auto" class="select">
+                                     @if (gebruiker.HeeftAuto)
+                                     {
+                                         <option value="true" selected>Ja</option>
+                                         <option value="false">Nee</option>
+                                     }
+                                     else
+                                     {
+                                         <option value="true">Ja</option>
+                                         <option value="false" selected>Nee</option>
+                                     }
                                
-                            </select>
-                        </div>
-                        <p>OV</p>
-                        <div class="form-group">
-                            <select name="ov" class="select">
-                                @if (gebruiker.HeeftOv)
-                                {
-                                    <option value="true" selected>Ja</option>
-                                    <option value="false">Nee</option>
-                                }
-                                else
-                                {
-                                    <option value="true">Ja</option>
-                                    <option value="false" selected>Nee</option>
-                                }
-                                @*<option value="true">Ja</option>
+                                 </select>
+                             </div>
+                             <p>OV</p>
+                             <div class="form-group">
+                                 <select name="ov" class="select">
+                                     @if (gebruiker.HeeftOv)
+                                     {
+                                         <option value="true" selected>Ja</option>
+                                         <option value="false">Nee</option>
+                                     }
+                                     else
+                                     {
+                                         <option value="true">Ja</option>
+                                         <option value="false" selected>Nee</option>
+                                     }
+                                     @*<option value="true">Ja</option>
                                 <option value="false">Nee</option>*@
-                            </select>
-                        </div>
-                        <p>Geboortedatum</p>
-                        <div class="form-group">
-                            <input id="geboortedatum" name="geboortedatum" class="form-control" type="date" placeholder="" value="@gebruiker.Geboortedatum.Date" required/>
-                        </div>
-                        <p>Barcode</p>
-                        <div class="form-group">
-                            <input name="barcode" class="form-control" type="text" value="@gebruiker.Barcode"/>
-                        </div>
+                                 </select>
+                             </div>
+                             <p>Geboortedatum</p>
+                             <div class="form-group">
+                                 <input id="geboortedatum" name="geboortedatum" class="form-control" type="date" placeholder="" value="@gebruiker.Geboortedatum.Date" required/>
+                             </div>
+                             <p>Barcode</p>
+                             <div class="form-group">
+                                 <input name="barcode" class="form-control" type="text" value="@gebruiker.Barcode"/>
+                             </div>
                         
-                    </div>
+                         </div>
+                     }
+                  
                      if (gebruiker.GetType() == typeof(Vrijwilliger))
                      {
                         

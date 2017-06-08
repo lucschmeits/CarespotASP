@@ -38,5 +38,22 @@ namespace CarespotASP.Dal.Repositorys
         {
             return _interface.BepaalHulpverlener();
         }
+
+        public List<Hulpbehoevende> GetHulpbehoevendenByHulpverlenerId(int hulpverlenerId)
+        {
+            List<Hulpbehoevende> returnList = new List<Hulpbehoevende>();
+            List<Hulpbehoevende> all = this.GetAllHulpbehoevenden();
+
+            foreach (Hulpbehoevende h in all)
+            {
+                if (h.Hulpverlener.Id == hulpverlenerId)
+                {
+                    returnList.Add(h);
+                }
+            }
+
+            return returnList;
+        }
+
     }
 }

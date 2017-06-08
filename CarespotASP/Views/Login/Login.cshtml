@@ -16,8 +16,9 @@
             <div class="form-group">
                 Wachtwoord : @Html.TextBox("wachtwoord", null, new { @class = "form-control", @type = "password" })
             </div>
-            <input type="submit" value="Log in" class="btn btn-default" />
-
+                   
+            <input type="submit" value="Log in" class="btn btn-default" />                 
+            <a href="/Registreer" class="btn btn-default">Registreer</a>     
         }
         
         @if (@ViewBag.LoginResult !=null && !@ViewBag.LoginResult)
@@ -33,10 +34,9 @@
     </div>
     <div class="col-md-7 instructies">
         <h2>Instructies</h2>
-        <p>&bull; instructie 1</p>
-        <p>&bull; instructie 1</p>
-        <p>&bull; instructie 1</p>
-        <p>&bull; instructie 1</p>
-        <p>&bull; instructie 1</p>
+        <p>&bull; Maak een account aan</p>
+        <p>&bull; Log in doormiddel van het formulier hiernaast.</p>
+        <p>&bull; Klik op login.</p>
+        <p>&bull; U wordt doorverwezen naar het systeem</p>
     </div>
 </div>

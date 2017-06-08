@@ -42,7 +42,6 @@ namespace CarespotASP.Controllers
                    types.Add((GebruikerType)Enum.Parse(typeof(GebruikerType), gebr.GetType().Name));                   
                 }
 
-
                 if (types.Contains(GebruikerType.Hulpbehoevende) && types.Contains(GebruikerType.Vrijwilliger))
                 {
 
@@ -53,8 +52,10 @@ namespace CarespotASP.Controllers
                 }
                 else if (types.Contains(GebruikerType.Hulpbehoevende))
                 {
-                    //Ga naar hulppbehoevende scherm
-                    Session["LoggedInUser"] = "";
+                    HulpbehoevendeSqlContext hsc = new HulpbehoevendeSqlContext();
+                    HulpbehoevendeRepository hr = new HulpbehoevendeRepository(hsc);
+                    
+                    Session["LoggedInUser"] = hr.GetHulpbehoevendeById(g.Id);
                     return RedirectToAction("Index", "Beheerder");
                 }
                 else if (types.Contains(GebruikerType.Vrijwilliger))
@@ -69,6 +70,13 @@ namespace CarespotASP.Controllers
                 else if(types.Contains(GebruikerType.Hulpverlener))
                 {
                     //Ga naar hulppverlener scherm
+                    HulpverlenerSqlContext hsc = new HulpverlenerSqlContext();
+                    HulpverlenerRepository hr = new HulpverlenerRepository(hsc);
+
+                    Session["LoggedInUser"] = hr.GetById(g.Id);
+
+                    return RedirectToAction("Index", "Hulpverlener");
+
                 }
 
                 return RedirectToAction("Index", "Login");

@@ -18,7 +18,7 @@ namespace CarespotASP.Tests
 
             List<Beheerder> beheerderLijst = br.GetAll();
 
-            Assert.IsTrue(beheerderLijst[0].Id == 4);
+            Assert.IsTrue(beheerderLijst.Count > 1);
         }
 
         //haal op met gebruiker erin

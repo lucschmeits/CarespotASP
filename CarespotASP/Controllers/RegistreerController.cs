@@ -33,7 +33,7 @@ namespace CarespotASP.Controllers
                     if (Path.GetExtension(vog.FileName).ToLower() == ".pdf")
                     {
                         path = Path.Combine(Server.MapPath("~/Content/VOG"), vog.FileName);
-                        foto.SaveAs(path);
+                        vog.SaveAs(path);
                         vogPath = "../../Content/VOG/" + vog.FileName;
                     }
                 }

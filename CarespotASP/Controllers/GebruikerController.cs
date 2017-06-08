@@ -70,14 +70,18 @@ namespace CarespotASP.Controllers
                 {
                     gebruiker.Image = loggedinGebruiker.Image;
                 }
-                if (form["wachtwoord"] == form["wachtwoordnieuw"])
+                if (form["wachtwoord"] != "" && form["wachtwoordniew"] != "")
                 {
-                    gebruiker.Wachtwoord = form["wachtwoord"];
+                    if (form["wachtwoord"] == form["wachtwoordnieuw"])
+                    {
+                        gebruiker.Wachtwoord = form["wachtwoord"];
+                    }
+                    else
+                    {
+                        gebruiker.Wachtwoord = loggedinGebruiker.Wachtwoord;
+                    }
                 }
-                else
-                {
-                    gebruiker.Wachtwoord = loggedinGebruiker.Wachtwoord;
-                }
+               
                 gebruiker.Geslacht = (Geslacht) Enum.Parse(typeof(Geslacht), form["geslacht"]);
                 gebruiker.Adres = form["adres"];
                 gebruiker.Email = form["email"];

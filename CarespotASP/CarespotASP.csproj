@@ -262,6 +262,8 @@
     <Content Include="Views\Gebruiker\GegevensWijzigen.cshtml" />
     <Content Include="Views\Gebruiker\Details.cshtml" />
     <Content Include="Views\Registreer\RegistreerBeheerderHulpverlener.cshtml" />
+    <Content Include="Views\Vrijwilliger\OpdrachtOverzicht.cshtml" />
+    <Content Include="Views\Vrijwilliger\Reageer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

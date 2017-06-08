@@ -33,8 +33,6 @@ namespace CarespotASP.Dal.Context
                     command.Parameters.AddWithValue("@HulpbehoevendeId", hulpvraag.Hulpbehoevende.Id);
 
                     hulpvraagid = (int)command.ExecuteScalar();
-
-                    command.ExecuteNonQuery();
                 }
 
                 //Voeg de vaardigheden toe in de koppeltabel
@@ -60,6 +58,11 @@ namespace CarespotASP.Dal.Context
         {
             try
             {
+                //Vaardigheiden koppelingen verwijderen
+                VaardigheidSqlContext vaarcontext = new VaardigheidSqlContext();
+                VaardigheidRepository vaarrepo = new VaardigheidRepository(vaarcontext);
+                vaarrepo.DeleteAllVaardighedenByHulpvraagId(id);
+
                 using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
                     con.Open();

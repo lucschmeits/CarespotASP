@@ -10,5 +10,10 @@
             Id = id;
             Omschrijving = omschrijving;
         }
+
+        public Vaardigheid(int id)
+        {
+            Id = id;
+        }
     }
 }

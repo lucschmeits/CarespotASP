@@ -127,8 +127,17 @@ namespace CarespotASP.Controllers
             ReviewSqlContext rsc = new ReviewSqlContext();
             ReviewRepository rr = new ReviewRepository(rsc);
 
+            Gebruiker loggedUser = (Gebruiker)Session["LoggedInUser"];
+
+
             ViewBag.SelectedUser = gr.GetById(id);
             ViewBag.Reviews = rr.GetReviewByVrijwilligerId(id);
+
+            if (loggedUser !=null)
+            {
+                ViewBag.CanReview = rr.CanReview(loggedUser.Id, id);
+            }
+           
             return View("~/Views/Gebruiker/Details.cshtml");
 
         }

@@ -1,10 +1,10 @@
 ﻿@using CarespotASP.Models
 @{
+    List<Review> reviews = ViewBag.Reviews;
     Gebruiker g = ViewBag.SelectedUser;
+    Gebruiker loggedInuser = (Gebruiker) Session["LoggedInUser"];
     ViewBag.Title = "Gebruiker: " + @g.Naam;
 
-
-  //  Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row">
@@ -41,45 +41,99 @@
     <div class="col-md-8 ">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#Reviews">Reviews</a></li>
+            <li><a data-toggle="tab" href="#ReviewAdd">Schrijf een review</a></li>
         
         </ul>
 
         <div class="tab-content">
+            
             <div id="Reviews" class="tab-pane fade in active">
-                <br />
-              @if (ViewBag.Reviews != null)
-              {
+                <br/>
+                @if (reviews != null && reviews.Count > 0)
+                {
 
-                  foreach (Review r in ViewBag.Reviews)
-                   {
-                       
-                       <div class="row">
-                           <div class="col-md-10" style="height: auto;">
-                               <br/>
-                               <p><b>Omschrijving:</b> @r.Omschrijving</p>
-                               <p><b>Geplaats door:</b> @r.ReturnAutheurObj().Naam</p>
+                    foreach (Review r in reviews)
+                    {
 
-                           </div>
-                           <div class="col-md-2">                             
-                               <h1>@r.Beoordeling</h1>
-                           </div>                            
-                           <br/>
-                          
-                       </div>
-                       <hr/>
-                        
-                   }
+                        <div class="row">
+                            <div class="col-md-10" style="height: auto;">
+                                <br/>
+                                <p><b>Omschrijving:</b> @r.Omschrijving</p>
+                                <p><b>Geplaats door:</b> @r.ReturnAutheurObj().Naam</p>
 
-              }
-              else
-              {
-                  <p>Deze gebruiker heeft geen reviews.</p>
-              }
+                            </div>
+                            <div class="col-md-2">
+                                <h1>@r.Beoordeling</h1>
+                            </div>
+                            <br/>
+
+                        </div>
+                        <hr/>
+
+                    }
+
+                }
+                else
+                {
+                  
+                    <p>Deze gebruiker heeft geen reviews.</p>
+                }
 
 
             </div>
-        
-        </div>
+            <div id="ReviewAdd" class="tab-pane">
+                
+                
+                @if (ViewBag.CanReview != null && ViewBag.CanReview)
+                {
+                    <form action="../../Review/New" method="post" class="form-horizontal">
+                      
+                        
+                        <fieldset>
+                            <br/>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="omschrijving">Omschrijving:</label>
+                                <div class="col-md-4">
+                                    <input id="omschrijving" name="omschrijving" type="text" placeholder="" class="form-control input-md" required="">
+
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="beoordeling">Beoordeling:</label>
+                                <div class="col-md-4">
+                                    <input id="beoordeling" name="beoordeling" type="text" placeholder="" class="form-control input-md" required="">
+
+                                </div>
+                            </div>
+
+                            <!-- Button -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for=""></label>
+                                <div class="col-md-4">
+                                    <input type="hidden" name="vrijwilligerId" value="@g.Id"/>
+                                    <input type="hidden" name="hulpbehoevendeId" value="@loggedInuser.Id"/>
+                                    <button type="submit" class="btn btn-success">Schrijf review</button>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </form>
+                
+                
+
+                }
+                else
+                {
+                    <br/> 
+                    <p>U kunt bij deze gebruiker geen review plaatsen.</p>
+                }
+              
+
+            </div>
+        </div>                      
     </div>
     <div class="col-md-2"></div>
 </div>

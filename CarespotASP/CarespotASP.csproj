@@ -151,6 +151,7 @@
     <Compile Include="Controllers\HulpvraagController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegistreerController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
     <Compile Include="Controllers\VrijwilligerController.cs" />
     <Compile Include="Dal\Context\BeheerderSqlContext.cs" />
     <Compile Include="Dal\Context\BeschikbaarheidSqlContext.cs" />
@@ -273,6 +274,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Foto\" />
     <Folder Include="Content\VOG\" />
+    <Folder Include="Views\Review\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

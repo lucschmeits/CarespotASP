@@ -43,8 +43,8 @@ namespace CarespotASP.Controllers
                 {
                     ViewBag.Accounts = users;
                     ViewBag.Types = types;
-
-                    return View("~/Views/Login/Keuze.cshtml");
+                    Session["UserId"] = g.Id;
+                    return this.Keuze();
                 }
                 else if (types.Contains(GebruikerType.Hulpbehoevende))
                 {
@@ -79,9 +79,51 @@ namespace CarespotASP.Controllers
             }
         }
 
+        // /Login/Keuze
         public ActionResult Keuze()
         {
-            return View();
+            return View("~/Views/Login/Keuze.cshtml");
+        }
+
+        public ActionResult KeuzeRedirect(string id)
+        {
+            GebruikerSqlContext gsc = new GebruikerSqlContext();
+            GebruikerRepository gr = new GebruikerRepository(gsc);
+
+            GebruikerType gt = (GebruikerType)Enum.Parse(typeof(GebruikerType), id);
+            List<Gebruiker> users = gr.GetUserTypesByUserId((int)Session["UserId"]);
+
+            List<GebruikerType> types = new List<GebruikerType>();
+
+            foreach (Gebruiker gebr in users)
+            {
+                types.Add((GebruikerType)Enum.Parse(typeof(GebruikerType), gebr.GetType().Name));
+            }
+
+            foreach (GebruikerType type in types)
+            {
+                if (type == gt)
+                {
+                    if (type == GebruikerType.Vrijwilliger)
+                    {
+                        VrijwilligerSqlContext vsc = new VrijwilligerSqlContext();
+                        VrijwilligerRepository vr = new VrijwilligerRepository(vsc);
+                        Session["LoggedInUser"] = vr.GetVrijwilligerById((int)Session["UserId"]);
+                        return RedirectToAction("Index", "Vrijwilliger");
+
+                    }
+                    else if (type == GebruikerType.Hulpbehoevende)
+                    {
+                        HulpbehoevendeSqlContext hsc = new HulpbehoevendeSqlContext();
+                        HulpbehoevendeRepository hr = new HulpbehoevendeRepository(hsc);
+
+                        Session["LoggedInUser"] = hr.GetHulpbehoevendeById((int)Session["UserId"]);
+                        return RedirectToAction("Index", "Hulpbehoevende");
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }

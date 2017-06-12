@@ -39,5 +39,18 @@ namespace CarespotASP.Tests
 
             Assert.AreEqual(1, LstRvw[0].AuteurId);
         }
+
+
+        [TestMethod]
+        public void CanReview()
+        {
+            var sql = new ReviewSqlContext();
+            var repo = new ReviewRepository(sql);
+
+            bool result = repo.CanReview(1045, 1042);
+
+
+
+        }
     }
 }

@@ -14,49 +14,63 @@ namespace CarespotASP.Controllers
         // GET: Hulpverlener
         public ActionResult Index()
         {
-            Hulpverlener loggedInHulpverlener = (Hulpverlener)Session["LoggedInUser"];
-
-            if (loggedInHulpverlener != null)
+            try
             {
-                HulpbehoevendeSqlContext hsc = new HulpbehoevendeSqlContext();
-                HulpbehoevendeRepository hr = new HulpbehoevendeRepository(hsc);
+                Hulpverlener loggedInHulpverlener = (Hulpverlener) Session["LoggedInUser"];
 
-                //Alle hulpbehoevenden
-                ViewBag.HulpBehoevenden = hr.GetHulpbehoevendenByHulpverlenerId(loggedInHulpverlener.Id);
-                return View("~/Views/Hulpverlener/Hulpverlener.cshtml");
+                if (loggedInHulpverlener != null)
+                {
+                    HulpbehoevendeSqlContext hsc = new HulpbehoevendeSqlContext();
+                    HulpbehoevendeRepository hr = new HulpbehoevendeRepository(hsc);
+
+                    //Alle hulpbehoevenden
+                    ViewBag.HulpBehoevenden = hr.GetHulpbehoevendenByHulpverlenerId(loggedInHulpverlener.Id);
+                    return View("~/Views/Hulpverlener/Hulpverlener.cshtml");
+                }
+                else
+                {
+                    return View("~/Views/Login/Login.cshtml");
+                }
             }
-            else
+            catch (Exception e)
             {
-                return View("~/Views/Login/Login.cshtml");
+                return RedirectToAction("Index", "Error");
             }
 
         }
 
         public ActionResult Opdrachten(string id)
         {
-            Hulpverlener loggedInHulpverlener = (Hulpverlener)Session["LoggedInUser"];
-
-            if (loggedInHulpverlener != null)
+            try
             {
+                Hulpverlener loggedInHulpverlener = (Hulpverlener) Session["LoggedInUser"];
 
-                HulpbehoevendeSqlContext hsc = new HulpbehoevendeSqlContext();
-                HulpbehoevendeRepository hr = new HulpbehoevendeRepository(hsc);
+                if (loggedInHulpverlener != null)
+                {
 
-                HulpvraagSqlContext hulpvraagsc = new HulpvraagSqlContext();
-                HulpvraagRepository hulpvraagr = new HulpvraagRepository(hulpvraagsc);
+                    HulpbehoevendeSqlContext hsc = new HulpbehoevendeSqlContext();
+                    HulpbehoevendeRepository hr = new HulpbehoevendeRepository(hsc);
 
-                //Alle hulpbehoevenden
-                ViewBag.HulpBehoevenden = hr.GetHulpbehoevendenByHulpverlenerId(loggedInHulpverlener.Id);
+                    HulpvraagSqlContext hulpvraagsc = new HulpvraagSqlContext();
+                    HulpvraagRepository hulpvraagr = new HulpvraagRepository(hulpvraagsc);
+
+                    //Alle hulpbehoevenden
+                    ViewBag.HulpBehoevenden = hr.GetHulpbehoevendenByHulpverlenerId(loggedInHulpverlener.Id);
 
 
-                //Opdrachten van hulpbehoevenden
-                ViewBag.hulpvragen = hulpvraagr.GetHulpvragenByHulpbehoevendeId(Convert.ToInt32(id));
+                    //Opdrachten van hulpbehoevenden
+                    ViewBag.hulpvragen = hulpvraagr.GetHulpvragenByHulpbehoevendeId(Convert.ToInt32(id));
 
-                return View("~/Views/Hulpverlener/Hulpverlener.cshtml");
+                    return View("~/Views/Hulpverlener/Hulpverlener.cshtml");
+                }
+                else
+                {
+                    return View("~/Views/Login/Login.cshtml");
+                }
             }
-            else
+            catch (Exception e)
             {
-                return View("~/Views/Login/Login.cshtml");
+                return RedirectToAction("Index", "Error");
             }
         }
     }

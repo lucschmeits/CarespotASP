@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "Registreer";
+}
+
+<h2 class="registreer-header">Registreer</h2>
+
+<section id="registreer">
+    <div class="container">
+        <div class="row">
+            @using (Html.BeginForm("RegistreerHulpverlener", "Registreer", FormMethod.Post, new
+            { enctype = "multipart/form-data" }))
+            {
+                <div class="col-md-3">
+                    <p>Gebruikersnaam</p>
+                    <div class="form-group">
+                        <input id="gebruikersnaam" name="gebruikersnaam" class="form-control" type="text" placeholder="" required="required" />
+                    </div>
+                    <p>E-mail</p>
+                    <div class="form-group">
+                        <input id="email" name="email" class="form-control" type="email" placeholder="" required="required" />
+                    </div>
+                    <p>Wachtwoord</p>
+                    <div class="form-group">
+                        <input id="wachtwoord" name="wachtwoord" class="form-control" type="password" placeholder="" required="required" />
+                    </div>
+                    <p>Herhalen</p>
+                    <div class="form-group">
+                        <input id="wachtwoordherhalen" name="wachtwoordherhalen" class="form-control" type="password" placeholder="" required="required" />
+                    </div>
+                    <p>Naam</p>
+                    <div class="form-group">
+                        <input id="naam" name="naam" class="form-control" type="text" placeholder="" required="required" />
+                    </div>
+                    <p>Geslacht</p>
+                    <div class="form-group">
+                        <select name="geslacht" class="select">
+                            <option>Man</option>
+                            <option>Vrouw</option>
+                        </select>
+                    </div>
+                    <p>Telefoon nr</p>
+                    <div class="form-group">
+                        <input id="telnr" name="telnr" class="form-control" type="text" placeholder="" required="required" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <p>Adres</p>
+                    <div class="form-group">
+                        <input id="adres" name="adres" class="form-control" type="text" placeholder="" required="required" />
+                    </div>
+                    <p>Huisnummer</p>
+                    <div class="form-group">
+                        <input id="huisnr" name="huisnr" class="form-control" type="text" placeholder="" required="required" />
+                    </div>
+                    <p>Postcode</p>
+                    <div class="form-group">
+                        <input id="postcode" name="postcode" class="form-control" type="text" placeholder="" required="required" />
+                    </div>
+                    <p>Plaats</p>
+                    <div class="form-group">
+                        <input id="plaats" name="plaats" class="form-control" type="text" placeholder="" required="required" />
+                    </div>
+                    <p>Land</p>
+                    <div class="form-group">
+                        <input id="land" name="land" class="form-control" type="text" placeholder="" value="Nederland" required="required" />
+                    </div>
+                    <p>Foto</p>
+                    <div class="form-group">
+                        <input class="btn btn-default btn-registreer" type="file" name="foto" />Upload
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    @*<p>Rijbewijs</p>
+                        <div class="form-group">
+                            <select name="rijbewijs" class="select">
+                                <option value="true">Ja</option>
+                                <option value="false">Nee</option>
+                            </select>
+                        </div>
+                        <p>Auto</p>
+                        <div class="form-group">
+                            <select name="auto" class="select">
+                                <option value="true">Ja</option>
+                                <option value="false">Nee</option>
+                            </select>
+                        </div>
+                        <p>OV</p>
+                        <div class="form-group">
+                            <select name="ov" class="select">
+                                <option value="true">Ja</option>
+                                <option value="false">Nee</option>
+                            </select>
+                        </div>*@
+                    <p>Geboortedatum</p>
+                    <div class="form-group">
+                        <input id="geboortedatum" name="geboortedatum" class="form-control" type="date" placeholder="" required />
+                    </div>
+                    <p>Barcode</p>
+                    <div class="form-group">
+                        <input name="barcode" class="form-control" type="text" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-default btn-registreer" type="submit" id="submit">Registreer</button>
+                </div>
+            }
+        </div>
+    </div>
+</section>

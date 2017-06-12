@@ -273,11 +273,10 @@
     <Content Include="Views\Hulpverlener\Hulpverlener.cshtml" />
     <Content Include="Views\Hulpvraag\Details.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Registreer\RegistreerHulpverlener.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Foto\" />
-    <Folder Include="Content\VOG\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

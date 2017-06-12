@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Data.SqlClient;
-using CarespotASP.Models;
+using System.Net;
+using System.Net.Mail;
 using CarespotASP.Dal.Interfaces;
+using CarespotASP.Dal.Repositorys;
+using CarespotASP.Models;
 
 namespace CarespotASP.Dal.Context
 {
@@ -15,11 +16,11 @@ namespace CarespotASP.Dal.Context
             int returnId = 0;
             try
             {
-                using (var con = new SqlConnection(Env.ConnectionString))
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
                     con.Open();
                     string query = "INSERT INTO Reactie(Bericht, Datum, VrijwilligerId, HulpvraagId) VALUES(@bericht, @datum, @vrijwilligerid, @hulpvraagid);  SELECT CAST(scope_identity() AS int);";
-                    var cmd = new SqlCommand(query, con);
+                    SqlCommand cmd = new SqlCommand(query, con);
 
                     cmd.Parameters.AddWithValue("@bericht", reactie.Bericht);
                     cmd.Parameters.AddWithValue("@datum", reactie.Datum);
@@ -30,6 +31,30 @@ namespace CarespotASP.Dal.Context
 
                     con.Close();
                 }
+
+                HulpvraagRepository hr = new HulpvraagRepository(new HulpvraagSqlContext());
+                Hulpvraag hulpvraag = hr.GetById(reactie.HulpvraagId);
+
+                using (MailMessage mm = new MailMessage("info.carespot@gmail.com", hulpvraag.Hulpbehoevende.Email))
+                {
+                    mm.Subject = "Nieuwe reactie op hulpvraag";
+                    string body = "Hallo " + hulpvraag.Hulpbehoevende.Naam + ",";
+                    body += "<br /><br />U heeft een reactie ontvangen op uw hulpvraag:";
+                    body += "<br /><br />" + reactie.Bericht;
+                    body += "<br /><br />Met vriendelijke groeten,";
+                    body += "<br /><br />Team Carespot";
+                    mm.Body = body;
+                    mm.IsBodyHtml = true;
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.EnableSsl = true;
+                    NetworkCredential NetworkCred = new NetworkCredential("info.carespot@gmail.com", "Carespot1234");
+                    smtp.UseDefaultCredentials = true;
+                    smtp.Credentials = NetworkCred;
+                    smtp.Port = 587;
+                    smtp.Send(mm);
+                }
+
                 return returnId;
             }
             catch (Exception e)
@@ -43,10 +68,10 @@ namespace CarespotASP.Dal.Context
         {
             try
             {
-                using (var con = new SqlConnection(Env.ConnectionString))
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
                     string query = "DELETE FROM Reactie WHERE id = @id";
-                    var cmd = new SqlCommand(query, con);
+                    SqlCommand cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@id", id);
                     con.Open();
                     cmd.ExecuteNonQuery();
@@ -62,19 +87,19 @@ namespace CarespotASP.Dal.Context
 
         public List<Reactie> GetAllReacties()
         {
-            var returnList = new List<Reactie>();
+            List<Reactie> returnList = new List<Reactie>();
             try
             {
-                using (var con = new SqlConnection(Env.ConnectionString))
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
                     string query = "SELECT * FROM Reactie";
-                    var cmd = new SqlCommand(query, con);
+                    SqlCommand cmd = new SqlCommand(query, con);
                     con.Open();
-                    var reader = cmd.ExecuteReader();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
                     {
-                        var reactie = new Reactie(
+                        Reactie reactie = new Reactie(
                             reader.GetInt32(0),
                             reader.GetString(1),
                             reader.GetDateTime(2),
@@ -100,13 +125,13 @@ namespace CarespotASP.Dal.Context
             Reactie returnReactie = null;
             try
             {
-                using (var con = new SqlConnection(Env.ConnectionString))
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
                     string query = "SELECT * FROM Reactie WHERE Id = @id";
-                    var cmd = new SqlCommand(query, con);
+                    SqlCommand cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@id", id);
                     con.Open();
-                    var reader = cmd.ExecuteReader();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
                         returnReactie = new Reactie(

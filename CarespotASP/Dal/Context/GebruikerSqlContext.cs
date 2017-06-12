@@ -1,9 +1,11 @@
-﻿using CarespotASP.Dal.Interfaces;
-using CarespotASP.Enums;
-using CarespotASP.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Net;
+using System.Net.Mail;
+using CarespotASP.Dal.Interfaces;
+using CarespotASP.Enums;
+using CarespotASP.Models;
 
 namespace CarespotASP.Dal.Context
 {
@@ -11,31 +13,28 @@ namespace CarespotASP.Dal.Context
     {
         public List<Gebruiker> GetAllGebruikers()
         {
-            var returnList = new List<Gebruiker>();
+            List<Gebruiker> returnList = new List<Gebruiker>();
             try
             {
-                using (var con = new SqlConnection(Env.ConnectionString))
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "select * from Gebruiker where Uitschrijfdatum is null";
-                    var cmd = new SqlCommand(query, con);
+                    string query = "select * from Gebruiker where Uitschrijfdatum is null";
+                    SqlCommand cmd = new SqlCommand(query, con);
                     con.Open();
-                    var reader = cmd.ExecuteReader();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
                     {
-                        var foto = "";
-                        
+                        string foto = "";
+
                         if (!reader.IsDBNull(1))
                         {
                             foto = reader.GetString(1);
                         }
 
-                        var user = new Gebruiker(
+                        Gebruiker user = new Gebruiker(
                             reader.GetInt32(0),
-                          
                             foto,
-                            
-                           
                             reader.GetString(2),
                             reader.GetString(3),
                             reader.GetString(4),
@@ -76,27 +75,27 @@ namespace CarespotASP.Dal.Context
             Gebruiker returnUser = null;
             try
             {
-                using (var con = new SqlConnection(Env.ConnectionString))
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "select * from Gebruiker where id = @key";
-                    var cmd = new SqlCommand(query, con);
+                    string query = "select * from Gebruiker where id = @key";
+                    SqlCommand cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@key", id);
                     con.Open();
-                    var reader = cmd.ExecuteReader();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
                     {
                         //Standaard foto
-                        var foto = "";
+                        string foto = "";
 
                         if (!reader.IsDBNull(1))
                         {
                             foto = reader.GetString(1);
                         }
 
-                        var user = new Gebruiker(
+                        Gebruiker user = new Gebruiker(
                             reader.GetInt32(0),
-                           foto,
+                            foto,
                             reader.GetString(2),
                             reader.GetString(3),
                             reader.GetString(4),
@@ -117,12 +116,11 @@ namespace CarespotASP.Dal.Context
                             user.Barcode = reader.GetString(17);
                         }
 
-
                         if (!reader.IsDBNull(11))
                         {
                             user.Uitschrijfdatum = reader.GetDateTime(11);
                         }
-                    
+
                         returnUser = user;
                     }
 
@@ -140,14 +138,14 @@ namespace CarespotASP.Dal.Context
 
         public int CreateGebruiker(Gebruiker obj)
         {
-            var returnId = 0;
+            int returnId = 0;
             try
             {
-                using (var con = new SqlConnection(Env.ConnectionString))
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "INSERT INTO Gebruiker(Foto, Email, Wachtwoord, Gebruikersnaam, Naam, Geboortedatum, HeeftRijbewijs, HeeftOv, HeeftAuto, Telefoonnummer, Adres, Woonplaats, Land, Postcode, Geslacht, Barcode)VALUES" +
-                                "(@foto,@email,@wachtwoord,@gebruikersnaam,@naam,@geboortedatum,@heeftRijbewijs,@heeftOv,@heeftAuto,@telefoonnummer,@adres,@woonplaats,@land,@postcode,@geslacht,@barcode);SELECT CAST(scope_identity() AS int);";
-                    var cmd = new SqlCommand(query, con);
+                    string query = "INSERT INTO Gebruiker(Foto, Email, Wachtwoord, Gebruikersnaam, Naam, Geboortedatum, HeeftRijbewijs, HeeftOv, HeeftAuto, Telefoonnummer, Adres, Woonplaats, Land, Postcode, Geslacht, Barcode)VALUES" +
+                                   "(@foto,@email,@wachtwoord,@gebruikersnaam,@naam,@geboortedatum,@heeftRijbewijs,@heeftOv,@heeftAuto,@telefoonnummer,@adres,@woonplaats,@land,@postcode,@geslacht,@barcode);SELECT CAST(scope_identity() AS int);";
+                    SqlCommand cmd = new SqlCommand(query, con);
                     con.Open();
 
                     cmd.Parameters.AddWithValue("@foto", obj.Image);
@@ -174,6 +172,25 @@ namespace CarespotASP.Dal.Context
                     con.Close();
                 }
 
+                using (MailMessage mm = new MailMessage("info.carespot@gmail.com", obj.Email))
+                {
+                    mm.Subject = "Account aangemaakt";
+                    string body = "Hallo " + obj.Naam + ",";
+                    body += "<br /><br />U heeft zojuist een nieuw account aangemaakt met dit e-mailadres";
+                    body += "<br /><br />Met vriendelijke groeten,";
+                    body += "<br /><br />Team Carespot";
+                    mm.Body = body;
+                    mm.IsBodyHtml = true;
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.EnableSsl = true;
+                    NetworkCredential NetworkCred = new NetworkCredential("info.carespot@gmail.com", "Carespot1234");
+                    smtp.UseDefaultCredentials = true;
+                    smtp.Credentials = NetworkCred;
+                    smtp.Port = 587;
+                    smtp.Send(mm);
+                }
+
                 return returnId;
             }
             catch (Exception e)
@@ -187,12 +204,12 @@ namespace CarespotASP.Dal.Context
         {
             try
             {
-                using (var con = new SqlConnection(Env.ConnectionString))
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "UPDATE Gebruiker SET Foto = @foto, Email = @email, Wachtwoord = @wachtwoord, Gebruikersnaam = @gebruikersnaam, Naam = @naam, Geboortedatum = @geboortedatum, HeeftRijbewijs = @heeftRijbewijs, HeeftOv = @heeftOv, HeeftAuto = @heeftAuto, Telefoonnummer = @telefoonnummer, Uitschrijfdatum = @uitschrijfdatum, Adres = @adres, Woonplaats = @woonplaats, Land = @land, Postcode =@postcode" +
-                                ", Geslacht = @geslacht, Barcode = @barcode WHERE id = @key";
+                    string query = "UPDATE Gebruiker SET Foto = @foto, Email = @email, Wachtwoord = @wachtwoord, Gebruikersnaam = @gebruikersnaam, Naam = @naam, Geboortedatum = @geboortedatum, HeeftRijbewijs = @heeftRijbewijs, HeeftOv = @heeftOv, HeeftAuto = @heeftAuto, Telefoonnummer = @telefoonnummer, Uitschrijfdatum = @uitschrijfdatum, Adres = @adres, Woonplaats = @woonplaats, Land = @land, Postcode =@postcode" +
+                                   ", Geslacht = @geslacht, Barcode = @barcode WHERE id = @key";
                     con.Open();
-                    var cmd = new SqlCommand(query, con);
+                    SqlCommand cmd = new SqlCommand(query, con);
 
                     cmd.Parameters.AddWithValue("@foto", obj.Image);
                     cmd.Parameters.AddWithValue("@email", obj.Email);
@@ -212,7 +229,7 @@ namespace CarespotASP.Dal.Context
                     {
                         cmd.Parameters.AddWithValue("@uitschrijfdatum", obj.Uitschrijfdatum);
                     }
-                   
+
                     cmd.Parameters.AddWithValue("@adres", obj.Adres);
                     cmd.Parameters.AddWithValue("@woonplaats", obj.Woonplaats);
                     cmd.Parameters.AddWithValue("@land", obj.Land);
@@ -221,7 +238,7 @@ namespace CarespotASP.Dal.Context
                     cmd.Parameters.AddWithValue("@barcode", obj.Barcode);
 
                     cmd.Parameters.AddWithValue("@key", obj.Id);
-                    var reader = cmd.ExecuteNonQuery();
+                    int reader = cmd.ExecuteNonQuery();
                     con.Close();
                 }
             }
@@ -236,10 +253,10 @@ namespace CarespotASP.Dal.Context
         {
             try
             {
-                using (var con = new SqlConnection(Env.ConnectionString))
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "DELETE FROM Gebruiker WHERE id = @key";
-                    var cmd = new SqlCommand(query, con);
+                    string query = "DELETE FROM Gebruiker WHERE id = @key";
+                    SqlCommand cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@key", id);
 
                     con.Open();

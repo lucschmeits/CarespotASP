@@ -13,5 +13,7 @@ namespace CarespotASP.Dal.Interfaces
         Reactie GetReactieById(int id);
         int CreateReactie(Reactie reactie);
         void DeleteReactieById(int id);
+        void AcceptHulpvraag(int id);
+        void DeclineHulpvraag(int id);
     }
 }

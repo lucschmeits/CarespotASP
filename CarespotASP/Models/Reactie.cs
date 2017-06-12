@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using CarespotASP.Dal.Context;
+using CarespotASP.Dal.Repositorys;
 
 namespace CarespotASP.Models
 {
@@ -12,6 +14,7 @@ namespace CarespotASP.Models
         public DateTime Datum { get; set; }
         public int VrijwilligerId { get; set; }
         public int HulpvraagId { get; set; }
+        public Vrijwilliger Vrijwilliger { get; set; }
 
         public Reactie(string bericht, DateTime datum, int vrijwilligerId, int hulpvraagId)
         {
@@ -28,6 +31,10 @@ namespace CarespotASP.Models
             Datum = datum;
             VrijwilligerId = vrijwilligerId;
             HulpvraagId = hulpvraagId;
+
+            VrijwilligerSqlContext context = new VrijwilligerSqlContext();
+            VrijwilligerRepository rr = new VrijwilligerRepository(context);
+            Vrijwilliger = rr.GetVrijwilligerById(vrijwilligerId);
         }
         public Reactie()
         {

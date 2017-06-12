@@ -55,5 +55,10 @@ namespace CarespotASP.Dal.Repositorys
             return this.GetAll().Where(h =>h.Hulpbehoevende !=null &&  h.Hulpbehoevende.Id == hulpbehoevendeId).ToList();
 
         }
+
+        public List<Hulpvraag> GetHulpvragenZonderVrijwilliger()
+        {
+            return this.GetAll().Where(h => h.Vrijwilliger == null).ToList();
+        }
     }
 }

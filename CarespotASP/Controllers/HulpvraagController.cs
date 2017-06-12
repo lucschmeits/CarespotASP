@@ -22,6 +22,12 @@ namespace CarespotASP.Controllers
             HulpvraagRepository hr = new HulpvraagRepository(hsc);
             Hulpvraag hulpvrg = hr.GetById(id);
 
+            ReactieSqlContext rsc = new ReactieSqlContext();
+            ReactieRepository rr = new ReactieRepository(rsc);
+
+            List<Reactie> reacties = rr.GetReatiesByHulpvraagId(id);
+            ViewBag.reacties = reacties;
+
             return View(hulpvrg);
         }
 
@@ -41,11 +47,7 @@ namespace CarespotASP.Controllers
             //Haal de ingelogde gebruiker op
             var hulpbehoevende = (Hulpbehoevende)Session["LoggedInUser"];
 
-            ////Hulpbehoevende ophalen/toevoegen
-            //HulpbehoevendeSqlContext hbsc = new HulpbehoevendeSqlContext();
-            //HulpbehoevendeRepository hbr = new HulpbehoevendeRepository(hbsc);
-
-            //Hulpbehoevende hulpbehoevende = hbr.GetHulpbehoevendeById(gebruiker.Id);
+ 
 
             Hulpvraag hulpvraag = new Hulpvraag(
                 form["titel"],
@@ -94,6 +96,28 @@ namespace CarespotASP.Controllers
             hvr.Delete(id);
 
             return RedirectToAction("Index", "Hulpbehoevende");
+        }
+
+        [HttpGet]
+        public ActionResult AcceptHulpvraag(int id)
+        {
+           ReactieSqlContext rc = new ReactieSqlContext();
+           ReactieRepository rr = new ReactieRepository(rc);
+
+            rr.AcceptHulpvraag(id);
+
+            return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.ToString()); //Return terug naar waar je vandaan komt.
+        }
+
+        [HttpGet]
+        public ActionResult DeclineHulpvraag(int id)
+        {
+            ReactieSqlContext rc = new ReactieSqlContext();
+            ReactieRepository rr = new ReactieRepository(rc);
+
+            rr.AcceptHulpvraag(id);
+
+            return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.ToString()); //Return terug naar waar je vandaan komt.
         }
     }
 }

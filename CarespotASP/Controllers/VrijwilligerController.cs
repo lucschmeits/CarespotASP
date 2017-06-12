@@ -19,7 +19,10 @@ namespace CarespotASP.Controllers
             HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
             HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
 
-            List<Hulpvraag> hulpvragen = hvr.GetHulpvragenByVrijwilligerId(4);
+            var vrijwilliger = (Vrijwilliger)Session["LoggedInUser"];
+
+            //Haal mijn opdrachten op
+            List<Hulpvraag> hulpvragen = hvr.GetHulpvragenByVrijwilligerId(vrijwilliger.Id);
             ViewBag.hulpvragen = hulpvragen;
 
             return View("~/Views/Vrijwilliger/Hoofdscherm.cshtml");
@@ -30,7 +33,8 @@ namespace CarespotASP.Controllers
             HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
             HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
 
-            List<Hulpvraag> hulpvragen = hvr.GetHulpvragenByVrijwilligerId(4);
+            //Haal alle opdrachten op die nog geen vrijwilliger hebben.
+            List<Hulpvraag> hulpvragen = hvr.GetHulpvragenZonderVrijwilliger();
             ViewBag.hulpvragen = hulpvragen;
 
             return View("~/Views/Vrijwilliger/OpdrachtOverzicht.cshtml");

@@ -10,6 +10,27 @@ namespace CarespotASP.Dal.Context
 {
     public class ReactieSqlContext : IReactie
     {
+        public void AcceptHulpvraag(int id)
+        {
+            try
+            {
+                using (var con = new SqlConnection(Env.ConnectionString))
+                {
+                    string query = "UPDATE Hulpvraag SET VrijwilligerId = (SELECT VrijwilligerId FROM Reactie WHERE Id = @id ) WHERE Id = (SELECT HulpvraagId FROM Reactie WHERE Id = @id ); DELETE FROM Reactie WHERE Id = @id; ";
+                    var cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@id", id);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
         public int CreateReactie(Reactie reactie)
         {
             int returnId = 0;
@@ -37,6 +58,11 @@ namespace CarespotASP.Dal.Context
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        public void DeclineHulpvraag(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public void DeleteReactieById(int id)

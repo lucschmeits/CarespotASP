@@ -59,20 +59,12 @@ namespace CarespotASP.Controllers
         [HttpPost]
         public JsonResult HaalChatOp(int userId1, int userId2)
         {
-            try
-            {
+            
                 var sql = new ChatSqlContext();
                 var chatRepo = new ChatRepository(sql);
                 return Json(chatRepo.GetChatByUsers(userId1, userId2));
-            }
-            catch (Exception e)
-            {
-                return Json(new
-                {
-                    redirectUrl = Url.Action("Index", "Error"),
-                    isRedirect = true
-                });
-            }
+            
+           
         }
 
 
@@ -80,8 +72,7 @@ namespace CarespotASP.Controllers
         [HttpPost]
         public JsonResult SendChatMessage(int autheurId, int ontvangerId, string bericht)
         {
-            try
-            {
+           
                 GebruikerSqlContext gsc = new GebruikerSqlContext();
                 GebruikerRepository gr = new GebruikerRepository(gsc);
                 var sql = new ChatSqlContext();
@@ -93,15 +84,7 @@ namespace CarespotASP.Controllers
                 chatRepo.Create(nieuwBericht);
 
                 return null;
-            }
-            catch (Exception e)
-            {
-                return Json(new
-                {
-                    redirectUrl = Url.Action("Index", "Error"),
-                    isRedirect = true
-                });
-            }
+           
         }
 
     }

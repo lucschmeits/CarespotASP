@@ -16,53 +16,80 @@ namespace CarespotASP.Controllers
         // GET: Vrijwilliger
         public ActionResult Index()
         {
-            HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
-            HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
+            try
+            {
+                HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
+                HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
 
-            List<Hulpvraag> hulpvragen = hvr.GetHulpvragenByVrijwilligerId(4);
-            ViewBag.hulpvragen = hulpvragen;
+                List<Hulpvraag> hulpvragen = hvr.GetHulpvragenByVrijwilligerId(4);
+                ViewBag.hulpvragen = hulpvragen;
 
-            return View("~/Views/Vrijwilliger/Hoofdscherm.cshtml");
+                return View("~/Views/Vrijwilliger/Hoofdscherm.cshtml");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", "Error");
+            }
         }
 
         public ActionResult OpdrachtOverzicht()
         {
-            HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
-            HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
+            try
+            {
+                HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
+                HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
 
-            List<Hulpvraag> hulpvragen = hvr.GetHulpvragenByVrijwilligerId(4);
-            ViewBag.hulpvragen = hulpvragen;
+                List<Hulpvraag> hulpvragen = hvr.GetHulpvragenByVrijwilligerId(4);
+                ViewBag.hulpvragen = hulpvragen;
 
-            return View("~/Views/Vrijwilliger/OpdrachtOverzicht.cshtml");
+                return View("~/Views/Vrijwilliger/OpdrachtOverzicht.cshtml");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", "Error");
+            }
         }
 
         [HttpGet]
         public ActionResult Reageer(int id)
         {
-            ViewBag.hulpvraagid = id;
-            return View("~/Views/Vrijwilliger/Reageer.cshtml");
+            try
+            {
+                ViewBag.hulpvraagid = id;
+                return View("~/Views/Vrijwilliger/Reageer.cshtml");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", "Error");
+            }
         }
 
         [HttpPost]
         public ActionResult CreateReactie(FormCollection form)
         {
+            try
+            {
+                //Haal ingelogde gebruiker op
+                var vrijwilliger = (Vrijwilliger) Session["LoggedInUser"];
 
-            //Haal ingelogde gebruiker op
-            var vrijwilliger = (Vrijwilliger)Session["LoggedInUser"];
+                var reactie = new Reactie(
+                    form["bericht"],
+                    DateTime.Now,
+                    vrijwilliger.Id,
+                    Convert.ToInt32(form["id"]));
 
-            var reactie = new Reactie(
-                form["bericht"],
-                DateTime.Now,
-                vrijwilliger.Id,
-                Convert.ToInt32(form["id"]));
+                ReactieSqlContext rsc = new ReactieSqlContext();
+                ReactieRepository rr = new ReactieRepository(rsc);
 
-            ReactieSqlContext rsc = new ReactieSqlContext();
-            ReactieRepository rr = new ReactieRepository(rsc);
-
-            rr.CreateReactie(reactie);
+                rr.CreateReactie(reactie);
 
 
-            return RedirectToAction("Index", "Vrijwilliger");
+                return RedirectToAction("Index", "Vrijwilliger");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", "Error");
+            }
         }
 
 

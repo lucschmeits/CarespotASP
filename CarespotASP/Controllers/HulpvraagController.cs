@@ -156,5 +156,16 @@ namespace CarespotASP.Controllers
 
             return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.ToString()); //Return terug naar waar je vandaan komt.
         }
+
+        [HttpGet]
+        public ActionResult RemoveVrijwilliger(int id)
+        {
+            HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
+            HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
+
+            hvr.RemoveVrijwilligerFromHulpvraag(id);
+
+            return RedirectToAction("Details", "Hulpvraag", new { id = id });
+        }
     }
 }

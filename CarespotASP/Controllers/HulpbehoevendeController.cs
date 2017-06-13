@@ -15,26 +15,40 @@ namespace CarespotASP.Controllers
         // GET: Hulpbehoevende
         public ActionResult Index()
         {
-            var hulpbehoevende = (Hulpbehoevende)Session["LoggedInUser"];
+            try
+            {
+                var hulpbehoevende = (Hulpbehoevende) Session["LoggedInUser"];
 
-            HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
-            HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
+                HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
+                HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
 
-            List<Hulpvraag> hulpvragen = hvr.GetHulpvragenByHulpbehoevendeId(hulpbehoevende.Id);
-            ViewBag.hulpvragen = hulpvragen;
+                List<Hulpvraag> hulpvragen = hvr.GetHulpvragenByHulpbehoevendeId(hulpbehoevende.Id);
+                ViewBag.hulpvragen = hulpvragen;
 
-            return View("~/Views/Hulpbehoevende/Opdrachten.cshtml");
+                return View("~/Views/Hulpbehoevende/Opdrachten.cshtml");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", "Error");
+            }
 
         }
 
         public ActionResult NieuweOpdracht()
         {
-            VaardigheidSqlContext vsc = new VaardigheidSqlContext();
-            VaardigheidRepository vr = new VaardigheidRepository(vsc);
+            try
+            {
+                VaardigheidSqlContext vsc = new VaardigheidSqlContext();
+                VaardigheidRepository vr = new VaardigheidRepository(vsc);
 
-            ViewBag.vaardigheden = vr.GetAll();
+                ViewBag.vaardigheden = vr.GetAll();
 
-            return View("~/Views/Hulpbehoevende/NieuweOpdracht.cshtml");
+                return View("~/Views/Hulpbehoevende/NieuweOpdracht.cshtml");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", "Error");
+            }
 
         }
     }

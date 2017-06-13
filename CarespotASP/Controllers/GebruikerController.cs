@@ -23,6 +23,7 @@ namespace CarespotASP.Controllers
         
         public ActionResult Gegevens(int id)
         {
+            try { 
             var sql = new GebruikerSqlContext();
             var repo = new GebruikerRepository(sql);
             var vsql = new VaardigheidSqlContext();
@@ -34,10 +35,16 @@ namespace CarespotASP.Controllers
                 select gebruikers).First();
             ViewData["gebruiker"] = gebruiker;
             return View("GegevensWijzigen");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", "Error");
+            }
         }
 
         public ActionResult Update(FormCollection form, int id, HttpPostedFileBase foto)
         {
+            try { 
             if (Session["LoggedInUser"] != null)
             {
                 var loggedinGebruiker = Session["LoggedInUser"] as Gebruiker;
@@ -116,16 +123,23 @@ namespace CarespotASP.Controllers
                 return RedirectToAction("Gegevens", "Gebruiker", new {id = gebruiker.Id});
             }
             return RedirectToAction("Index", "Login");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", "Error");
+            }
         }
 
         //Get /Details/{id}
         public ActionResult Details(int id)
         {
-            GebruikerSqlContext gsc = new GebruikerSqlContext();
-            GebruikerRepository gr = new GebruikerRepository(gsc);
+            try { 
+                GebruikerSqlContext gsc = new GebruikerSqlContext();
+                GebruikerRepository gr = new GebruikerRepository(gsc);
 
-            ReviewSqlContext rsc = new ReviewSqlContext();
-            ReviewRepository rr = new ReviewRepository(rsc);
+                ReviewSqlContext rsc = new ReviewSqlContext();
+                ReviewRepository rr = new ReviewRepository(rsc);
+
 
             Gebruiker loggedUser = (Gebruiker)Session["LoggedInUser"];
 
@@ -138,7 +152,15 @@ namespace CarespotASP.Controllers
                 ViewBag.CanReview = rr.CanReview(loggedUser.Id, id);
             }
            
-            return View("~/Views/Gebruiker/Details.cshtml");
+       ViewBag.SelectedUser = gr.GetById(id);
+                ViewBag.Reviews = rr.GetReviewByVrijwilligerId(id);
+                return View("~/Views/Gebruiker/Details.cshtml");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
 
         }
     }

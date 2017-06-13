@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using CarespotASP.Dal.Context;
 using CarespotASP.Dal.Repositorys;
 using CarespotASP.Models;
@@ -11,27 +12,41 @@ namespace CarespotASP.Controllers
         // GET: Beheerder
         public ActionResult Index()
         {
-            BeheerderViewModel model = new BeheerderViewModel();
+            try
+            {
+                BeheerderViewModel model = new BeheerderViewModel();
 
-            HulpvraagSqlContext hsc = new HulpvraagSqlContext();
-            HulpvraagRepository hr = new HulpvraagRepository(hsc);
+                HulpvraagSqlContext hsc = new HulpvraagSqlContext();
+                HulpvraagRepository hr = new HulpvraagRepository(hsc);
 
-            GebruikerSqlContext gsc = new GebruikerSqlContext();
-            GebruikerRepository gr = new GebruikerRepository(gsc);
+                GebruikerSqlContext gsc = new GebruikerSqlContext();
+                GebruikerRepository gr = new GebruikerRepository(gsc);
 
-            model.LstGebruiker = gr.GetUserWithType();
-            model.LstHulpvraag = hr.GetAll();
+                model.LstGebruiker = gr.GetUserWithType();
+                model.LstHulpvraag = hr.GetAll();
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", "Error");
+            }
         }
 
         // GET: Beheerder/Details/5
         public ActionResult Details(int id)
         {
-            HulpvraagSqlContext hsc = new HulpvraagSqlContext();
-            HulpvraagRepository hr = new HulpvraagRepository(hsc);
-            Hulpvraag hulpvrg = hr.GetById(id);
-            return View(hulpvrg);
+            try
+            {
+                HulpvraagSqlContext hsc = new HulpvraagSqlContext();
+                HulpvraagRepository hr = new HulpvraagRepository(hsc);
+                Hulpvraag hulpvrg = hr.GetById(id);
+                return View(hulpvrg);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", "Error");
+            }
         }
 
         // GET: Beheerder/Create

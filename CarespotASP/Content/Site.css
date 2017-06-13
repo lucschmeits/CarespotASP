@@ -90,4 +90,19 @@ textarea {
     text-align: center;
 
 }
+.error {
+    overflow: auto;
+    font-weight: 700;
+    font-size: 20px;
+}
 
+.error > h2 {
+    border-bottom: 5px solid;
+    margin-bottom: 5%;
+}
+
+.error-content {
+    overflow: auto;
+    margin-top: 10%;
+    margin-bottom: 10%;
+}

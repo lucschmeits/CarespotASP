@@ -1,7 +1,9 @@
-﻿@model CarespotASP.Models.Hulpvraag
+﻿@using CarespotASP.Models
+@model CarespotASP.Models.Hulpvraag
 
 @{
     ViewBag.Title = "Details";
+    Gebruiker gebruiker = (Gebruiker) Session["LoggedInUser"];
 }
 
 <div class="row">
@@ -11,14 +13,18 @@
     </div>
 </div>
 <div class="row">
+    
     <div class="col-md-12">
         <ul class="nav nav-tabs">
             <li class="active">
                 <a data-toggle="tab" href="#contacten">Contacten</a>
             </li>
-            <li>
-                <a data-toggle="tab" href="#reacties">Reacties</a>
-            </li>
+            @if (gebruiker.Id == Model.Hulpbehoevende.Id && Model.Vrijwilliger == null)
+            {
+                <li>
+                    <a data-toggle="tab" href="#reacties">Reacties</a>
+                </li>
+            }
             <li>
                 <a data-toggle="tab" href="#extra">Extra info</a>
             </li>
@@ -76,10 +82,35 @@
                     </dd>
                 </dl>
             </div>
-            <div id="reacties" class="tab-pane fade">
-                <h3>Reacties</h3>
-                <p></p>
-            </div>
+            @if (gebruiker.Id == Model.Hulpbehoevende.Id && Model.Vrijwilliger == null)
+            {
+                <div id="reacties" class="tab-pane fade">
+                    <h3>Reacties</h3>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Bericht</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (Reactie reactie in ViewBag.reacties)
+                        {
+                            <tr>
+                                <td>@reactie.Vrijwilliger.Naam</td>
+                                <td>@reactie.Bericht</td>
+                                <td>
+                                    <form method="get" action="/Hulpvraag/AcceptHulpvraag/@reactie.Id"><button type="submit" class="btn btn-success">Accepteren</button>
+                                    </form></td>
+                                <td>
+                                    <form method="get" action="/Hulpvraag/DeleteHulpvraag/@reactie.Id"><button type="submit" class="btn btn-danger">Afwijzen</button>
+                                    </form></td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            }
             <div id="extra" class="tab-pane fade">
                 <h3>Extra informatie</h3>
                 <p>

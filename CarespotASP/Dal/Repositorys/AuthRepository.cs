@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.ModelBinding;
 using CarespotASP.Dal.Context;
+using CarespotASP.Enums;
 using CarespotASP.Models;
+using System.Web;
 
 namespace CarespotASP.Dal.Repositorys
 {
@@ -40,6 +44,29 @@ namespace CarespotASP.Dal.Repositorys
                 }
             }
             return null;
+        }
+
+        public static bool CheckIfUserCanAcces(GebruikerType rol, Gebruiker loggedUser)
+        {
+            if (loggedUser != null)
+            {
+                if (rol == GebruikerType.All)
+                {
+                    return true;
+                }
+                else if (loggedUser.GetType().Name == rol.ToString())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
 
     }

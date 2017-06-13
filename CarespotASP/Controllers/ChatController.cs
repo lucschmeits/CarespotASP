@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using CarespotASP.Dal.Context;
 using CarespotASP.Dal.Repositorys;
+using CarespotASP.Enums;
 using CarespotASP.Models;
 
 namespace CarespotASP.Controllers
@@ -14,6 +15,12 @@ namespace CarespotASP.Controllers
         // GET: Chat
         public ActionResult Index()
         {
+            
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.All, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             try { 
                 GebruikerSqlContext gsc = new GebruikerSqlContext();
                 GebruikerRepository gr = new GebruikerRepository(gsc);
@@ -32,6 +39,12 @@ namespace CarespotASP.Controllers
 
         public ActionResult ChatScherm(string id)
         {
+
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.All, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             try
             {
                 GebruikerSqlContext gsc = new GebruikerSqlContext();

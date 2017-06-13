@@ -1,10 +1,33 @@
 ﻿@using CarespotASP.Models
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     Gebruiker loggedInUser = (Gebruiker)ViewBag.LoggedInUser;
 }
+<div class="row">
+    <div class="col-md-12">
+        <br />
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Videochat</button>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Videochat</h4>
+            </div>
+            <div class="modal-body">
+                <iframe src="https://win-srv-web.fhict.local" width="1850" height="780"></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-4">
         <h2>Gebruikers</h2>
@@ -13,51 +36,51 @@
                 <th>Naam</th>
                 <th>Chat</th>
             </tr>
-            
+
             @foreach (Gebruiker g in ViewBag.Gebruikers)
             {
                 <tr>
                     <td>@g.Naam</td>
-                    <td><a href="/Chat/@g.Id" class="btn btn-info" role="button"><span class="glyphicon glyphicon-chevron-right"></span></a></td>
+                    <td>
+                        <a href="/Chat/@g.Id" class="btn btn-info" role="button">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                    </td>
                 </tr>
             }
-
-           
         </table>
     </div>
-   @if (ViewBag.LoggedInUser != null  && ViewBag.EnableChat == "true")
-   {
-       <input id="loggedUserId" type="hidden" value="@loggedInUser.Id" />
-    <div class="col-md-8">
-        <h2>Chat</h2>
-        <textarea id="chatBerichten" class="form-control" rows="20" disabled>  </textarea>
-        <div class="input-group">
-            <br />
+    @if (ViewBag.LoggedInUser != null && ViewBag.EnableChat == "true")
+    {
+        <input id="loggedUserId" type="hidden" value="@loggedInUser.Id" />
+        <div class="col-md-8">
+            <h2>Chat</h2>
+            <textarea id="chatBerichten" class="form-control" rows="20" disabled>  </textarea>
             <div class="input-group">
-                <input id="chatBericht" width="300px" type="text" class="form-control" value="" placeholder="Bericht..." />
-                <span class="input-group-btn">
-                    <button id="sendChat" class="btn btn-default" type="button" >Versturen</button>
-                </span>
+                <br />
+                <div class="input-group">
+                    <input id="chatBericht" width="300px" type="text" class="form-control" value="" placeholder="Bericht..." />
+                    <span class="input-group-btn">
+                        <button id="sendChat" class="btn btn-default" type="button">Versturen</button>
+                    </span>
+                </div>
             </div>
         </div>
-    </div>
-   }
-   else
-   {
-    <div class="col-md-8">
-        <h2>Chat</h2>
-        <textarea class="form-control" rows="5" id="chatBerichten" disabled></textarea>
-        <div class="input-group">
-            <br />
+    }
+    else
+    {
+        <div class="col-md-8">
+            <h2>Chat</h2>
+            <textarea class="form-control" rows="5" id="chatBerichten" disabled></textarea>
             <div class="input-group">
-                <input width="300px" type="text" class="form-control" value="" placeholder="Bericht..." disabled>
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" disabled>Versturen</button>
-                </span>
+                <br />
+                <div class="input-group">
+                    <input width="300px" type="text" class="form-control" value="" placeholder="Bericht..." disabled>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" disabled>Versturen</button>
+                    </span>
+                </div>
             </div>
         </div>
-    </div>
-   }
-
-
+    }
 </div>

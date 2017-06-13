@@ -56,7 +56,7 @@
                                 <td>@v.Naam</td>
                                 <td><a href="@v.VOG" target="_blank">VOG</a></td>
                                 <td>
-                                    <button class="btn btn-success" type="button">Accepteer</button>
+                                    <a class="btn btn-success" href="@Url.Action("Accepteer", "Beheerder", new {id = v.Id})">Accepteer</a>
                                 </td>
                                
                             </tr>

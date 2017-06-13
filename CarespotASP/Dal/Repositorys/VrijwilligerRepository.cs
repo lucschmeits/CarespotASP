@@ -33,9 +33,9 @@ namespace CarespotASP.Dal.Repositorys
             return _interface.GetVrijwilligerById(id);
         }
 
-        public void UpdateVrijwilliger(int gebruikerId, string vogPath, bool isGoedgekeurd)
+        public void UpdateVrijwilliger(int gebruikerId, bool isGoedgekeurd)
         {
-            _interface.UpdateVrijwilliger(gebruikerId, vogPath, isGoedgekeurd);
+            _interface.UpdateVrijwilliger(gebruikerId, isGoedgekeurd);
         }
 
         public void DeleteVrijwillige(int id)

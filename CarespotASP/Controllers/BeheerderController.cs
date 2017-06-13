@@ -60,6 +60,26 @@ namespace CarespotASP.Controllers
             }
         }
 
+        public ActionResult Accepteer(int id)
+        {
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.Beheerder, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return View("~/Views/Error/AuthError.cshtml");
+            }
+            try
+            {
+                var vsql = new VrijwilligerSqlContext();
+                var vrepo = new VrijwilligerRepository(vsql);
+                vrepo.UpdateVrijwilliger(id, true);
+                return RedirectToAction("Index", "Beheerder");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+            
+        }
+
         // GET: Beheerder/Create
         public ActionResult Create()
         {

@@ -32,7 +32,12 @@
         {
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Chat", "Index", "Chat")</li>                
+                    @if (gebruiker.GetType() == typeof(Beheerder))
+                    {
+                        <li><a href="@Url.Action("Beheerder", "Registreer")">Registreer</a></li>
+                    }
+                    
+                    <li>@Html.ActionLink("Chat", "Index", "Chat")</li>
                 </ul>
                 @if (gebruiker != null)
                 {

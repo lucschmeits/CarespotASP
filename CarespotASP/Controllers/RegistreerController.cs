@@ -15,6 +15,7 @@ namespace CarespotASP.Controllers
         // GET: Registreer
         public ActionResult Index()
         {
+           
             try
             {
                 VaardigheidSqlContext vsql = new VaardigheidSqlContext();
@@ -130,11 +131,19 @@ namespace CarespotASP.Controllers
 
         public ActionResult Beheerder()
         {
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.Beheerder, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return View("~/Views/Error/AuthError.cshtml");
+            }
             return View("RegistreerBeheerderHulpverlener");
         }
 
         public ActionResult RegistreerHulpverlener()
         {
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.Beheerder, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return View("~/Views/Error/AuthError.cshtml");
+            }
             return View("RegistreerHulpverlener");
         }
 

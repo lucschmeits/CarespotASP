@@ -15,6 +15,11 @@ namespace CarespotASP.Controllers
         // GET: Hulpbehoevende
         public ActionResult Index()
         {
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.Hulpbehoevende, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return View("~/Views/Error/AuthError.cshtml");
+            }
+
             try
             {
                 var hulpbehoevende = (Hulpbehoevende) Session["LoggedInUser"];
@@ -36,6 +41,11 @@ namespace CarespotASP.Controllers
 
         public ActionResult NieuweOpdracht()
         {
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.Hulpbehoevende, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return View("~/Views/Error/AuthError.cshtml");
+            }
+
             try
             {
                 VaardigheidSqlContext vsc = new VaardigheidSqlContext();

@@ -1,24 +1,25 @@
 ﻿body {
-    padding-top: 50px;
     padding-bottom: 20px;
+    padding-top: 50px;
 }
 
 /* Set padding to keep content from hitting the edges */
+
 .body-content {
+    font-family: 'Lato', sans-serif;
     padding-left: 15px;
     padding-right: 15px;
-    font-family: 'Lato', sans-serif;
     /*font-family: 'Merriweather Sans', sans-serif;*/
 }
 
 /* Override the default bootstrap behavior where horizontal description lists
    will truncate terms that are too long to fit in the left column
 */
-.dl-horizontal dt {
-    white-space: normal;
-}
+
+.dl-horizontal dt { white-space: normal; }
 
 /* Set width on the form input elements since they're 100% wide by default */
+
 /*input,
 select,
 textarea {
@@ -26,20 +27,19 @@ textarea {
 }*/
 
 /*Login CSS*/
-.login {
-    padding-right: 0;
+
+.login { padding-right: 0; }
+
+.login > h2 {
+    border-bottom: 2px solid #000000;
+    padding-bottom: 10px;
+    text-transform: uppercase;
 }
 
-    .login > h2 {
-        border-bottom: 2px solid #000000;
-        padding-bottom: 10px;
-        text-transform: uppercase;
-    }
-
 .contactform {
-    width: 100%;
     margin-left: auto;
     margin-right: auto;
+    width: 100%;
 }
 
 .instructies {
@@ -48,16 +48,15 @@ textarea {
     padding: 30px;
 }
 
-    .instructies > h2 {
-        margin-top: 0;
-        text-transform: uppercase;
-    }
-
-.btn-keuze {
-    padding: 15%;
+.instructies > h2 {
+    margin-top: 0;
+    text-transform: uppercase;
 }
 
+.btn-keuze { padding: 15%; }
+
 /*registreet CSS*/
+
 .registreer-header {
     border-bottom: 2px solid #000000;
     padding-bottom: 10px;
@@ -65,35 +64,24 @@ textarea {
 }
 
 .select {
-    width: 100%;
     padding: 5%;
-}
-
-.checkbox-registreer {
-    width: 40%;
-    
-}
-
-.btn-registreer {
     width: 100%;
 }
 
-.label-registreer {
-    width: 100%;
-}
+.checkbox-registreer { width: 40%; }
 
-.label-registreer > input {
-    margin-right: 5%;
-}
+.btn-registreer { width: 100%; }
 
-.center {
-    text-align: center;
+.label-registreer { width: 100%; }
 
-}
+.label-registreer > input { margin-right: 5%; }
+
+.center { text-align: center; }
+
 .error {
-    overflow: auto;
-    font-weight: 700;
     font-size: 20px;
+    font-weight: 700;
+    overflow: auto;
 }
 
 .error > h2 {
@@ -102,7 +90,20 @@ textarea {
 }
 
 .error-content {
-    overflow: auto;
-    margin-top: 10%;
     margin-bottom: 10%;
+    margin-top: 10%;
+    overflow: auto;
+}
+
+.modal-dialog {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.modal-content {
+    height: auto;
+    min-height: 100%;
+    border-radius: 0;
 }

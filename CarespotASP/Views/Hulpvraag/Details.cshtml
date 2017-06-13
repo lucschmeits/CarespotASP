@@ -57,30 +57,39 @@
                         @Html.DisplayFor(model => model.Hulpbehoevende.Telefoonnummer)
                     </dd>
                 </dl>
-                <h4>Vrijwilliger</h4>
-                <dl class="dl-horizontal">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Vrijwilliger.Naam)
-                    </dt>
+                @if (Model.Vrijwilliger != null )
+                {
+                    <h4>Vrijwilliger</h4>
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Vrijwilliger.Naam)
+                        </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.Vrijwilliger.Naam)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Vrijwilliger.Email)
-                    </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Vrijwilliger.Naam)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Vrijwilliger.Email)
+                        </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.Vrijwilliger.Email)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Vrijwilliger.Telefoonnummer)
-                    </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Vrijwilliger.Email)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Vrijwilliger.Telefoonnummer)
+                        </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.Vrijwilliger.Telefoonnummer)
-                    </dd>
-                </dl>
+                        <dd>
+                            @Html.DisplayFor(model => model.Vrijwilliger.Telefoonnummer)
+                        </dd>
+                        <dt>
+
+                        </dt>
+                        <dd>
+                            <button onclick="window.location.href = '/Gebruiker/Details/@Model.Vrijwilliger.Id'" class="btn btn-primary btn-sm">Details</button>
+                        </dd>
+                    </dl>
+                }
             </div>
             @if (gebruiker.Id == Model.Hulpbehoevende.Id && Model.Vrijwilliger == null)
             {
@@ -89,8 +98,8 @@
                     <table class="table">
                         <thead>
                         <tr>
+                            <th>Naam</th>
                             <th>Bericht</th>
-                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -103,7 +112,7 @@
                                     <form method="get" action="/Hulpvraag/AcceptHulpvraag/@reactie.Id"><button type="submit" class="btn btn-success">Accepteren</button>
                                     </form></td>
                                 <td>
-                                    <form method="get" action="/Hulpvraag/DeleteHulpvraag/@reactie.Id"><button type="submit" class="btn btn-danger">Afwijzen</button>
+                                    <form method="get" action="/Hulpvraag/DeclineHulpvraag/@reactie.Id"><button type="submit" class="btn btn-danger">Afwijzen</button>
                                     </form></td>
                             </tr>
                         }

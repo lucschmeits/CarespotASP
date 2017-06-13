@@ -136,7 +136,7 @@ namespace CarespotASP.Controllers
             ReactieSqlContext rc = new ReactieSqlContext();
             ReactieRepository rr = new ReactieRepository(rc);
 
-            rr.AcceptHulpvraag(id);
+            rr.DeclineHulpvraag(id);
 
             return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.ToString()); //Return terug naar waar je vandaan komt.
         }

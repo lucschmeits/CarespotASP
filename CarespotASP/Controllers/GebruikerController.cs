@@ -105,16 +105,16 @@ namespace CarespotASP.Controllers
                     gebruiker.Geslacht = (Geslacht)Enum.Parse(typeof(Geslacht), form["geslacht"]);
                     gebruiker.Adres = form["adres"];
                     gebruiker.Email = form["email"];
-                    gebruiker.Geboortedatum = Convert.ToDateTime(form["geboortedatum"]);
+                  
                     gebruiker.Woonplaats = form["plaats"];
                     gebruiker.Land = form["land"];
                     gebruiker.Postcode = form["postcode"];
                     gebruiker.Telefoonnummer = form["telnr"];
                     gebruiker.Gebruikersnaam = form["gebruikersnaam"];
                     gebruiker.Naam = form["naam"];
-                    gebruiker.HeeftAuto = bool.Parse(form["auto"]);
-                    gebruiker.HeeftRijbewijs = bool.Parse(form["rijbewijs"]);
-                    gebruiker.HeeftOv = bool.Parse(form["ov"]);
+                    gebruiker.HeeftAuto = Convert.ToBoolean(form["auto"]);
+                    gebruiker.HeeftRijbewijs = Convert.ToBoolean(form["rijbewijs"]);
+                    gebruiker.HeeftOv = Convert.ToBoolean(form["ov"]);
                     gebruiker.Barcode = form["barcode"];
 
                     string[] vaardigheidIds = form.GetValues("vaardigheden");

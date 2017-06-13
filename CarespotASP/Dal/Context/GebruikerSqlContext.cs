@@ -206,7 +206,7 @@ namespace CarespotASP.Dal.Context
             {
                 using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
-                    string query = "UPDATE Gebruiker SET Foto = @foto, Email = @email, Wachtwoord = @wachtwoord, Gebruikersnaam = @gebruikersnaam, Naam = @naam, Geboortedatum = @geboortedatum, HeeftRijbewijs = @heeftRijbewijs, HeeftOv = @heeftOv, HeeftAuto = @heeftAuto, Telefoonnummer = @telefoonnummer, Uitschrijfdatum = @uitschrijfdatum, Adres = @adres, Woonplaats = @woonplaats, Land = @land, Postcode =@postcode" +
+                    string query = "UPDATE Gebruiker SET Foto = @foto, Email = @email, Wachtwoord = @wachtwoord, Gebruikersnaam = @gebruikersnaam, Naam = @naam, HeeftRijbewijs = @heeftRijbewijs, HeeftOv = @heeftOv, HeeftAuto = @heeftAuto, Telefoonnummer = @telefoonnummer, Uitschrijfdatum = @uitschrijfdatum, Adres = @adres, Woonplaats = @woonplaats, Land = @land, Postcode =@postcode" +
                                    ", Geslacht = @geslacht, Barcode = @barcode WHERE id = @key";
                     con.Open();
                     SqlCommand cmd = new SqlCommand(query, con);
@@ -216,7 +216,7 @@ namespace CarespotASP.Dal.Context
                     cmd.Parameters.AddWithValue("@wachtwoord", obj.Wachtwoord);
                     cmd.Parameters.AddWithValue("@gebruikersnaam", obj.Gebruikersnaam);
                     cmd.Parameters.AddWithValue("@naam", obj.Naam);
-                    cmd.Parameters.AddWithValue("@geboortedatum", obj.Geboortedatum);
+                    //cmd.Parameters.AddWithValue("@geboortedatum", obj.Geboortedatum);
                     cmd.Parameters.AddWithValue("@heeftRijbewijs", Convert.ToInt32(obj.HeeftRijbewijs));
                     cmd.Parameters.AddWithValue("@heeftOv", Convert.ToInt32(obj.HeeftOv));
                     cmd.Parameters.AddWithValue("@heeftAuto", Convert.ToInt32(obj.HeeftAuto));
@@ -235,19 +235,27 @@ namespace CarespotASP.Dal.Context
                     cmd.Parameters.AddWithValue("@land", obj.Land);
                     cmd.Parameters.AddWithValue("@postcode", obj.Postcode);
                     cmd.Parameters.AddWithValue("@geslacht", obj.Geslacht.ToString());
+                    if (obj.Barcode == null)
+                    {
+                        cmd.Parameters.AddWithValue("@barcode", DBNull.Value);
+                }
+                    else
+                    {
                     cmd.Parameters.AddWithValue("@barcode", obj.Barcode);
+                }
+                  
 
                     cmd.Parameters.AddWithValue("@key", obj.Id);
-                    int reader = cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
                     con.Close();
                 }
-            }
+        }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
-        }
+}
 
         public void DeleteGebruikerById(int id)
         {

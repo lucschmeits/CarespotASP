@@ -15,7 +15,7 @@ namespace CarespotASP.Dal.Interfaces
 
         void CreateVrijwilliger(int gebruikerId, string vogPath);
 
-        void UpdateVrijwilliger(int gebruikerId, string vogPath, bool isGoedgekeurd);
+        void UpdateVrijwilliger(int gebruikerId, bool isGoedgekeurd);
 
         void DeleteVrijwilligerById(int id);
 

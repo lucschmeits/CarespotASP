@@ -151,7 +151,7 @@ namespace CarespotASP.Dal.Context
             }
         }
 
-        public void UpdateVrijwilliger(int gebruikerId, string vogPath, bool isGoedgekeurd)
+        public void UpdateVrijwilliger(int gebruikerId, bool isGoedgekeurd)
         {
             try
             {
@@ -163,7 +163,7 @@ namespace CarespotASP.Dal.Context
                     var cmd = new SqlCommand(query, con);
 
                     cmd.Parameters.AddWithValue("@key", gebruikerId);
-                    //cmd.Parameters.AddWithValue("@vog", vogPath);
+                   
                     cmd.Parameters.AddWithValue("@IsGoedgekeurd", Convert.ToInt32(isGoedgekeurd));
                     con.Open();
 

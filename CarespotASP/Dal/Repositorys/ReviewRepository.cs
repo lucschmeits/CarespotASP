@@ -59,23 +59,25 @@ namespace CarespotASP.Dal.Repositorys
             List<Review> reviews = this.GetReviewByHulpbehoevendeId(hulpbehoevendeId);
 
             bool returnValue = false;
-            foreach (Hulpvraag hv in hulpvragen)
-            {
-                //Hulpbehoevende zit gekoppeld aan vrijwilliger in hulpvraag
-                if (hv.Vrijwilliger.Id == vrijwilligerId)
+           foreach (Hulpvraag hv in hulpvragen)
                 {
-                    returnValue = true;
-
-                    foreach (Review r in reviews)
+                    //Hulpbehoevende zit gekoppeld aan vrijwilliger in hulpvraag
+                    if (hv.Vrijwilliger !=null && hv.Vrijwilliger.Id == vrijwilligerId)
                     {
-                        //Check of review al bestaat
-                        if (r.GebruikerId == vrijwilligerId)
+                        returnValue = true;
+
+                        foreach (Review r in reviews)
                         {
-                            returnValue = false;
+                            //Check of review al bestaat
+                            if (r.GebruikerId == vrijwilligerId)
+                            {
+                                returnValue = false;
+                            }
                         }
                     }
                 }
-            }
+            
+           
             return returnValue;
         }
     }

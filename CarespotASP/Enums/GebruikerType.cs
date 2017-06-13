@@ -5,6 +5,7 @@
         Beheerder,
         Hulpbehoevende,
         Hulpverlener,
-        Vrijwilliger
+        Vrijwilliger,
+        All
     }
 }

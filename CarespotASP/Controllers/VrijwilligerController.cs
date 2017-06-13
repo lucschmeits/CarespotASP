@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using CarespotASP.Dal.Context;
 using CarespotASP.Dal.Repositorys;
+using CarespotASP.Enums;
 using CarespotASP.Models;
 using Microsoft.Ajax.Utilities;
 
@@ -16,13 +17,22 @@ namespace CarespotASP.Controllers
         // GET: Vrijwilliger
         public ActionResult Index()
         {
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.Vrijwilliger, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return View("~/Views/Error/AuthError.cshtml");
+            }
+
+            HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
+            HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
+
+            var vrijwilliger = (Vrijwilliger)Session["LoggedInUser"];
+
             try
             {
-                HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
-                HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
-
-                List<Hulpvraag> hulpvragen = hvr.GetHulpvragenByVrijwilligerId(4);
+                //Haal mijn opdrachten op
+                List<Hulpvraag> hulpvragen = hvr.GetHulpvragenByVrijwilligerId(vrijwilliger.Id);
                 ViewBag.hulpvragen = hulpvragen;
+
 
                 return View("~/Views/Vrijwilliger/Hoofdscherm.cshtml");
             }
@@ -34,12 +44,18 @@ namespace CarespotASP.Controllers
 
         public ActionResult OpdrachtOverzicht()
         {
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.Vrijwilliger, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return View("~/Views/Error/AuthError.cshtml");
+            }
+
+            HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
+            HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
+
             try
             {
-                HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
-                HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
-
-                List<Hulpvraag> hulpvragen = hvr.GetHulpvragenByVrijwilligerId(4);
+                //Haal alle opdrachten op die nog geen vrijwilliger hebben.
+                List<Hulpvraag> hulpvragen = hvr.GetHulpvragenZonderVrijwilliger();
                 ViewBag.hulpvragen = hulpvragen;
 
                 return View("~/Views/Vrijwilliger/OpdrachtOverzicht.cshtml");
@@ -48,11 +64,17 @@ namespace CarespotASP.Controllers
             {
                 return RedirectToAction("Index", "Error");
             }
+
         }
 
         [HttpGet]
         public ActionResult Reageer(int id)
         {
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.Vrijwilliger, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+
             try
             {
                 ViewBag.hulpvraagid = id;

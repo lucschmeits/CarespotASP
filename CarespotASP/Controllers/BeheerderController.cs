@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using CarespotASP.Dal.Context;
 using CarespotASP.Dal.Repositorys;
+using CarespotASP.Enums;
 using CarespotASP.Models;
 using CarespotASP.Views.Beheerder;
 
@@ -12,6 +13,11 @@ namespace CarespotASP.Controllers
         // GET: Beheerder
         public ActionResult Index()
         {
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.Beheerder, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return View("~/Views/Error/AuthError.cshtml");
+            }
+
             try
             {
                 BeheerderViewModel model = new BeheerderViewModel();
@@ -36,6 +42,11 @@ namespace CarespotASP.Controllers
         // GET: Beheerder/Details/5
         public ActionResult Details(int id)
         {
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.Beheerder, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return View("~/Views/Error/AuthError.cshtml");
+            }
+
             try
             {
                 HulpvraagSqlContext hsc = new HulpvraagSqlContext();

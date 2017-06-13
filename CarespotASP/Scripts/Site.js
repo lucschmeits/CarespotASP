@@ -7,6 +7,9 @@
     SendChatMessageOnClick();
     ShowVrijwilliger();
     HideVrijwilliger();
+    HideLogin();
+    HideBarcode();
+    BackToLogin();
     setInterval(function () {
         FillChatBoxIfPossible();
     },
@@ -81,4 +84,22 @@ function ShowVrijwilliger() {
     });
     //als die niet checked is - on click -> true
     // als die checked is -  onclick -> false
+}
+
+function HideLogin() {
+    $("#barcode").click(function() {
+        $("#login-form").addClass("hidden");
+        $("#barcode-login").removeClass("hidden");
+    });
+}
+
+function HideBarcode() {
+    $("#barcode-login").addClass("hidden");
+}
+
+function BackToLogin() {
+    $("#terug").click(function() {
+        $("#login-form").removeClass("hidden");
+        $("#barcode-login").addClass("hidden");
+    });
 }

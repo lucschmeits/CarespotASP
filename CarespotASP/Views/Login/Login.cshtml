@@ -7,7 +7,7 @@
         <h2>Log in</h2>
     </div>
 
-    <div class="col-md-5 login-form">
+    <div class="col-md-5 login-form" id="login-form">
         @using (Html.BeginForm("LoginPost", "Login", FormMethod.Post))
         {
             <div class="form-group">
@@ -17,10 +17,11 @@
                 Wachtwoord : @Html.TextBox("wachtwoord", null, new { @class = "form-control", @type = "password" })
             </div>
                    
-            <input type="submit" value="Log in" class="btn btn-default" />                 
+            <input type="submit" value="Log in" class="btn btn-default" />
+           
             <a href="/Registreer" class="btn btn-default">Registreer</a>     
         }
-        
+        <button class="btn btn-default" id="barcode">Barcode</button>
         @if (@ViewBag.LoginResult !=null && !@ViewBag.LoginResult)
         {
 
@@ -31,6 +32,16 @@
             </div>
         }
 
+    </div>
+    <div class="col-md-5 barcode-login" id="barcode-login">
+        @using (Html.BeginForm("Barcode", "Login", FormMethod.Post))
+        {
+            <div class="form-group">
+                <input type="text" class="form-control" name="barcode" placeholder="Barcode"/>
+            </div>
+            <input type="submit" value="Log in" class="btn btn-default" />
+        }
+        <button class="btn btn-default" id="terug">Terug</button>
     </div>
     <div class="col-md-7 instructies">
         <h2>Instructies</h2>

@@ -35,5 +35,15 @@ namespace CarespotASP.Dal.Repositorys
         {
          return this.GetAllReacties().Where(r => r.HulpvraagId == hulpvraagId).ToList();
         }
+
+        public void AcceptHulpvraag(int id)
+        {
+            _interface.AcceptHulpvraag(id);
+        }
+
+        public void DeclineHulpvraag(int id)
+        {
+            _interface.DeclineHulpvraag(id);
+        }
     }
 }

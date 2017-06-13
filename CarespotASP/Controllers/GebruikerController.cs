@@ -81,7 +81,7 @@ namespace CarespotASP.Controllers
                         {
                             path = Path.Combine(Server.MapPath("~/Content/Foto"), foto.FileName);
                             foto.SaveAs(path);
-                            fotoPath = "../../Content/Foto/" + foto.FileName;
+                            fotoPath = "~/Content/Foto/" + foto.FileName;
                             gebruiker.Image = fotoPath;
                         }
 

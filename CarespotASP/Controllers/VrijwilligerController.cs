@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using CarespotASP.Dal.Context;
 using CarespotASP.Dal.Repositorys;
+using CarespotASP.Enums;
 using CarespotASP.Models;
 using Microsoft.Ajax.Utilities;
 
@@ -16,6 +17,10 @@ namespace CarespotASP.Controllers
         // GET: Vrijwilliger
         public ActionResult Index()
         {
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.Vrijwilliger, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return View("~/Views/Error/AuthError.cshtml");
+            }
 
             HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
             HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
@@ -39,6 +44,11 @@ namespace CarespotASP.Controllers
 
         public ActionResult OpdrachtOverzicht()
         {
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.Vrijwilliger, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return View("~/Views/Error/AuthError.cshtml");
+            }
+
             HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
             HulpvraagRepository hvr = new HulpvraagRepository(hvsc);
 
@@ -60,6 +70,11 @@ namespace CarespotASP.Controllers
         [HttpGet]
         public ActionResult Reageer(int id)
         {
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.Vrijwilliger, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+
             try
             {
                 ViewBag.hulpvraagid = id;

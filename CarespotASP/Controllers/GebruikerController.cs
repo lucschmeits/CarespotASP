@@ -23,6 +23,12 @@ namespace CarespotASP.Controllers
         
         public ActionResult Gegevens(int id)
         {
+
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.All, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return View("~/Views/Error/AuthError.cshtml");
+            }
+
             try { 
             var sql = new GebruikerSqlContext();
             var repo = new GebruikerRepository(sql);
@@ -44,6 +50,11 @@ namespace CarespotASP.Controllers
 
         public ActionResult Update(FormCollection form, int id, HttpPostedFileBase foto)
         {
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.All, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return View("~/Views/Error/AuthError.cshtml");
+            }
+
             try { 
             if (Session["LoggedInUser"] != null)
             {
@@ -133,6 +144,11 @@ namespace CarespotASP.Controllers
         //Get /Details/{id}
         public ActionResult Details(int id)
         {
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.All, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return View("~/Views/Error/AuthError.cshtml");
+            }
+
             try { 
                 GebruikerSqlContext gsc = new GebruikerSqlContext();
                 GebruikerRepository gr = new GebruikerRepository(gsc);

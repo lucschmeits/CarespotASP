@@ -18,7 +18,7 @@ namespace CarespotASP.Controllers
             
             if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.All, (Gebruiker)Session["LoggedInUser"]))
             {
-                return RedirectToAction("Index", "Login");
+                return View("~/Views/Error/AuthError.cshtml");
             }
 
             try { 
@@ -42,7 +42,7 @@ namespace CarespotASP.Controllers
 
             if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.All, (Gebruiker)Session["LoggedInUser"]))
             {
-                return RedirectToAction("Index", "Login");
+                return View("~/Views/Error/AuthError.cshtml");
             }
 
             try

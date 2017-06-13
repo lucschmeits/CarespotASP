@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using CarespotASP.Dal.Context;
 using CarespotASP.Dal.Repositorys;
+using CarespotASP.Enums;
 using CarespotASP.Models;
 
 namespace CarespotASP.Controllers
@@ -12,8 +13,14 @@ namespace CarespotASP.Controllers
     public class HulpverlenerController : Controller
     {
         // GET: Hulpverlener
+
         public ActionResult Index()
         {
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.Hulpverlener, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return View("~/Views/Error/AuthError.cshtml");
+            }
+
             try
             {
                 Hulpverlener loggedInHulpverlener = (Hulpverlener) Session["LoggedInUser"];
@@ -41,6 +48,10 @@ namespace CarespotASP.Controllers
 
         public ActionResult Opdrachten(string id)
         {
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.Hulpverlener, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return View("~/Views/Error/AuthError.cshtml");
+            }
             try
             {
                 Hulpverlener loggedInHulpverlener = (Hulpverlener) Session["LoggedInUser"];

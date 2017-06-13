@@ -18,6 +18,11 @@ namespace CarespotASP.Controllers
 
         public ActionResult Details(int id)
         {
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.All, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return View("~/Views/Error/AuthError.cshtml");
+            }
+
             try
             {
                 HulpvraagSqlContext hsc = new HulpvraagSqlContext();
@@ -42,8 +47,15 @@ namespace CarespotASP.Controllers
         [HttpPost]
         public ActionResult CreateOpdracht(FormCollection form)
         {
+
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.Hulpbehoevende, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return View("~/Views/Error/AuthError.cshtml");
+            }
             try
             {
+
+
                 //Vervoerstype parsen
                 VervoerType vervoerstype = (VervoerType) Enum.Parse(typeof(VervoerType), form["vervoertype"]);
 
@@ -104,6 +116,10 @@ namespace CarespotASP.Controllers
         [HttpGet]
         public ActionResult DeleteHulpvraag(int id)
         {
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.All, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return View("~/Views/Error/AuthError.cshtml");
+            }
             try
             {
                 HulpvraagSqlContext hvsc = new HulpvraagSqlContext();
@@ -136,7 +152,7 @@ namespace CarespotASP.Controllers
             ReactieSqlContext rc = new ReactieSqlContext();
             ReactieRepository rr = new ReactieRepository(rc);
 
-            rr.AcceptHulpvraag(id);
+            rr.DeclineHulpvraag(id);
 
             return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.ToString()); //Return terug naar waar je vandaan komt.
         }

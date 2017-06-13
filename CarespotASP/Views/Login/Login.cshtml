@@ -16,28 +16,34 @@
             <div class="form-group">
                 Wachtwoord : @Html.TextBox("wachtwoord", null, new { @class = "form-control", @type = "password" })
             </div>
-                   
+
             <input type="submit" value="Log in" class="btn btn-default" />
-           
-            <a href="/Registreer" class="btn btn-default">Registreer</a>     
+
+            <a href="/Registreer" class="btn btn-default">Registreer</a>
         }
         <button class="btn btn-default" id="barcode">Barcode</button>
-        @if (@ViewBag.LoginResult !=null && !@ViewBag.LoginResult)
+        @if (@ViewBag.LoginResult != null && !@ViewBag.LoginResult)
         {
 
             <br />
             <div class="alert alert-danger" role="alert">
                 Er ging iets mis bij het inloggen!
-                
             </div>
         }
+        @if (@ViewBag.Result != null)
+        {
 
+            <br />
+            <div class="alert alert-danger" role="alert">
+                <p>@ViewBag.Result</p>
+            </div>
+        }
     </div>
     <div class="col-md-5 barcode-login" id="barcode-login">
         @using (Html.BeginForm("Barcode", "Login", FormMethod.Post))
         {
             <div class="form-group">
-                <input type="text" class="form-control" name="barcode" placeholder="Barcode"/>
+                <input type="text" class="form-control" name="barcode" placeholder="Barcode" />
             </div>
             <input type="submit" value="Log in" class="btn btn-default" />
         }

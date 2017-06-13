@@ -43,7 +43,7 @@ namespace CarespotASP.Controllers
                         {
                             path = Path.Combine(Server.MapPath("~/Content/VOG"), vog.FileName);
                             vog.SaveAs(path);
-                            vogPath = "~/Content/VOG/" + vog.FileName;
+                            vogPath = "/Content/VOG/" + vog.FileName;
                         }
                     }
                 }
@@ -58,7 +58,7 @@ namespace CarespotASP.Controllers
                         {
                             path = Path.Combine(Server.MapPath("~/Content/Foto"), foto.FileName);
                             foto.SaveAs(path);
-                            fotoPath = "../../Content/Foto/" + foto.FileName;
+                            fotoPath = "/Content/Foto/" + foto.FileName;
                         }
                     }
                 }
@@ -163,7 +163,7 @@ namespace CarespotASP.Controllers
                         {
                             path = Path.Combine(Server.MapPath("~/Content/Foto"), foto.FileName);
                             foto.SaveAs(path);
-                            fotoPath = "../../Content/Foto/" + foto.FileName;
+                            fotoPath = "/Content/Foto/" + foto.FileName;
                         }
                     }
                 }
@@ -217,7 +217,7 @@ namespace CarespotASP.Controllers
                         {
                             path = Path.Combine(Server.MapPath("~/Content/Foto"), foto.FileName);
                             foto.SaveAs(path);
-                            fotoPath = "../../Content/Foto/" + foto.FileName;
+                            fotoPath = "/Content/Foto/" + foto.FileName;
                         }
                     }
                 }

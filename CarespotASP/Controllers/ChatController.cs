@@ -24,8 +24,8 @@ namespace CarespotASP.Controllers
             try { 
                 GebruikerSqlContext gsc = new GebruikerSqlContext();
                 GebruikerRepository gr = new GebruikerRepository(gsc);
-
-                ViewBag.Gebruikers = gr.GetAll();
+                Gebruiker g = (Gebruiker)Session["LoggedInUser"];
+                ViewBag.Gebruikers = gr.GetAll().Where(x => x.Id != g.Id).ToList();
                 return View("~/Views/Chat/Index.cshtml");
             }
             catch (Exception e)

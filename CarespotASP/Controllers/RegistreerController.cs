@@ -42,7 +42,7 @@ namespace CarespotASP.Controllers
                         {
                             path = Path.Combine(Server.MapPath("~/Content/VOG"), vog.FileName);
                             vog.SaveAs(path);
-                            vogPath = "../../Content/VOG/" + vog.FileName;
+                            vogPath = "~/Content/VOG/" + vog.FileName;
                         }
                     }
                 }

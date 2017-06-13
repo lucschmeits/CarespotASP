@@ -86,8 +86,17 @@
 
                         </dt>
                         <dd>
-                            <button onclick="window.location.href = '/Gebruiker/Details/@Model.Vrijwilliger.Id'" class="btn btn-primary btn-sm">Details</button>
+                            <button onclick="window.location.href = '/Gebruiker/Details/@Model.Vrijwilliger.Id'" class="btn btn-primary btn-sm">Details</button> <br/>
                         </dd>
+                        @if (gebruiker.Id == Model.Hulpbehoevende.Id || gebruiker.Id == Model.Hulpbehoevende.Hulpverlener.Id)
+                        {
+                            <dt>
+
+                            </dt>
+                            <dd>
+                                <button onclick="window.location.href = '/Hulpvraag/RemoveVrijwilliger/@Model.Id'" class="btn btn-danger btn-sm">Ontkoppel</button>
+                            </dd>
+                        }
                     </dl>
                 }
             </div>

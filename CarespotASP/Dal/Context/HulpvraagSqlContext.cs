@@ -206,6 +206,26 @@ namespace CarespotASP.Dal.Context
             return returnObject;
         }
 
+        public void RemoveVrijwilligerFromHulpvraag(int id)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
+                {
+                    con.Open();
+                    var cmdString = "UPDATE Hulpvraag SET VrijwilligerId = NULL WHERE id = @id";
+                    var command = new SqlCommand(cmdString, con);
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
         public void Update(int id, Hulpvraag hulpvraag)
         {
             try

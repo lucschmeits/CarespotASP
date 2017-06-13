@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using CarespotASP.Models
+@{
+    var gebruiker = (Gebruiker)Session["LoggedInUser"];
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -29,8 +34,21 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Chat", "Index", "Chat")</li>                
                 </ul>
+                @if (gebruiker != null)
+                {
+                    <div class="sec-nav">
+                        <a class="menu-icon" href="@Url.Action("Gegevens", "Gebruiker", new {id = gebruiker.Id})">
+                            <i class="glyphicon glyphicon-user"></i>
+                        </a>
+                        <a class="menu-icon" href="@Url.Action("Logout", "Gebruiker")">
+                            <i class="glyphicon glyphicon-log-out"></i>
+                        </a>
+                    </div>
+                }
             </div> 
         }
+       
+            
         </div>
     </div>
     <div class="container body-content">

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using CarespotASP.Dal.Context;
 using CarespotASP.Dal.Repositorys;
@@ -144,6 +145,57 @@ namespace CarespotASP.Controllers
             {
                 return View();
             }
+        }
+
+
+
+        //Get: Beheerder/Chat
+        public ActionResult Chat(FormCollection f)
+        {
+            GebruikerSqlContext gsc = new GebruikerSqlContext();
+            GebruikerRepository gr = new GebruikerRepository(gsc);
+
+            ChatSqlContext csc = new ChatSqlContext();
+            ChatRepository cr = new ChatRepository(csc);
+
+            List<Gebruiker> users = gr.GetAll();
+
+
+            int id1 = Convert.ToInt32(f["user1"]);
+            int id2 = Convert.ToInt32(f["user2"]);
+
+
+
+            if (id1 != 0 && id2 != 0 && (id1 != id2))
+            {
+                List<Chat> chat = cr.GetChatByUsers(id1, id2);
+                string chatString = "";
+
+                if (chat.Count > 0)
+                {
+                    for (int i = 0; i < chat.Count; i++)
+                    {
+                        chatString = chatString + chat[i].Auteur.Naam + " | " + chat[i].Bericht + "\r";
+                    }
+
+                    ViewBag.Chatstring = chatString;
+                }
+                else
+                {
+                    ViewBag.Chatstring = "Geen chat gevonden";
+                }
+
+               
+            }
+            else
+            {
+                ViewBag.Chatstring = "" ;
+            }
+
+
+            ViewBag.Users = users;
+
+            return View("~/Views/Chat/Beheer.cshtml");
         }
     }
 }

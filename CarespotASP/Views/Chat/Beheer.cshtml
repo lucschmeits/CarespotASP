@@ -1,0 +1,45 @@
+﻿@using CarespotASP.Models
+
+@{
+    ViewBag.Title = "Beheer";
+    
+}
+
+<br/>
+
+<div class="row">
+    <div class="col-md-12">       
+       
+        <form action="/Beheerder/Chat" method="post">
+            Gebruiker 1: 
+            <select name="user1">
+                <option>Selecteer een gebruiker</option>
+
+                @foreach (Gebruiker g in ViewBag.Users)
+                {
+                    <option value="@g.Id">@g.Naam</option>
+                }
+
+            </select>
+            <br/>
+            Gebruiker 2:
+            <select name="user2">
+                <option>Selecteer een gebruiker</option>
+                @foreach (Gebruiker g in ViewBag.Users)
+                {
+                    <option value="@g.Id">@g.Naam</option>
+                }
+            </select>
+            <br/><br/>
+            <input type="submit" class="btn btn-success" value="Haal chat op"/>
+            <br/>
+        </form>
+    </div>
+</div>
+
+
+<div class="row">
+    <h2>Chat</h2>
+    <textarea id="chatBerichten" class="form-control" rows="20" disabled>@ViewBag.Chatstring  </textarea>
+   
+</div>

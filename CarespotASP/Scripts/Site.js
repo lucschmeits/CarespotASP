@@ -10,6 +10,8 @@
     HideLogin();
     HideBarcode();
     BackToLogin();
+    BeheerderChat();
+
     setInterval(function () {
         FillChatBoxIfPossible();
     },

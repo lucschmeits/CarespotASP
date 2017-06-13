@@ -20,7 +20,12 @@ namespace CarespotASP.Controllers
         {
             return View("NieuwGebruiker");
         }
-        
+
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Index", "Login");
+        }
         public ActionResult Gegevens(int id)
         {
 
@@ -185,6 +190,10 @@ namespace CarespotASP.Controllers
 
         public ActionResult Delete(int id)
         {
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.All, (Gebruiker)Session["LoggedInUser"]))
+            {
+                return View("~/Views/Error/AuthError.cshtml");
+            }
             try
             {
                 var gsql = new GebruikerSqlContext();

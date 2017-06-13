@@ -163,5 +163,31 @@ namespace CarespotASP.Controllers
 
 
         }
+
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                var gsql = new GebruikerSqlContext();
+                var grepo = new GebruikerRepository(gsql);
+                grepo.Delete(id);
+                var gebruiker = (Gebruiker)Session["LoggedInUser"];
+                if (gebruiker.GetType() == typeof(Beheerder))
+                {
+                    return RedirectToAction("Index", "Beheerder");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+                
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
+
+        }
     }
 }

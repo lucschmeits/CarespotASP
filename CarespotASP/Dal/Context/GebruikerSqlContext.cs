@@ -255,10 +255,10 @@ namespace CarespotASP.Dal.Context
             {
                 using (SqlConnection con = new SqlConnection(Env.ConnectionString))
                 {
-                    string query = "DELETE FROM Gebruiker WHERE id = @key";
+                    string query = "UPDATE Gebruiker SET Uitschrijfdatum = @date WHERE id = @key";
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@key", id);
-
+                    cmd.Parameters.AddWithValue("@date", DateTime.Now);
                     con.Open();
                     cmd.ExecuteNonQuery();
                     con.Close();

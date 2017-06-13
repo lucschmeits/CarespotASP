@@ -154,7 +154,8 @@ namespace CarespotASP.Controllers
                 return View("~/Views/Error/AuthError.cshtml");
             }
 
-            try { 
+
+          //  try { 
                 GebruikerSqlContext gsc = new GebruikerSqlContext();
                 GebruikerRepository gr = new GebruikerRepository(gsc);
 
@@ -166,22 +167,24 @@ namespace CarespotASP.Controllers
 
 
             ViewBag.SelectedUser = gr.GetById(id);
-            ViewBag.Reviews = rr.GetReviewByVrijwilligerId(id);
-
+           
             if (loggedUser !=null)
             {
                 ViewBag.CanReview = rr.CanReview(loggedUser.Id, id);
             }
            
-       ViewBag.SelectedUser = gr.GetById(id);
+                ViewBag.SelectedUser = gr.GetById(id);
                 ViewBag.Reviews = rr.GetReviewByVrijwilligerId(id);
                 return View("~/Views/Gebruiker/Details.cshtml");
-            }
+           // }
+
+
+            /*
             catch (Exception e)
             {
                 return RedirectToAction("Index", "Error");
             }
-
+            */
 
         }
 

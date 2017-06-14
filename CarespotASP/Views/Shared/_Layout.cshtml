@@ -35,6 +35,7 @@
                     @if (gebruiker.GetType() == typeof(Beheerder))
                     {
                         <li><a href="@Url.Action("Beheerder", "Registreer")">Registreer</a></li>
+                        <li><a href="@Url.Action("Chat", "Beheerder")">Beheer chats</a></li>
                     }
                     
                     <li>@Html.ActionLink("Chat", "Index", "Chat")</li>

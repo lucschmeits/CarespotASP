@@ -140,7 +140,7 @@ namespace CarespotASP.Controllers
 
         public ActionResult RegistreerHulpverlener()
         {
-            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.Beheerder, (Gebruiker)Session["LoggedInUser"]))
+            if (!AuthRepository.CheckIfUserCanAcces(GebruikerType.Hulpverlener, (Gebruiker)Session["LoggedInUser"]))
             {
                 return View("~/Views/Error/AuthError.cshtml");
             }
